@@ -1,0 +1,1 @@
+To create new bootstrapper and getting recognized by the game, please, get into Provider.cs file and read the private method GetDataProviders()

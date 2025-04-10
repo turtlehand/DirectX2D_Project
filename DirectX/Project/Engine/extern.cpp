@@ -1,0 +1,84 @@
+#include "pch.h"
+
+extern tTransform g_Trans = {};
+extern tGlobal g_Global = {};
+
+
+const Matrix Matrix::Identity = Matrix(1.f, 0.f, 0.f, 0.f
+	, 0.f, 1.f, 0.f, 0.f
+	, 0.f, 0.f, 1.f, 0.f
+	, 0.f, 0.f, 0.f, 1.f);
+
+extern const char* COMPONENT_TYPE_STR[] =
+{
+	"TRANSFORM",
+	"COLLIDER2D",
+	"COLLIDER3D",
+	"LIGHT2D",
+	"LIGHT3D",
+	"CAMERA",
+	"BOUNDINGBOX",
+	"RIGIDBODY2D",
+	"MESH_RENDER",
+	"SPRITE_RENDER",
+	"FLIPBOOK_RENDER",
+	"TILE_RENDER",
+	"PARTICLE_RENDER",
+	"SKYBOX",
+	"DECAL",
+	"LANDSCAPE",
+	"END",
+	"SCRIPT",
+};
+
+extern const wchar_t* COMPONENT_TYPE_WSTR[] =
+{
+	L"TRANSFORM",
+	L"COLLIDER2D",
+	L"COLLIDER3D",
+	L"LIGHT2D",
+	L"LIGHT3D",
+	L"CAMERA",
+	L"BOUNDINGBOX",
+	L"RIGIDBODY2D",
+	L"MESHRENDER",
+	L"SPRITERENDER",
+	L"FLIPBOOKRENDER",
+	L"TILERENDER",
+	L"PARTICLERENDER",
+	L"SKYBOX",
+	L"DECAL",
+	L"LANDSCAPE",
+	L"COMPONENT_END",
+	L"SCRIPT",
+};
+
+extern const char* ASSET_TYPE_STR[] =
+{
+	"MESH",
+	"MESHDATA",
+	"TEXTURE",
+	"MATERIAL",
+	"PREFAB",
+	"SOUND",
+	"GRAPHIC_SHADER",
+	"COMPUTE_SHADER",
+	"SPRITE",
+	"FLIPBOOK",
+	"TILE_PALETTE"
+};
+
+extern const wchar_t* ASSET_TYPE_WSTR[] =
+{
+	L"MESH",
+	L"MESHDATA",
+	L"TEXTURE",
+	L"MATERIAL",
+	L"PREFAB",
+	L"SOUND",
+	L"GRAPHIC_SHADER",
+	L"COMPUTE_SHADER",
+	L"SPRITE",
+	L"FLIPBOOK",
+	L"TILE_PALETTE"
+};

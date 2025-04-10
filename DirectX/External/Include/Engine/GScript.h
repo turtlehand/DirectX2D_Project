@@ -1,0 +1,63 @@
+#pragma once
+#include "GComponent.h"
+
+#include "GPrefab.h"
+
+enum class SCRIPT_PARAM
+{
+    INT,
+    FLOAT,
+    VEC2,
+    VEC3,
+    VEC4,
+    TEXTURE,
+    PREFAB,
+};
+
+struct tScriptParam
+{
+    SCRIPT_PARAM    Type;
+    string          Desc;
+    void*           pData;
+    DWORD_PTR       Param0;
+    DWORD_PTR       Param1;
+    DWORD_PTR       Param2;
+};
+
+class GScript :
+    public GComponent
+{
+private:
+    const int m_ScriptType;
+    vector<tScriptParam> m_vecScriptParam;
+
+public:
+    int GetScriptType() { return m_ScriptType; }
+    void AddScriptParam(SCRIPT_PARAM _Type, const string& _Desc, void* _Data
+        , DWORD_PTR _Param0 = 0, DWORD_PTR _Param1 = 0, DWORD_PTR _Param2 = 0)
+    {
+        m_vecScriptParam.push_back(tScriptParam{ _Type , _Desc , _Data , _Param0 , _Param1 , _Param2 });
+    }
+
+    const vector<tScriptParam>& GetScriptParam() { return m_vecScriptParam; }
+
+public:
+    virtual void FinalUpdate() final;
+    virtual void Update() = 0;
+
+    virtual void OnTriggerEnter(GCollider2D* _Other) {};
+    virtual void OnTriggerStay(GCollider2D* _Other) {};
+    virtual void OnTriggerExit(GCollider2D* _Other) {};
+
+public:
+    void Instantiate(Ptr<GPrefab> _Prefab, Vector3 _WorldPos = Vector3(0.f,0.f,0.f));
+
+public:
+    virtual GScript* Clone() = 0;
+
+public:
+    GScript(int _ScriptType);
+    GScript(const GScript& _Origin);
+    ~GScript();
+};
+

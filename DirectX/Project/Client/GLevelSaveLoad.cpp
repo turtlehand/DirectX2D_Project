@@ -1,0 +1,307 @@
+#include "pch.h"
+#include "GLevelSaveLoad.h"
+
+#include <Engine/GLevelManager.h>
+#include <Engine/GLevel.h>
+#include <Engine/GLayer.h>
+
+#include <Engine/GCollisionManager.h>
+
+#include <Engine/GGameObject.h>
+#include <Engine/components.h>
+#include <Engine/GComponent.h>
+
+#include <Engine/GScript.h>
+#include <Practice/GScriptManager.h>
+
+void GLevelSaveLoad::SaveLevel(wstring _FilePath)
+{
+	GLevel* pCurLevel = GLevelManager::GetInst()->GetCurrentLevel();
+
+	FILE* pFile = nullptr;
+	_wfopen_s(&pFile, _FilePath.c_str(), L"wb");
+	assert(pFile);
+
+	// 프로젝트 세팅
+	SaveProjectSetting(pFile);
+
+	// 레벨 이름
+	SaveWString(pCurLevel->GetName(), pFile);
+
+	// 모든 레이어의 모든 최상위 오브젝트를 기록한다.
+	for (UINT i = 0; i < MAX_LAYER; ++i)
+	{
+		GLayer* pLayer = pCurLevel->GetLayer(i);
+		
+		// 레이어 이름
+		SaveWString(pLayer->GetName(), pFile);
+
+		const vector<GGameObject*>& vecObjects = pLayer->GetParentObjects();
+
+		// 오브젝트 개수
+		size_t ObjectSize = vecObjects.size();
+		fwrite(&ObjectSize, sizeof(size_t), 1, pFile);
+
+		for (size_t j = 0; j < vecObjects.size(); ++j)
+		{
+			SaveGameObject(vecObjects[j], pFile);
+		}
+	}
+
+	fclose(pFile);
+}
+
+GLevel* GLevelSaveLoad::LoadLevel(wstring _FilePath)
+{
+	GLevel* pNewLevel = new GLevel;
+
+	FILE* pFile = nullptr;
+	_wfopen_s(&pFile, _FilePath.c_str(), L"rb");
+
+	// 프로젝트 세팅
+	LoadProjectSetting(pFile);
+
+	// 레벨 이름
+	wstring Name;
+	LoadWString(Name, pFile);
+	pNewLevel->SetName(Name);
+
+	// 모든 레이어의 모든 최상위 오브젝트를 기록한다.
+	for (UINT i = 0; i < MAX_LAYER; ++i)
+	{
+		GLayer* pLayer = pNewLevel->GetLayer(i);
+
+		// 레이어 이름
+		Name = L"";
+		LoadWString(Name, pFile);
+		pLayer->SetName(Name);
+
+		// 오브젝트 개수
+		size_t ObjectSize = 0;
+		fread(&ObjectSize, sizeof(size_t), 1, pFile);
+
+		for (size_t j = 0; j < ObjectSize; ++j)
+		{
+			GGameObject* pObject = LoadGameObject(pFile);
+			pLayer->AddGameObject(pObject);
+		}
+	}
+
+	fclose(pFile);
+
+	return pNewLevel;
+}
+
+void GLevelSaveLoad::SaveGameObject(GGameObject* _Object, FILE* _File)
+{
+	// 오브젝트 이름 저장
+	SaveWString(_Object->GetName(), _File);
+
+	int Layer = _Object->GetLayer();
+	fwrite(&Layer, sizeof(int), 1, _File);
+
+	// 컴포넌트 정보 저장
+	COMPONENT_TYPE ComType = COMPONENT_TYPE::END;
+
+	for (UINT i = 0; i < (UINT)COMPONENT_TYPE::END; ++i)
+	{
+		GComponent* pComponent = _Object->GetComponent((COMPONENT_TYPE)i);
+		if (nullptr == pComponent)
+			continue;
+
+		// 컴포넌트 타입 저장
+		ComType = pComponent->GetType();
+		fwrite(&ComType, sizeof(COMPONENT_TYPE), 1, _File);
+
+		// 해당 컴포넌트 정보 저장
+		pComponent->SaveToFile(_File);
+	}
+
+	// 컴포넌트 정보 마감
+	ComType = COMPONENT_TYPE::END;
+	fwrite(&ComType, sizeof(COMPONENT_TYPE), 1, _File);
+
+	// 스크립트 정보 저장
+	vector<GScript*> vecScripts = _Object->GetScripts();
+	size_t SSize = vecScripts.size();
+	fwrite(&SSize, sizeof(size_t), 1, _File);
+
+	for (size_t i = 0; i < SSize; ++i)
+	{
+		GScript* pScript = vecScripts[i];
+
+		// 스크립트 타입 저장
+		wstring ScriptName = GScriptManager::GetScriptName(pScript);
+		SaveWString(ScriptName, _File);
+
+		// 해당 스크립트 정보 저장
+		pScript->SaveToFile(_File);
+	}
+
+	// 자식 오브젝트 저장
+	size_t CSize = _Object->GetChild().size();
+	fwrite(&CSize, sizeof(size_t), 1, _File);
+
+	for (size_t i = 0; i < _Object->GetChild().size(); ++i)
+	{
+		SaveGameObject(_Object->GetChild()[i], _File);
+	}
+}
+
+GGameObject* GLevelSaveLoad::LoadGameObject(FILE* _File)
+{
+	// 오브젝트 이름 불러오기
+	wstring Name;
+	LoadWString(Name, _File);
+
+	int Layer;
+	fread(&Layer, sizeof(int), 1, _File);
+
+	GGameObject* pNewObject = new GGameObject(Layer);
+	pNewObject->SetName(Name);
+
+	// 컴포넌트 정보 불러오기
+	COMPONENT_TYPE ComType = COMPONENT_TYPE::END;
+
+	while (true)
+	{
+		// 컴포넌트 타입 불러오기
+		fread(&ComType, sizeof(COMPONENT_TYPE), 1, _File);
+
+		// 만약 끝 타입이라면 컴포넌트 불러오기 종료
+		if (ComType == COMPONENT_TYPE::END)
+			break;
+		
+		GComponent* pComponent = nullptr;
+
+		switch (ComType)
+		{
+		case COMPONENT_TYPE::TRANSFORM:
+			pComponent = new GTransform;
+			break;
+		case COMPONENT_TYPE::COLLIDER2D:
+			pComponent = new GCollider2D;
+			break;
+		case COMPONENT_TYPE::COLLIDER3D:
+			//pComponent = new CCollider3D;
+			break;
+		case COMPONENT_TYPE::LIGHT2D:
+			pComponent = new GLight2D;
+			break;
+		case COMPONENT_TYPE::LIGHT3D:
+			//pComponent = new CLight3D;
+			break;
+		case COMPONENT_TYPE::CAMERA:
+			pComponent = new GCamera;
+			break;
+		case COMPONENT_TYPE::RIGIDBODY2D:
+			pComponent = new GRigidBody2D;
+			break;
+		case COMPONENT_TYPE::BOUNDINGBOX:
+			//pComponent = new CBoundingBox;
+			break;
+		case COMPONENT_TYPE::MESH_RENDER:
+			pComponent = new GMeshRender;
+			break;
+		case COMPONENT_TYPE::SPRITE_RENDER:
+			pComponent = new GSpriteRender;
+			break;
+		case COMPONENT_TYPE::FLIPBOOK_RENDER:
+			pComponent = new GFlipbookRender;
+			break;
+		case COMPONENT_TYPE::TILE_RENDER:
+			pComponent = new GTileRender;
+			break;
+		case COMPONENT_TYPE::PARTICLE_RENDER:
+			pComponent = new GParticleRender;
+			break;
+		case COMPONENT_TYPE::SKYBOX:
+			//pComponent = new CSkyBox;
+			break;
+		case COMPONENT_TYPE::DECAL:
+			//pComponent = new CDecal;
+			break;
+		case COMPONENT_TYPE::LANDSCAPE:
+			//pComponent = new CLandScape;
+			break;
+		}
+
+		pNewObject->AddComponent(pComponent);
+
+		pComponent->LoadFromFile(_File);
+
+	}
+
+	// 스크립트 정보 불러오기
+	size_t SSize;
+	fread(&SSize, sizeof(size_t), 1, _File);
+
+	for (size_t i = 0; i < SSize; ++i)
+	{
+		GScript* pScript = nullptr;
+
+		// 스크립트 타입 불러오기
+		wstring ScriptName;
+		LoadWString(ScriptName, _File);
+
+		// 스크립트 타입으로 스크립트를 생성시켜서 오브젝트에 넣어줌
+		pScript = GScriptManager::GetScript(ScriptName);
+		pNewObject->AddComponent(pScript);
+
+		// 스크립트가 저장한 데이터를 다시 복구함
+		pScript->LoadFromFile(_File);
+	}
+
+	// 자식 오브젝트 불러오기
+	size_t CSize;
+	fread(&CSize, sizeof(size_t), 1, _File);
+
+	for (size_t i = 0; i < CSize; ++i)
+	{
+		pNewObject->AddChild(LoadGameObject(_File));
+	}
+
+	return pNewObject;
+}
+
+void GLevelSaveLoad::SaveProjectSetting(FILE* _File)
+{
+	// ==============
+	// 레이어
+	for (UINT i = 0; i < MAX_LAYER; ++i)
+	{
+		wstring LayerName = GLevelManager::GetInst()->GetCurrentLevel()->GetLayer(i)->GetName();
+		SaveWString(LayerName, _File);
+	}
+
+	// ============
+	// 충돌
+	for (UINT i = 0; i < MAX_LAYER; ++i)
+	{
+		UINT LayerCheck = GCollisionManager::GetInst()->GetCollisionLayer(i);
+		fwrite(&LayerCheck, sizeof(UINT), 1, _File);
+	}
+	
+}
+
+void GLevelSaveLoad::LoadProjectSetting(FILE* _File)
+{
+	// ==============
+	// 레이어
+
+	for (UINT i = 0; i < MAX_LAYER; ++i)
+	{
+		wstring LayerName;
+		LoadWString(LayerName, _File);
+		GLevelManager::GetInst()->GetCurrentLevel()->GetLayer(i)->SetName(LayerName);
+	}
+
+	// ============
+	// 충돌
+	for (UINT i = 0; i < MAX_LAYER; ++i)
+	{
+		UINT LayerCheck;
+		fread(&LayerCheck, sizeof(UINT), 1, _File);
+		GCollisionManager::GetInst()->SetCollisionLayer(i, LayerCheck);
+	}
+}

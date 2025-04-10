@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Default">
+      <UniqueIdentifier>{d0efd8c2-d4d2-4b47-8868-6eecadf6f020}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Manager">
+      <UniqueIdentifier>{baa5880e-2feb-473b-8333-a3b8ebab6848}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Scripts">
+      <UniqueIdentifier>{eb3ea8cb-d882-4ae9-ae09-53374ef3da06}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. States">
+      <UniqueIdentifier>{77f8074e-9d2d-4d3f-b99f-df129f05ec95}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="framework.h">
+      <Filter>Default</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h">
+      <Filter>Default</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\CameraMove.h">
+      <Filter>02. Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\Missile.h">
+      <Filter>02. Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\Monster.h">
+      <Filter>02. Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\Player.h">
+      <Filter>02. Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="GScriptManager.h">
+      <Filter>01. Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="define.h">
+      <Filter>Default</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="pch.cpp">
+      <Filter>Default</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\CameraMove.cpp">
+      <Filter>02. Scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\Missile.cpp">
+      <Filter>02. Scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\Monster.cpp">
+      <Filter>02. Scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\Player.cpp">
+      <Filter>02. Scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="GScriptManager.cpp">
+      <Filter>01. Manager</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
