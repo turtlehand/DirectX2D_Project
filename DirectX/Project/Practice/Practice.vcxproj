@@ -74,13 +74,13 @@
     <TargetName>$(ProjectName)_d</TargetName>
     <OutDir>$(SolutionDir)External\Library\$(ProjectName)\</OutDir>
     <IncludePath>$(ProjectDir);$(IncludePath)</IncludePath>
-    <ExternalIncludePath>$(SolutionDir)External\Include\Practice\Scripts\;$(SolutionDir)External\Include\;$(ExternalIncludePath)</ExternalIncludePath>
+    <ExternalIncludePath>$(SolutionDir)External\Include\Practice\States\;$(SolutionDir)External\Include\Practice\Scripts\;$(SolutionDir)External\Include\;$(ExternalIncludePath)</ExternalIncludePath>
     <LibraryPath>$(SolutionDir)External\Library;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(SolutionDir)External\Library\$(ProjectName)\</OutDir>
     <IncludePath>$(ProjectDir);$(IncludePath)</IncludePath>
-    <ExternalIncludePath>$(SolutionDir)External\Include\Practice\Scripts\;$(SolutionDir)External\Include\;$(ExternalIncludePath)</ExternalIncludePath>
+    <ExternalIncludePath>$(SolutionDir)External\Include\Practice\States\;$(SolutionDir)External\Include\Practice\Scripts\;$(SolutionDir)External\Include\;$(ExternalIncludePath)</ExternalIncludePath>
     <LibraryPath>$(SolutionDir)External\Library;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -170,10 +170,13 @@ call CodeGen.exe</Command>
     <ClInclude Include="framework.h" />
     <ClInclude Include="GScriptManager.h" />
     <ClInclude Include="pch.h" />
-    <ClInclude Include="Scripts\CameraMove.h" />
-    <ClInclude Include="Scripts\Missile.h" />
-    <ClInclude Include="Scripts\Monster.h" />
-    <ClInclude Include="Scripts\Player.h" />
+    <ClInclude Include="Scripts\GCameraMove.h" />
+    <ClInclude Include="Scripts\GFSM.h" />
+    <ClInclude Include="Scripts\GMonster.h" />
+    <ClInclude Include="Scripts\GPlayer.h" />
+    <ClInclude Include="Scripts\GPlayerDefaultState.h" />
+    <ClInclude Include="Scripts\GPlayerWalkState.h" />
+    <ClInclude Include="States\GState.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GScriptManager.cpp" />
@@ -183,10 +186,13 @@ call CodeGen.exe</Command>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Scripts\CameraMove.cpp" />
-    <ClCompile Include="Scripts\Missile.cpp" />
-    <ClCompile Include="Scripts\Monster.cpp" />
-    <ClCompile Include="Scripts\Player.cpp" />
+    <ClCompile Include="Scripts\GCameraMove.cpp" />
+    <ClCompile Include="Scripts\GFSM.cpp" />
+    <ClCompile Include="Scripts\GMonster.cpp" />
+    <ClCompile Include="Scripts\GPlayer.cpp" />
+    <ClCompile Include="Scripts\GPlayerDefaultState.cpp" />
+    <ClCompile Include="Scripts\GPlayerWalkState.cpp" />
+    <ClCompile Include="States\GState.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

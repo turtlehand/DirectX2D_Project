@@ -46,9 +46,6 @@
     <Filter Include="04. Manager\04. Key">
       <UniqueIdentifier>{28164b6d-0783-46a1-a991-2c633a75bbc9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="06. Component\00. Script">
-      <UniqueIdentifier>{61d32676-8211-46d9-9767-1ecaa94f99b7}</UniqueIdentifier>
-    </Filter>
     <Filter Include="07. Asset\01. Mesh">
       <UniqueIdentifier>{b1b8ae33-e9bb-418b-849e-43327d722df1}</UniqueIdentifier>
     </Filter>
@@ -151,6 +148,9 @@
     <Filter Include="07. Asset\09. TilePalette">
       <UniqueIdentifier>{58106a5a-a7c9-40b4-bf18-7c2a3626d8fc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="09. Script">
+      <UniqueIdentifier>{61d32676-8211-46d9-9767-1ecaa94f99b7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -223,7 +223,7 @@
       <Filter>07. Asset\01. Mesh</Filter>
     </ClInclude>
     <ClInclude Include="GScript.h">
-      <Filter>06. Component\00. Script</Filter>
+      <Filter>09. Script</Filter>
     </ClInclude>
     <ClInclude Include="GMeshRender.h">
       <Filter>06. Component\RenderComponent\01. MeshRender</Filter>
@@ -366,7 +366,7 @@
       <Filter>07. Asset\01. Mesh</Filter>
     </ClCompile>
     <ClCompile Include="GScript.cpp">
-      <Filter>06. Component\00. Script</Filter>
+      <Filter>09. Script</Filter>
     </ClCompile>
     <ClCompile Include="GMeshRender.cpp">
       <Filter>06. Component\RenderComponent\01. MeshRender</Filter>

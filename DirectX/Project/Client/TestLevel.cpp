@@ -10,36 +10,7 @@
 #include <Engine/components.h>
 #include <Engine/assets.h>
 
-#include <Practice/Scripts/Player.h>
-#include <Practice/Scripts/Missile.h>
-#include <Practice/Scripts/Monster.h>
-#include <Practice/Scripts/CameraMove.h>
-
-void CreatePrefab()
-{
-	GGameObject* pMissile = new GGameObject();
-	pMissile->SetName(L"Missile");
-	pMissile->AddComponent<GTransform>();
-	pMissile->AddComponent<GMeshRender>();
-	pMissile->AddComponent<GCollider2D>();
-	pMissile->AddComponent<Missile>();
-
-	pMissile->Transform()->SetRelativePos(Vector3(0.f,0.f,0.f));
-	pMissile->Transform()->SetRelativeScale(100.f, 100.f, 1.f);
-
-	pMissile->Renderer()->SetMesh(GAssetManager::GetInst()->FindAsset<GMesh>(L"RectMesh").Get());
-	pMissile->Renderer()->SetMaterial(GAssetManager::GetInst()->FindAsset<GMaterial>(L"Std2DMtrl").Get());
-
-	pMissile->GetComponent<Missile>()->SetSpeed(100.f);
-
-	// GameObject를 Prefab으로 AssetManager에게 등록
-	Ptr<GPrefab> pMissilePrefab = new GPrefab(true);
-	pMissilePrefab->SetGameObject(pMissile);
-	GAssetManager::GetInst()->AddAsset(L"Prefab\\Missile.prefab", pMissilePrefab.Get());
-	wstring SavePath = GPathManager::GetContentPath();
-	SavePath += L"Prefab\\Missile.prefab";
-	pMissilePrefab->Save(SavePath);
-}
+#include <Practice/Scripts/GCameraMove.h>
 
 void CreateTestLevel()
 {
@@ -65,7 +36,7 @@ void CreateTestLevel()
 	pCamObj->SetName(L"MainCamera");
 	pCamObj->AddComponent(new GTransform);
 	pCamObj->AddComponent(new GCamera);
-	pCamObj->AddComponent(new CameraMove);
+	pCamObj->AddComponent(new GCameraMove);
 
 	pCamObj->Transform()->SetRelativePos(0.f, 0.f, -100.f);
 

@@ -6,9 +6,10 @@
 enum SCRIPT_TYPE
 {
 	CAMERAMOVE,
-	MISSILE,
+	FSM,
 	MONSTER,
 	PLAYER,
+	PLAYERDEFAULTSTATE,
 };
 
 using namespace std;

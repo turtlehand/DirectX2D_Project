@@ -10,8 +10,26 @@
     <Filter Include="02. Scripts">
       <UniqueIdentifier>{eb3ea8cb-d882-4ae9-ae09-53374ef3da06}</UniqueIdentifier>
     </Filter>
-    <Filter Include="03. States">
-      <UniqueIdentifier>{77f8074e-9d2d-4d3f-b99f-df129f05ec95}</UniqueIdentifier>
+    <Filter Include="02. Scripts\1. FSM">
+      <UniqueIdentifier>{697207c5-06fe-4c42-a354-65bfc81801a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Scripts\2. Player">
+      <UniqueIdentifier>{0fe5fe33-68a2-47fa-9347-cfa0a95dc038}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Scripts\3. Monster">
+      <UniqueIdentifier>{af08eba4-321a-4771-9d5f-2ea0b9378bff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Scripts\0. ETC">
+      <UniqueIdentifier>{b62f6e19-1fb4-4c35-9ef9-0b95de7b55c1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Scripts\2. Player\1. State">
+      <UniqueIdentifier>{114d8563-a097-457c-b8cd-85110529338f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Scripts\2. Player\1. State\1. Defalut">
+      <UniqueIdentifier>{485a72a4-a2cc-4e84-b98b-53298d1cf086}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Scripts\2. Player\1. State\2. Walk">
+      <UniqueIdentifier>{00fd1741-3397-4b7f-a6bd-2022479f8296}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -21,43 +39,61 @@
     <ClInclude Include="pch.h">
       <Filter>Default</Filter>
     </ClInclude>
-    <ClInclude Include="Scripts\CameraMove.h">
-      <Filter>02. Scripts</Filter>
-    </ClInclude>
-    <ClInclude Include="Scripts\Missile.h">
-      <Filter>02. Scripts</Filter>
-    </ClInclude>
-    <ClInclude Include="Scripts\Monster.h">
-      <Filter>02. Scripts</Filter>
-    </ClInclude>
-    <ClInclude Include="Scripts\Player.h">
-      <Filter>02. Scripts</Filter>
-    </ClInclude>
     <ClInclude Include="GScriptManager.h">
       <Filter>01. Manager</Filter>
     </ClInclude>
     <ClInclude Include="define.h">
       <Filter>Default</Filter>
     </ClInclude>
+    <ClInclude Include="Scripts\GCameraMove.h">
+      <Filter>02. Scripts\0. ETC</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\GFSM.h">
+      <Filter>02. Scripts\1. FSM</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\GMonster.h">
+      <Filter>02. Scripts\3. Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\GPlayer.h">
+      <Filter>02. Scripts\2. Player</Filter>
+    </ClInclude>
+    <ClInclude Include="States\GState.h">
+      <Filter>02. Scripts\1. FSM</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\GPlayerDefaultState.h">
+      <Filter>02. Scripts\2. Player\1. State\1. Defalut</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\GPlayerWalkState.h">
+      <Filter>02. Scripts\2. Player\1. State\2. Walk</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
       <Filter>Default</Filter>
     </ClCompile>
-    <ClCompile Include="Scripts\CameraMove.cpp">
-      <Filter>02. Scripts</Filter>
-    </ClCompile>
-    <ClCompile Include="Scripts\Missile.cpp">
-      <Filter>02. Scripts</Filter>
-    </ClCompile>
-    <ClCompile Include="Scripts\Monster.cpp">
-      <Filter>02. Scripts</Filter>
-    </ClCompile>
-    <ClCompile Include="Scripts\Player.cpp">
-      <Filter>02. Scripts</Filter>
-    </ClCompile>
     <ClCompile Include="GScriptManager.cpp">
       <Filter>01. Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\GCameraMove.cpp">
+      <Filter>02. Scripts\0. ETC</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\GFSM.cpp">
+      <Filter>02. Scripts\1. FSM</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\GMonster.cpp">
+      <Filter>02. Scripts\3. Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\GPlayer.cpp">
+      <Filter>02. Scripts\2. Player</Filter>
+    </ClCompile>
+    <ClCompile Include="States\GState.cpp">
+      <Filter>02. Scripts\1. FSM</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\GPlayerDefaultState.cpp">
+      <Filter>02. Scripts\2. Player\1. State\1. Defalut</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\GPlayerWalkState.cpp">
+      <Filter>02. Scripts\2. Player\1. State\2. Walk</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

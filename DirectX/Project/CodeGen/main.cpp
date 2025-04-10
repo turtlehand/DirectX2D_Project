@@ -7,8 +7,8 @@ int main()
 {
 	CPathMgr::init();
 	wstring strProjPath = CPathMgr::GetProjectPath();
-	wstring strCppPath = strProjPath + L"\\Practice\\GScriptManager.cpp";
-	wstring strHeaderPath = strProjPath + L"\\Practice\\GScriptManager.h";
+	wstring strCppPath = strProjPath + L"Practice\\GScriptManager.cpp";
+	wstring strHeaderPath = strProjPath + L"Practice\\GScriptManager.h";
 
 	// 1. 현재 존재하는 모든 스크립트를 알아내야함.
 	wstring strScriptIncludePath = CPathMgr::GetIncludePath();
@@ -120,7 +120,7 @@ int main()
 	for (UINT i = 0; i < g_vecName.size(); ++i)
 	{
 		wstring strScriptUpperName = L"";
-		for (UINT j = 0; j < g_vecName[i].size(); ++j)
+		for (UINT j = 1; j < g_vecName[i].size(); ++j)
 		{
 			strScriptUpperName += toupper(g_vecName[i][j]);
 		}
@@ -193,7 +193,7 @@ int main()
 	for (UINT i = 0; i < g_vecName.size(); ++i)
 	{
 		wstring strScriptUpperName = L"";
-		for (UINT j = 0; j < g_vecName[i].size(); ++j)
+		for (UINT j = 1; j < g_vecName[i].size(); ++j)
 		{
 			strScriptUpperName += toupper(g_vecName[i][j]);
 		}
@@ -219,7 +219,7 @@ int main()
 		fwprintf_s(pFile, L"\tcase SCRIPT_TYPE::");
 
 		wstring strScriptUpperName = L"";
-		for (UINT j = 0; j < g_vecName[i].size(); ++j)
+		for (UINT j = 1; j < g_vecName[i].size(); ++j)
 		{
 			strScriptUpperName += toupper(g_vecName[i][j]);
 		}
