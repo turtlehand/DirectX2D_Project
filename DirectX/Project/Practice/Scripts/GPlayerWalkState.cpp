@@ -43,6 +43,12 @@ void GPlayerWalkState::Tick()
 		m_Player->GetFSM()->ChanageState(L"Default");
 		return;
 	}
+	
+	if (m_Player->m_KeyInput.Jump)
+	{
+		m_Player->GetFSM()->ChanageState(L"Jump");
+		return;
+	}
 
 	assert(m_PlayerRigid);
 

@@ -18,6 +18,7 @@
 #include "GPlayerDefaultState.h"
 #include "GPlayerWalkState.h"
 #include "GPlayerUseItemState.h"
+#include "GPlayerJumpState.h"
 
 #include "GPlatform.h"
 
@@ -29,6 +30,10 @@ GPlayer::GPlayer()
 
 	, m_HookInitForce(30.f)
 	, m_HookMaxSpeed(30.f)
+
+	,m_JumpTimeLimit(1.f)
+	,m_JumpTimer(0.0f)
+	,m_JumpPower(1.f)
 {
 
 }
@@ -54,6 +59,7 @@ void GPlayer::Begin()
 	m_FSM->AddState(L"Default", new GPlayerDefaultState);
 	m_FSM->AddState(L"Walk", new GPlayerWalkState);
 	m_FSM->AddState(L"UseItem", new GPlayerUseItemState);
+	m_FSM->AddState(L"Jump", new GPlayerJumpState);
 
 	m_FSM->ChanageState(L"Default");
 }
@@ -107,7 +113,7 @@ void GPlayer::KeyInput()
 	m_KeyInput.HorizontalMove += KEY_PRESSED(KEY::RIGHT) ? 1 : 0;
 
 
-	m_KeyInput.Jump = KEY_DOWN(KEY::Z);
+	m_KeyInput.Jump = KEY_PRESSED(KEY::Z);
 	m_KeyInput.Interaction = KEY_DOWN(KEY::X);
 
 }

@@ -22,15 +22,20 @@ void CreateTestLevel()
 
 	pCurLevel->GetLayer(0)->SetName(L"Default");
 	pCurLevel->GetLayer(1)->SetName(L"Background");
-	pCurLevel->GetLayer(2)->SetName(L"Tile");
+	pCurLevel->GetLayer(2)->SetName(L"Platform");
 	pCurLevel->GetLayer(3)->SetName(L"Player");
-	pCurLevel->GetLayer(4)->SetName(L"PlayerProjectile");
-	pCurLevel->GetLayer(5)->SetName(L"Enermy");
-	pCurLevel->GetLayer(6)->SetName(L"EnermyProjectile");
+	pCurLevel->GetLayer(4)->SetName(L"Monster");
+	pCurLevel->GetLayer(5)->SetName(L"NPC");
+	pCurLevel->GetLayer(6)->SetName(L"Object");
+	pCurLevel->GetLayer(7)->SetName(L"Item");
+	pCurLevel->GetLayer(8)->SetName(L"Attack");
+	pCurLevel->GetLayer(9)->SetName(L"Player_Attack");
+	pCurLevel->GetLayer(10)->SetName(L"Enemy_Attack");
+
 	pCurLevel->GetLayer(31)->SetName(L"UI");
 
 	GCollisionManager::GetInst()->CollisionLayerCheck(0, 0);
-	GCollisionManager::GetInst()->CollisionLayerCheck(2, 7);
+	GCollisionManager::GetInst()->CollisionLayerCheck(2, 3);
 	
 	// 카메라 역할 오브젝트 생성
 	GGameObject* pCamObj = new GGameObject;

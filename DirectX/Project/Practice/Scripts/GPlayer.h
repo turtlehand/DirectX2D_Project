@@ -49,7 +49,12 @@ private:
 	float           m_MoveInitForce;
 	float           m_MoveMaxSpeed;
 
+	float			m_JumpTimeLimit;
+	float			m_JumpTimer;
+	float			m_JumpPower;
+
 	PLAYER_STATE    m_PlayerState;							// 현재 상태
+
 	bool            m_PlayerItems[(UINT)PLAYER_ITEM::END];	// 현재 가지고 있는 아이템
 	PLAYER_ITEM		m_PlayerUseItem;						// 현재 사용중인 아이템 END라면 사용 중 X
 
@@ -104,5 +109,6 @@ public:
 	friend class GPlayerDefaultState;
 	friend class GPlayerWalkState;
 	friend class GPlayerUseItemState;
+	friend class GPlayerJumpState;
 };
 

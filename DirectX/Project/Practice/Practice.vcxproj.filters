@@ -28,14 +28,20 @@
     <Filter Include="02. Scripts\2. Player\1. State\1. Defalut">
       <UniqueIdentifier>{485a72a4-a2cc-4e84-b98b-53298d1cf086}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. Scripts\4. Platform">
+      <UniqueIdentifier>{659fa161-578d-4787-8c5b-63aded4124ef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Scripts\2. Player\1. State\3. UseItem">
+      <UniqueIdentifier>{5c1e6de4-ff0a-459f-8f64-7b55d9b5c042}</UniqueIdentifier>
+    </Filter>
     <Filter Include="02. Scripts\2. Player\1. State\2. Walk">
       <UniqueIdentifier>{00fd1741-3397-4b7f-a6bd-2022479f8296}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. Scripts\2. Player\1. State\3.UseItem">
-      <UniqueIdentifier>{5c1e6de4-ff0a-459f-8f64-7b55d9b5c042}</UniqueIdentifier>
+    <Filter Include="02. Scripts\2. Player\1. State\4. Jump">
+      <UniqueIdentifier>{899ffac2-983f-4709-9427-dca139c15b25}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. Scripts\4. Platform">
-      <UniqueIdentifier>{659fa161-578d-4787-8c5b-63aded4124ef}</UniqueIdentifier>
+    <Filter Include="02. Scripts\2. Player\1. State\5. Fall">
+      <UniqueIdentifier>{1bb800e5-8147-41c2-9926-5e5729b61b09}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -73,12 +79,15 @@
       <Filter>02. Scripts\2. Player\1. State\2. Walk</Filter>
     </ClInclude>
     <ClInclude Include="Scripts\GPlayerUseItemState.h">
-      <Filter>02. Scripts\2. Player\1. State\3.UseItem</Filter>
+      <Filter>02. Scripts\2. Player\1. State\3. UseItem</Filter>
     </ClInclude>
     <ClInclude Include="enum.h">
       <Filter>Default</Filter>
     </ClInclude>
     <ClInclude Include="Scripts\GPlatform.h" />
+    <ClInclude Include="Scripts\GPlayerJumpState.h">
+      <Filter>02. Scripts\2. Player\1. State\4. Jump</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -109,8 +118,11 @@
       <Filter>02. Scripts\2. Player\1. State\2. Walk</Filter>
     </ClCompile>
     <ClCompile Include="Scripts\GPlayerUseItemState.cpp">
-      <Filter>02. Scripts\2. Player\1. State\3.UseItem</Filter>
+      <Filter>02. Scripts\2. Player\1. State\3. UseItem</Filter>
     </ClCompile>
     <ClCompile Include="Scripts\GPlatform.cpp" />
+    <ClCompile Include="Scripts\GPlayerJumpState.cpp">
+      <Filter>02. Scripts\2. Player\1. State\4. Jump</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

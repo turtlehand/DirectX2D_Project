@@ -177,6 +177,7 @@ call CodeGen.exe</Command>
     <ClInclude Include="Scripts\GPlatform.h" />
     <ClInclude Include="Scripts\GPlayer.h" />
     <ClInclude Include="Scripts\GPlayerDefaultState.h" />
+    <ClInclude Include="Scripts\GPlayerJumpState.h" />
     <ClInclude Include="Scripts\GPlayerUseItemState.h" />
     <ClInclude Include="Scripts\GPlayerWalkState.h" />
     <ClInclude Include="States\GState.h" />
@@ -195,6 +196,7 @@ call CodeGen.exe</Command>
     <ClCompile Include="Scripts\GPlatform.cpp" />
     <ClCompile Include="Scripts\GPlayer.cpp" />
     <ClCompile Include="Scripts\GPlayerDefaultState.cpp" />
+    <ClCompile Include="Scripts\GPlayerJumpState.cpp" />
     <ClCompile Include="Scripts\GPlayerUseItemState.cpp" />
     <ClCompile Include="Scripts\GPlayerWalkState.cpp" />
     <ClCompile Include="States\GState.cpp" />

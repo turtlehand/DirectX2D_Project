@@ -4,5 +4,6 @@ GMonster
 GPlatform
 GPlayer
 GPlayerDefaultState
+GPlayerJumpState
 GPlayerUseItemState
 GPlayerWalkState

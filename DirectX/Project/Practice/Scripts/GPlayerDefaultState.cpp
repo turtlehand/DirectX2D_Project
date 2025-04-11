@@ -39,8 +39,23 @@ void GPlayerDefaultState::Enter()
 
 void GPlayerDefaultState::Tick()
 {
-	ChangeState();
+	if (m_Player->m_KeyInput.HorizontalMove != 0)
+	{
+		m_Player->GetFSM()->ChanageState(L"Walk");
+		return;
+	}
 
+	if (m_Player->m_KeyInput.Interaction)
+	{
+		m_Player->Interaction();
+		return;
+	}
+
+	if (m_Player->m_KeyInput.Jump)
+	{
+		m_Player->GetFSM()->ChanageState(L"Jump");
+		return;
+	}
 
 }
 
@@ -51,15 +66,7 @@ void GPlayerDefaultState::Exit()
 
 void GPlayerDefaultState::ChangeState()
 {
-	if (m_Player->m_KeyInput.HorizontalMove != 0)
-	{
-		m_Player->GetFSM()->ChanageState(L"Walk");
-	}
 
-	if (m_Player->m_KeyInput.Interaction)
-	{
-		m_Player->Interaction();
-	}
 }
 
 

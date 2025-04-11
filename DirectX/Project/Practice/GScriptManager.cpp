@@ -7,6 +7,7 @@
 #include "GPlatform.h"
 #include "GPlayer.h"
 #include "GPlayerDefaultState.h"
+#include "GPlayerJumpState.h"
 #include "GPlayerUseItemState.h"
 #include "GPlayerWalkState.h"
 
@@ -18,6 +19,7 @@ void GScriptManager::GetScriptInfo(vector<wstring>& _vec)
 	_vec.push_back(L"GPlatform");
 	_vec.push_back(L"GPlayer");
 	_vec.push_back(L"GPlayerDefaultState");
+	_vec.push_back(L"GPlayerJumpState");
 	_vec.push_back(L"GPlayerUseItemState");
 	_vec.push_back(L"GPlayerWalkState");
 }
@@ -36,6 +38,8 @@ GScript * GScriptManager::GetScript(const wstring& _strScriptName)
 		return new GPlayer;
 	if (L"GPlayerDefaultState" == _strScriptName)
 		return new GPlayerDefaultState;
+	if (L"GPlayerJumpState" == _strScriptName)
+		return new GPlayerJumpState;
 	if (L"GPlayerUseItemState" == _strScriptName)
 		return new GPlayerUseItemState;
 	if (L"GPlayerWalkState" == _strScriptName)
@@ -64,6 +68,9 @@ GScript * GScriptManager::GetScript(UINT _iScriptType)
 		break;
 	case (UINT)SCRIPT_TYPE::PLAYERDEFAULTSTATE:
 		return new GPlayerDefaultState;
+		break;
+	case (UINT)SCRIPT_TYPE::PLAYERJUMPSTATE:
+		return new GPlayerJumpState;
 		break;
 	case (UINT)SCRIPT_TYPE::PLAYERUSEITEMSTATE:
 		return new GPlayerUseItemState;
@@ -101,6 +108,10 @@ const wchar_t * GScriptManager::GetScriptName(GScript * _pScript)
 
 	case SCRIPT_TYPE::PLAYERDEFAULTSTATE:
 		return L"GPlayerDefaultState";
+		break;
+
+	case SCRIPT_TYPE::PLAYERJUMPSTATE:
+		return L"GPlayerJumpState";
 		break;
 
 	case SCRIPT_TYPE::PLAYERUSEITEMSTATE:
