@@ -88,7 +88,7 @@ void SpriteUI::Sprite()
 		LeftTop = m_Sprite->GetLeftTop();
 		Slice = m_Sprite->GetSlice();
 		ImID = (ImTextureID)pTexture->GetSRV().Get();
-		Ratio.y = 200.f * Slice.y / Slice.x;
+		Ratio.y = 200.f * m_Sprite->GetSlice_P().y / m_Sprite->GetSlice_P().x;
 	}
 	ImVec2 uv_min = ImVec2(LeftTop.x, LeftTop.y);                 // Top-left
 	ImVec2 uv_max = ImVec2(LeftTop.x + Slice.x, LeftTop.y + Slice.y);                 // Lower-right
