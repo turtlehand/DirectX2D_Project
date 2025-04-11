@@ -4,6 +4,7 @@
 GState::GState()
 	: m_Owner(nullptr)
 {
+	SetName(L"State");
 }
 
 GState::~GState()

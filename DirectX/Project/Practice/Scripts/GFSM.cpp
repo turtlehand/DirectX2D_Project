@@ -8,6 +8,15 @@ GFSM::GFSM() :
 	m_mapState{},
 	m_CurState(nullptr)
 {
+	SetName(L"FSM");
+}
+
+GFSM::GFSM(const GFSM& _Origin)
+	: GScript(FSM)
+	, m_mapState()
+	, m_CurState(nullptr)
+{
+
 }
 
 GFSM::~GFSM()
@@ -59,8 +68,24 @@ void GFSM::Update()
 	m_CurState->Tick();
 }
 
+void GFSM::OnTriggerEnter(GCollider2D* _Other)
+{
+	m_CurState->OnTriggerEnter(_Other);
+}
+
+void GFSM::OnTriggerStay(GCollider2D* _Other)
+{
+	m_CurState->OnTriggerStay(_Other);
+}
+
+void GFSM::OnTriggerExit(GCollider2D* _Other)
+{
+	m_CurState->OnTriggerExit(_Other);
+}
+
 void GFSM::SaveToFile(FILE* _File)
 {
+	return;
 	// State 정보 저장
 	map<wstring, GState*>::iterator iter = m_mapState.begin();
 	size_t Size = m_mapState.size();
@@ -86,6 +111,7 @@ void GFSM::SaveToFile(FILE* _File)
 
 void GFSM::LoadFromFile(FILE* _File)
 {
+	return;
 	// 스크립트 정보 불러오기
 	size_t Size;
 	fread(&Size, sizeof(size_t), 1, _File);

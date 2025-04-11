@@ -30,6 +30,7 @@ void CreateTestLevel()
 	pCurLevel->GetLayer(31)->SetName(L"UI");
 
 	GCollisionManager::GetInst()->CollisionLayerCheck(0, 0);
+	GCollisionManager::GetInst()->CollisionLayerCheck(2, 7);
 	
 	// 카메라 역할 오브젝트 생성
 	GGameObject* pCamObj = new GGameObject;
@@ -40,8 +41,9 @@ void CreateTestLevel()
 
 	pCamObj->Transform()->SetRelativePos(0.f, 0.f, -100.f);
 
-	pCamObj->Camera()->SetProjType(PROJECTION_TYPE::PERSPECTIVE);
+	pCamObj->Camera()->SetProjType(PROJECTION_TYPE::ORTHOGRAPHIC);
 	//pCamObj->Camera()->SetProjType(PROJ_TYPE::ORTHOGRAPHIC);
+	pCamObj->Camera()->SetOrthoScaleX(pCamObj->Camera()->GetOrthoScaleX() / 10);
 	pCamObj->Camera()->SetPriority(0); // 메인 카메라로 설정
 	pCamObj->Camera()->CheckLayerAll();
 	pCamObj->Camera()->CheckLayer(31);

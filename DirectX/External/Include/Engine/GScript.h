@@ -5,6 +5,7 @@
 
 enum class SCRIPT_PARAM
 {
+    BOOL,
     INT,
     FLOAT,
     VEC2,

@@ -31,6 +31,7 @@ void EditorManager::Init()
 
 	m_EditorCamera->Camera()->CheckLayerAll();
 	m_EditorCamera->Camera()->SetProjType(PROJECTION_TYPE::ORTHOGRAPHIC);
+	m_EditorCamera->Camera()->SetOrthoScaleX(m_EditorCamera->Camera()->GetOrthoScaleX() / 10);
 	m_EditorCamera->Camera()->SetFar(100000.f);
 
 	m_vecEditorObject.push_back(m_EditorCamera);

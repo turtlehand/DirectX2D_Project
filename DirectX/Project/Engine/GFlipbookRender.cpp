@@ -94,7 +94,9 @@ void GFlipbookRender::RemoveFlipbbok(int _Idx)
 void GFlipbookRender::FinalUpdate()
 {
 	// 현재 플립북을 선택하지 않았거나, 해당 플립북에 애니메이션이 없거나, 중단 상태라면
-	if (m_CurFlipbookIndex < 0|| m_vecFlipbook[m_CurFlipbookIndex]->GetAnimationCount() < 1 || m_Pause)
+	if (m_CurFlipbookIndex < 0)
+		return;
+	if (m_vecFlipbook[m_CurFlipbookIndex]->GetAnimationCount() < 1 || m_Pause)
 		return;
 
 	if (m_Finish)

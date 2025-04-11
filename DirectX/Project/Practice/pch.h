@@ -20,6 +20,7 @@
 #pragma comment(lib,"Engine\\Engine.lib")
 #endif // DEBUG
 
+#include "enum.h"
 #include "GScriptManager.h"
 #include "define.h"
 

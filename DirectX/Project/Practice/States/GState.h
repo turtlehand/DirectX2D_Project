@@ -1,5 +1,8 @@
 #pragma once
 #include "GFSM.h"
+#include <Engine/GCollider2D.h>
+
+class GCollider2D;
 
 // 다중 상속 용
 class GState
@@ -21,6 +24,9 @@ public:
     virtual void Tick() = 0;
     virtual void Exit() = 0;
 
+    virtual void OnTriggerEnter(GCollider2D* _Other) {};
+    virtual void OnTriggerStay(GCollider2D* _Other) {};
+    virtual void OnTriggerExit(GCollider2D* _Other) {};
 public:
     GState();
     virtual ~GState();

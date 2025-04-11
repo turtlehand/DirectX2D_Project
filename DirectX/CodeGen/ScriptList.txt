@@ -1,6 +1,8 @@
 GCameraMove
 GFSM
 GMonster
+GPlatform
 GPlayer
 GPlayerDefaultState
+GPlayerUseItemState
 GPlayerWalkState

@@ -167,14 +167,17 @@ call CodeGen.exe</Command>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="define.h" />
+    <ClInclude Include="enum.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="GScriptManager.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Scripts\GCameraMove.h" />
     <ClInclude Include="Scripts\GFSM.h" />
     <ClInclude Include="Scripts\GMonster.h" />
+    <ClInclude Include="Scripts\GPlatform.h" />
     <ClInclude Include="Scripts\GPlayer.h" />
     <ClInclude Include="Scripts\GPlayerDefaultState.h" />
+    <ClInclude Include="Scripts\GPlayerUseItemState.h" />
     <ClInclude Include="Scripts\GPlayerWalkState.h" />
     <ClInclude Include="States\GState.h" />
   </ItemGroup>
@@ -189,8 +192,10 @@ call CodeGen.exe</Command>
     <ClCompile Include="Scripts\GCameraMove.cpp" />
     <ClCompile Include="Scripts\GFSM.cpp" />
     <ClCompile Include="Scripts\GMonster.cpp" />
+    <ClCompile Include="Scripts\GPlatform.cpp" />
     <ClCompile Include="Scripts\GPlayer.cpp" />
     <ClCompile Include="Scripts\GPlayerDefaultState.cpp" />
+    <ClCompile Include="Scripts\GPlayerUseItemState.cpp" />
     <ClCompile Include="Scripts\GPlayerWalkState.cpp" />
     <ClCompile Include="States\GState.cpp" />
   </ItemGroup>

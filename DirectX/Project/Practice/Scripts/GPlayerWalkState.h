@@ -3,13 +3,14 @@
 #include "GState.h"
 
 class GPlayer;
+class GRigidBody2D;
 
 class GPlayerWalkState :
     public GScript, public GState
 {
 private:
-
     GPlayer* m_Player;
+    GRigidBody2D* m_PlayerRigid;
 
 public:
     virtual void Update() {};

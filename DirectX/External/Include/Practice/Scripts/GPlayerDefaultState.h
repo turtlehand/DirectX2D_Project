@@ -2,8 +2,6 @@
 #include <Engine/GScript.h>
 #include "GState.h"
 
-
-
 class GPlayer;
 
 class GPlayerDefaultState :
@@ -25,6 +23,9 @@ public:
     virtual void Enter();
     virtual void Tick();
     virtual void Exit();
+
+private:
+    void ChangeState();
 
 public:
     CLONE(GPlayerDefaultState)

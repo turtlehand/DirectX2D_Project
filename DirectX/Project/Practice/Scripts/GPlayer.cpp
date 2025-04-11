@@ -7,16 +7,28 @@
 #include <Engine/GRenderManager.h>
 #include <Engine/GAssetManager.h>
 #include <Engine/GTaskManager.h>
+#include <Engine/GLevelManager.h>
+#include <Engine/GLayer.h>
+#include <Engine/GLevel.h>
+
+
 
 #include "GFSM.h"
 
 #include "GPlayerDefaultState.h"
 #include "GPlayerWalkState.h"
+#include "GPlayerUseItemState.h"
+
+#include "GPlatform.h"
 
 GPlayer::GPlayer()
 	: GScript(PLAYER)
 	, m_FSM(nullptr)
-	, m_Speed(100.f)
+	, m_MoveInitForce(100.f)
+	, m_MoveMaxSpeed(10.f)
+
+	, m_HookInitForce(30.f)
+	, m_HookMaxSpeed(30.f)
 {
 
 }
@@ -27,88 +39,33 @@ GPlayer::~GPlayer()
 
 void GPlayer::Init()
 {
-	ADD_FLOAT("Speed", &m_Speed);
+	ADD_FLOAT("InitMoveForce", &m_MoveInitForce);
+	ADD_FLOAT("MaxMoveSpeed", &m_MoveMaxSpeed);
 
-	m_FSM->AddState(L"Default", new GPlayerDefaultState);
-	m_FSM->AddState(L"Walk", new GPlayerWalkState);
+	ADD_BOOL("HOOK", &m_PlayerItems[(INT)PLAYER_ITEM::HOOK]);
+	ADD_FLOAT("HookInitForce", &m_HookInitForce);
+	ADD_FLOAT("HookMaxSpeed", &m_HookMaxSpeed);
 }
 
 void GPlayer::Begin()
 {
+	m_FSM = GameObject()->GetComponent<GFSM>();
 
+	m_FSM->AddState(L"Default", new GPlayerDefaultState);
+	m_FSM->AddState(L"Walk", new GPlayerWalkState);
+	m_FSM->AddState(L"UseItem", new GPlayerUseItemState);
+
+	m_FSM->ChanageState(L"Default");
 }
 
 void GPlayer::Update()
 {
-	if (RigidBody2D() == nullptr)
-		return;
-
-	Vector3 vRotation = Transform()->GetRelativeRotation();
-	Vector3 vScale = Transform()->GetWorldScale();
-
-	// 키입력에 따라서 사각형이 움직이도록 한다.
-	if (KEY_PRESSED(KEY::LEFT))
-	{
-		RigidBody2D()->AddForce(Vector2(-1, 0) * m_Speed * DT);
-	}
-
-	if (KEY_PRESSED(KEY::RIGHT))
-	{
-		RigidBody2D()->AddForce(Vector2(1, 0) * m_Speed * DT);
-	}
-
-	if (KEY_PRESSED(KEY::UP))
-	{
-		RigidBody2D()->AddForce(Vector2(0, 1) * m_Speed * DT);
-	}
-
-	if (KEY_PRESSED(KEY::DOWN))
-	{
-		RigidBody2D()->AddForce(Vector2(0, -1) * m_Speed * DT);
-	}
-
-	if (KEY_PRESSED(KEY::Q))
-	{
-		vRotation.z -= 90.f * DT;
-	}
-
-	if (KEY_PRESSED(KEY::E))
-	{
-		vRotation.z += 90.f * DT;
-	}
-
-	if (KEY_PRESSED(KEY::Z))
-	{
-		vScale *= 1 + (0.1f * DT);
-		//GameObject()->Renderer()->GetMaterial()->GetShader()->SetRSType(RS_TYPE::WIRE_FRAM);
-	}
-	else if (KEY_UP(KEY::Z))
-	{
-		vScale = Vector3(50.f, 50.f, 1.f);
-		//GameObject()->Renderer()->GetMaterial()->GetShader()->SetRSType(RS_TYPE::CULL_NONE);
-	}
-
-
-
-	//DrawDebugCircle(Vector4(0.f, 1.f, 0.f, 1.f), Transform()->GetWorldPos(), 25.f, Transform()->GetWorldRotation());
-	//DrawDebugRect(Vector4(0.f, 1.f, 0.f, 1.f), Transform()->GetWorldPos() , Transform()->GetWorldScale() + Vector3(10.f, 10.f, 0.f), Transform()->GetWorldRotation());
-
-	/*
-	if (KEY_PRESSED(KEY::W))
-	{
-		vPos.z += 10.f * DT;
-	}
-
-	if (KEY_PRESSED(KEY::S))
-	{
-		vPos.z -= 10.f * DT;
-	}
-	*/
+	KeyInput();
 }
 
 void GPlayer::OnTriggerEnter(GCollider2D* _Other)
 {
-	Renderer()->GetMaterial()->SetScalarParam(SCALAR_PARAM::INT_1, 1);
+
 }
 
 void GPlayer::OnTriggerStay(GCollider2D* _Other)
@@ -117,15 +74,138 @@ void GPlayer::OnTriggerStay(GCollider2D* _Other)
 
 void GPlayer::OnTriggerExit(GCollider2D* _Other)
 {
-	Renderer()->GetMaterial()->SetScalarParam(SCALAR_PARAM::INT_1, 0);
+
 }
 
 void GPlayer::SaveToFile(FILE* _File)
 {
-	fwrite(&m_Speed, sizeof(float), 1, _File);
+
 }
 
 void GPlayer::LoadFromFile(FILE* _File)
 {
-	fread(&m_Speed, sizeof(float), 1, _File);
+
+}
+
+void GPlayer::SetMoveDirection(int _Direction)
+{
+	if (_Direction == 0)
+		return;
+	Vector3 DefaultScale = Transform()->GetRelativeScale();
+	DefaultScale.x = _Direction * fabs(DefaultScale.x);
+	Transform()->SetRelativeScale(DefaultScale);
+}
+
+void GPlayer::KeyInput()
+{
+
+	m_KeyInput = tKeyInput();
+
+	// 키입력에 따라서 사각형이 움직이도록 한다.
+	m_KeyInput.HorizontalMove = 0;
+	m_KeyInput.HorizontalMove -= KEY_PRESSED(KEY::LEFT) ? 1 : 0;
+	m_KeyInput.HorizontalMove += KEY_PRESSED(KEY::RIGHT) ? 1 : 0;
+
+
+	m_KeyInput.Jump = KEY_DOWN(KEY::Z);
+	m_KeyInput.Interaction = KEY_DOWN(KEY::X);
+
+}
+
+// 상호작용을 할만한 대상이 있는지 확인하고
+// 적절한 상화에 따라 State를 변경한다.
+bool GPlayer::Interaction()
+{
+	// 근처에 상자가 있는지 확인한다.
+	// 상자가 있다면 상자 상태로 변환다.
+	if (BoxCheck())
+	{
+		//m_FSM->ChanageState(L"OpenBox");
+		return true;
+	}
+
+	// 현재 아이템을 쓸만한 상황인지 확인한다.
+	// ItemCheck
+	if (ItemCheck())
+	{
+		m_FSM->ChanageState(L"UseItem");
+		return true;
+	}
+	return false;
+}
+
+// 근처에 상자 있는지 확인한다.
+// 상자가 근처에 있다면 BoxCheck는 true를 반환한다.
+bool GPlayer::BoxCheck()
+{
+	return false;
+}
+
+// 아이템을 쓸만한 상황인지 확인한다.
+// 쓸만한 상황이라면 m_PlayerUseItem = true가 되며
+// ItemCheck는 True를 반환한다.
+bool GPlayer::ItemCheck()
+{
+	if (Hook())
+	{
+		m_PlayerUseItem = PLAYER_ITEM::HOOK;
+		return true;
+	}
+
+	return false;
+}
+
+bool GPlayer::Hook()
+{
+	// 해당 아이템을 갖고 있지 않다면 false를 반환
+	if(!m_PlayerItems[(int)PLAYER_ITEM::HOOK])
+		return false;
+
+	// 플레이어 바로 위쪽에 나무가 있다면 true를 반환
+	
+	vector<GGameObject*> vecPlatform = GLevelManager::GetInst()->GetCurrentLevel()->GetLayer((int)LAYER_TYPE::PLATFORM)->GetObjects();
+
+	GPlatform* AbovePF = nullptr;
+
+	for (int i = 0; i < vecPlatform.size(); ++i)
+	{
+		GPlatform* pPlatform = vecPlatform[i]->GetComponent<GPlatform>();
+		assert(pPlatform);
+		
+		Vector3 PFPos = pPlatform->Transform()->GetWorldPos();
+		Vector3 PFScale = pPlatform->Transform()->GetWorldScale();
+		
+		// 이 게임은 어차피 회전하지 않으므로 단순하게 계산한다.
+
+		// 해당 플랫폼이 플레이어 위에 없다면 넘어간다.
+		if (PFPos.y <= Transform()->GetWorldPos().y)
+			continue;
+		
+		// 플레이어가 해당 플렛폼 안에 없다면 넘어간다.
+		if (Transform()->GetWorldPos().x < PFPos.x - PFScale.x / 2 || PFPos.x + PFScale.x / 2 <  Transform()->GetWorldPos().x)
+			continue;
+
+		if (AbovePF == nullptr || PFPos.y < AbovePF->Transform()->GetWorldPos().y)
+		{
+			AbovePF = pPlatform;
+		}
+	}
+
+	if (AbovePF == nullptr)
+		return false;
+
+	// 나무 플랫폼이 아니라면 없음
+	if (AbovePF->GetPlatformType() != PLATFORM_TYPE::WOOD)
+		return false;
+
+	return true;
+}
+
+bool GPlayer::Bomb()
+{
+	// 해당 아이템을 갖고 있지 않다면 false를 반환
+	if (!m_PlayerItems[(int)PLAYER_ITEM::BOMB])
+		return false;
+
+	// 근처에 바위나 금간
 }

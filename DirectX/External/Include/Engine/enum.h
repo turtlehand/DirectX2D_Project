@@ -7,15 +7,6 @@ enum class LEVEL_STATE
 	STOP
 };
 
-enum class LAYER_TYPE
-{
-	DEFAULT = 0,
-	PLAYER,
-	MONSTER,
-
-	END = MAX_LAYER
-};
-
 enum class CB_TYPE
 {
 	TRANSFORM,	// b0

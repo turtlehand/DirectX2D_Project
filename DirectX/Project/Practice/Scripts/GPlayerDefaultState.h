@@ -24,6 +24,9 @@ public:
     virtual void Tick();
     virtual void Exit();
 
+private:
+    void ChangeState();
+
 public:
     CLONE(GPlayerDefaultState)
 

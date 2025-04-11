@@ -1,0 +1,18 @@
+#pragma once
+
+enum class LAYER_TYPE
+{
+	DEFAULT = 0,
+	BACKGROUND,
+	PLAYER,
+	MONSTER,
+	NPC,
+	OBJCET,
+	ITEM,
+	PLATFORM,
+	ATTACK,
+	PLAYER_ATTACK,
+	ENEMY_ATTACK,
+
+	END = 32
+};

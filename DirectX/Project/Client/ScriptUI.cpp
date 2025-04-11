@@ -60,6 +60,14 @@ void ScriptUI::Render_UI()
 
 		switch (ScriptParam[i].Type)
 		{
+		case SCRIPT_PARAM::BOOL:
+		{
+			ImGui::Text(ScriptParam[i].Desc.c_str());
+			ImGui::SameLine(GetTab());
+			ImGui::Checkbox(szID, (bool*)ScriptParam[i].pData);
+			AddItemHeight();
+		}
+		break;
 		case SCRIPT_PARAM::INT:
 		{
 			ImGui::Text(ScriptParam[i].Desc.c_str());
