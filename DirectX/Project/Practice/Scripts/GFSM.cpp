@@ -70,16 +70,22 @@ void GFSM::Update()
 
 void GFSM::OnTriggerEnter(GCollider2D* _Other)
 {
+	if (m_CurState == nullptr)
+		return;
 	m_CurState->OnTriggerEnter(_Other);
 }
 
 void GFSM::OnTriggerStay(GCollider2D* _Other)
 {
+	if (m_CurState == nullptr)
+		return;
 	m_CurState->OnTriggerStay(_Other);
 }
 
 void GFSM::OnTriggerExit(GCollider2D* _Other)
 {
+	if (m_CurState == nullptr)
+		return;
 	m_CurState->OnTriggerExit(_Other);
 }
 

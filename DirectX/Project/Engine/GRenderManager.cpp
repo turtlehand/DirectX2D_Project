@@ -165,10 +165,10 @@ void GRenderManager::Clear()
 
 void GRenderManager::DebugRender()
 {
-	if (GLevelManager::GetInst()->GetCurrentLevelState() != LEVEL_STATE::STOP)
-	{
-		m_vecDebugInfo.clear();
-	}
+	//if (GLevelManager::GetInst()->GetCurrentLevelState() != LEVEL_STATE::STOP)
+	//{
+	//	m_vecDebugInfo.clear();
+	//}
 
 	vector<tDebugShapeInfo>::iterator iter = m_vecDebugInfo.begin();
 	for (; iter != m_vecDebugInfo.end();)

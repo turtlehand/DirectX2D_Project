@@ -1,7 +1,9 @@
 #include "pch.h"
 #include "GRigidBody2D.h"
 
+#include "GGameObject.h"
 #include "GTransform.h"
+#include "GCollider2D.h"
 
 #include "GTimeManager.h"
 
@@ -22,14 +24,15 @@ GRigidBody2D::~GRigidBody2D()
 
 void GRigidBody2D::FinalUpdate()
 {
+
 	Vector3 vPos = Transform()->GetWorldPos();
 	Vector2 vAccel = m_Force / m_Mass;
+
+	CalFriction();
 	
 	vAccel.y -= m_Gravity * DT;
 
 	m_Velocity += vAccel;
-
-	CalFriction();
 	
 	vPos += Vector3(m_Velocity.x, m_Velocity.y, 0) * DT;
 
@@ -40,15 +43,30 @@ void GRigidBody2D::FinalUpdate()
 
 void GRigidBody2D::CalFriction()
 {
-	float Speed = m_Velocity.Length();
+	if (m_Gravity == 0)
+	{
+		float Speed = m_Velocity.Length();
 
-	if (Speed <= 0)
-		return;
+		if (Speed <= 0)
+			return;
 
-	Speed = max(0, Speed - m_Friction * DT);
+		Speed = max(0, Speed - m_Friction * DT);
 
-	m_Velocity.Normalize();
-	m_Velocity = m_Velocity * Speed;
+		m_Velocity.Normalize();
+		m_Velocity = m_Velocity * Speed;
+	}
+	else
+	{
+		float Speed = fabs(m_Velocity.x);
+		
+
+		if (Speed <= 0)
+			return;
+
+		Speed = max(0, Speed - m_Friction * DT);
+		m_Velocity.x = Speed * (m_Velocity.x < 0 ? -1 : 1);
+	}
+
 }
 
 void GRigidBody2D::SaveToFile(FILE* _File)

@@ -6,6 +6,8 @@
 #include "GLevel.h"
 
 #include "GCollider2D.h"
+#include "GTransform.h"
+#include "GRigidBody2D.h"
 
 GCollisionManager::GCollisionManager()
 	: m_Matrix{}
@@ -131,12 +133,12 @@ bool GCollisionManager::IsOverlap(GCollider2D* _LeftCol, GCollider2D* _RightCol)
 	// 월드상의 충돌체의 꼭지점 위치를 찾아서, 각 표면 방향을 알아낸다.
 	// 이 방향벡터를 투영축으로 사용할 것
 	Vector3 vProj[4] = {};
+	Vector3 MTV = Vector3(FLT_MAX, FLT_MAX, FLT_MAX);
 
 	vProj[0] = XMVector3TransformCoord(Vector3(0.5f, -0.5f, 0.f), matLeft) - XMVector3TransformCoord(Vector3(-0.5f, -0.5f, 0.f), matLeft);			// 왼쪽 아래 점에서 오른쪽 아래 점 벡터
 	vProj[1] = XMVector3TransformCoord(Vector3(-0.5f, 0.5f, 0.f), matLeft) - XMVector3TransformCoord(Vector3(-0.5f, -0.5f, 0.f), matLeft);			// 왼쪽 아래 점에서 왼쪽 위 점 벡터
 	vProj[2] = XMVector3TransformCoord(Vector3(0.5f, -0.5f, 0.f), matRight) - XMVector3TransformCoord(Vector3(-0.5f, -0.5f, 0.f), matRight);		// 왼쪽 아래 점에서 오른쪽 아래 점 벡터
 	vProj[3] = XMVector3TransformCoord(Vector3(-0.5f, 0.5f, 0.f), matRight) - XMVector3TransformCoord(Vector3(-0.5f, -0.5f, 0.f), matRight);		// 왼쪽 아래 점에서 왼쪽 위 점 벡터
-
 
 	for (int i = 0; i < 4; ++i)
 	{
@@ -154,8 +156,34 @@ bool GCollisionManager::IsOverlap(GCollider2D* _LeftCol, GCollider2D* _RightCol)
 
 		ProjCenter = fabs(vProjTarget.Dot(vCenter));			// 중심 선분을 직선에 투영
 
+		// ProjLength < ProjCenter 라면 경계끼리 겹쳐도 충돌로 인정
+		// ProjLength <= ProjCenter 라면 경계끼리 겹치는 것은 충돌이 아님
 		if (ProjLength < ProjCenter)							// 중심이 더 길다면 충돌 X
 			return false;
+
+		MTV = MTV.Length() > ProjLength - ProjCenter ? (ProjLength - ProjCenter ) * vProjTarget : MTV;
+	}
+
+	MTV = vCenter.Dot(MTV) < 0.f ? -MTV : MTV;			// 방향이 반대라면 바꾸기
+								// 
+
+	// 밀어내기
+	Vector3 lPos = _LeftCol->Transform()->GetWorldPos();
+	Vector3 rPos = _RightCol->Transform()->GetWorldPos();
+
+	if (_LeftCol->RigidBody2D() != nullptr && _RightCol->RigidBody2D() != nullptr)
+	{
+		MTV = MTV / 2;
+		_LeftCol->Transform()->SetRelativePos(lPos - MTV);
+		_RightCol->Transform()->SetRelativePos(rPos + MTV);
+	}
+	else if (_RightCol->RigidBody2D() != nullptr)
+	{
+		_RightCol->Transform()->SetRelativePos(rPos + MTV);
+	}
+	else if (_LeftCol->RigidBody2D() != nullptr)
+	{
+		_LeftCol->Transform()->SetRelativePos(lPos - MTV);
 	}
 
 	return true;

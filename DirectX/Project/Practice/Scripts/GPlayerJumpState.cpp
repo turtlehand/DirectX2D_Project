@@ -41,9 +41,9 @@ void GPlayerJumpState::Enter()
 
 void GPlayerJumpState::Tick()
 {
-	if (m_Player->m_JumpTimer > m_Player->m_JumpTimeLimit || !m_Player->m_KeyInput.Jump)
+	if (m_Player->m_JumpTimer > m_Player->m_JumpTimeLimit)
 	{
-		//m_Player->GetFSM()->ChanageState(L"Fall");
+		m_Player->GetFSM()->ChanageState(L"Default");
 		return;
 	}
 	m_Player->m_JumpTimer += DT;

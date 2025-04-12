@@ -33,7 +33,7 @@ GPlayer::GPlayer()
 
 	,m_JumpTimeLimit(1.f)
 	,m_JumpTimer(0.0f)
-	,m_JumpPower(1.f)
+	,m_JumpPower(20.f)
 {
 
 }
@@ -46,6 +46,10 @@ void GPlayer::Init()
 {
 	ADD_FLOAT("InitMoveForce", &m_MoveInitForce);
 	ADD_FLOAT("MaxMoveSpeed", &m_MoveMaxSpeed);
+
+	ADD_FLOAT("JumpTimeLimit", &m_JumpTimeLimit);
+	ADD_FLOAT("JumpTimer", &m_JumpTimer);
+	ADD_FLOAT("JumpPower", &m_JumpPower);
 
 	ADD_BOOL("HOOK", &m_PlayerItems[(INT)PLAYER_ITEM::HOOK]);
 	ADD_FLOAT("HookInitForce", &m_HookInitForce);
