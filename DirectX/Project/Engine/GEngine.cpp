@@ -64,6 +64,7 @@ int GEngine::Init(HINSTANCE _Inst, UINT _Width, UINT _Height
     GTimeManager::GetInst()->Init();
     GAssetManager::GetInst()->Init();
     GLevelManager::GetInst()->Init();
+    GCollisionManager::GetInst()->Init();
     GRenderManager::GetInst()->Init();
 
     return S_OK;
