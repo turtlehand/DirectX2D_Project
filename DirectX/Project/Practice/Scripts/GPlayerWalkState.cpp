@@ -38,6 +38,12 @@ void GPlayerWalkState::Enter()
 
 void GPlayerWalkState::Tick()
 {
+	if (!m_Player->m_IsGround)
+	{
+		m_Player->GetFSM()->ChanageState(L"Fall");
+		return;
+	}
+
 	if (m_Player->m_KeyInput.HorizontalMove == 0)
 	{
 		m_Player->GetFSM()->ChanageState(L"Default");
@@ -51,6 +57,15 @@ void GPlayerWalkState::Tick()
 	}
 
 	assert(m_PlayerRigid);
+
+	if (m_Player->m_IsLeftWall && m_Player->m_KeyInput.HorizontalMove == -1)
+	{
+		return;
+	}
+	else if (m_Player->m_IsRightWall && m_Player->m_KeyInput.HorizontalMove == 1)
+	{
+		return;
+	}
 
 	m_PlayerRigid->AddForce(Vector2(m_Player->m_KeyInput.HorizontalMove, 0) * m_PlayerRigid->GetFriction() * 2 * DT);
 

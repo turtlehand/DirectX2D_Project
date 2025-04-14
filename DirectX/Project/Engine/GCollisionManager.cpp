@@ -185,6 +185,6 @@ bool GCollisionManager::IsOverlap(GCollider2D* _LeftCol, GCollider2D* _RightCol)
 	{
 		_LeftCol->Transform()->SetRelativePos(lPos - MTV);
 	}
-
+	
 	return true;
 }

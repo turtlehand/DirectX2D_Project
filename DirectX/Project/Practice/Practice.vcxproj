@@ -173,13 +173,17 @@ call CodeGen.exe</Command>
     <ClInclude Include="pch.h" />
     <ClInclude Include="Scripts\GCameraMove.h" />
     <ClInclude Include="Scripts\GFSM.h" />
+    <ClInclude Include="Scripts\GGroundChecker.h" />
     <ClInclude Include="Scripts\GMonster.h" />
+    <ClInclude Include="Scripts\GObjectBasic.h" />
     <ClInclude Include="Scripts\GPlatform.h" />
     <ClInclude Include="Scripts\GPlayer.h" />
     <ClInclude Include="Scripts\GPlayerDefaultState.h" />
+    <ClInclude Include="Scripts\GPlayerFallState.h" />
     <ClInclude Include="Scripts\GPlayerJumpState.h" />
     <ClInclude Include="Scripts\GPlayerUseItemState.h" />
     <ClInclude Include="Scripts\GPlayerWalkState.h" />
+    <ClInclude Include="Scripts\GWallChecker.h" />
     <ClInclude Include="States\GState.h" />
   </ItemGroup>
   <ItemGroup>
@@ -192,13 +196,17 @@ call CodeGen.exe</Command>
     </ClCompile>
     <ClCompile Include="Scripts\GCameraMove.cpp" />
     <ClCompile Include="Scripts\GFSM.cpp" />
+    <ClCompile Include="Scripts\GGroundChecker.cpp" />
     <ClCompile Include="Scripts\GMonster.cpp" />
+    <ClCompile Include="Scripts\GObjectBasic.cpp" />
     <ClCompile Include="Scripts\GPlatform.cpp" />
     <ClCompile Include="Scripts\GPlayer.cpp" />
     <ClCompile Include="Scripts\GPlayerDefaultState.cpp" />
+    <ClCompile Include="Scripts\GPlayerFallState.cpp" />
     <ClCompile Include="Scripts\GPlayerJumpState.cpp" />
     <ClCompile Include="Scripts\GPlayerUseItemState.cpp" />
     <ClCompile Include="Scripts\GPlayerWalkState.cpp" />
+    <ClCompile Include="Scripts\GWallChecker.cpp" />
     <ClCompile Include="States\GState.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

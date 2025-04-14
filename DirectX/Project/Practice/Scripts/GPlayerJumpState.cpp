@@ -8,7 +8,7 @@
 #include <Engine/GTimeManager.h>
 
 GPlayerJumpState::GPlayerJumpState()
-	: GScript(PLAYERDEFAULTSTATE)
+	: GScript(PLAYERJUMPSTATE)
 {
 }
 
@@ -43,7 +43,7 @@ void GPlayerJumpState::Tick()
 {
 	if (m_Player->m_JumpTimer > m_Player->m_JumpTimeLimit)
 	{
-		m_Player->GetFSM()->ChanageState(L"Default");
+		m_Player->GetFSM()->ChanageState(L"Fall");
 		return;
 	}
 	m_Player->m_JumpTimer += DT;
@@ -52,14 +52,28 @@ void GPlayerJumpState::Tick()
 
 	Vector2 PlayerSpeed = m_PlayerRigid->GetVelocity();
 
-	// 공중 방향 전환
-	// 바라 보는 방향 설정
-	m_Player->SetMoveDirection(m_Player->m_KeyInput.HorizontalMove);
 
-	// 움직임 설정
-	m_PlayerRigid->AddForce(
-		Vector2(m_Player->m_KeyInput.HorizontalMove * m_PlayerRigid->GetFriction() * 2 
+	if (m_Player->m_IsLeftWall && m_Player->m_KeyInput.HorizontalMove == -1)
+	{
+		
+	}
+	else if (m_Player->m_IsRightWall && m_Player->m_KeyInput.HorizontalMove == 1)
+	{
+		
+	}
+	else
+	{
+		// 공중 방향 전환
+		// 바라 보는 방향 설정
+		m_Player->SetMoveDirection(m_Player->m_KeyInput.HorizontalMove);
+
+		// 움직임 설정
+		m_PlayerRigid->AddForce(
+			Vector2(m_Player->m_KeyInput.HorizontalMove * m_PlayerRigid->GetFriction() * 2
 				, m_Player->m_JumpPower) * DT);
+	}
+
+
 
 	// 속력이 m_MaxMoveSpeed보다 커지면 감속
 	if (m_Player->m_MoveMaxSpeed < fabs(m_PlayerRigid->GetVelocity().x))
