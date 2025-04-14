@@ -52,8 +52,10 @@ private:
 	float			m_GravityScale;
 
 	float			m_JumpTimeLimit;
+	float			m_JumpTimeMin;
 	float			m_JumpTimer;
 	float			m_JumpPower;
+	float			m_JumpMaxSpeed;
 
 	PLAYER_STATE    m_PlayerState;							// 현재 상태
 

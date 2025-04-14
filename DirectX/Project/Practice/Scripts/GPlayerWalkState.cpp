@@ -58,15 +58,6 @@ void GPlayerWalkState::Tick()
 
 	assert(m_PlayerRigid);
 
-	if (m_Player->m_IsLeftWall && m_Player->m_KeyInput.HorizontalMove == -1)
-	{
-		return;
-	}
-	else if (m_Player->m_IsRightWall && m_Player->m_KeyInput.HorizontalMove == 1)
-	{
-		return;
-	}
-
 	m_PlayerRigid->AddForce(Vector2(m_Player->m_KeyInput.HorizontalMove, 0) * m_PlayerRigid->GetFriction() * 2 * DT);
 
 	// 속력이 m_MaxMoveSpeed보다 커지면 감속

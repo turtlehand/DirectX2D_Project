@@ -27,16 +27,19 @@ GPlayer::GPlayer()
 	: GObjectBasic(PLAYER)
 	, m_FSM(nullptr)
 	, m_MoveInitForce(100.f)
-	, m_MoveMaxSpeed(10.f)
+	, m_MoveMaxSpeed(20.f)
 
 	, m_HookInitForce(30.f)
 	, m_HookMaxSpeed(30.f)
 
-	, m_GravityScale(200)
+	, m_GravityScale(100)
 
-	,m_JumpTimeLimit(1.f)
-	,m_JumpTimer(0.0f)
-	,m_JumpPower(20.f)
+	, m_JumpMaxSpeed(20.f)
+	, m_JumpTimeLimit(1.f)
+	, m_JumpTimeMin(0.2f)
+	, m_JumpTimer(0.0f)
+	, m_JumpPower(400.f)
+
 {
 
 }

@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "GPlayerFallState.h"
 
+#include <Engine/GTimeManager.h>
 #include <Engine/GTransform.h>
 
 #include <Engine/GFlipbook.h>
@@ -49,7 +50,32 @@ void GPlayerFallState::Tick()
 	if (m_Player->m_IsGround)
 	{
 		m_Player->GetFSM()->ChanageState(L"Default");
+		return;
 	}
+
+	Vector2 PlayerSpeed = m_PlayerRigid->GetVelocity();
+
+	// 공중 방향 전환
+	// 바라 보는 방향 설정
+	m_Player->SetMoveDirection(m_Player->m_KeyInput.HorizontalMove);
+
+	// 움직임 설정
+	m_PlayerRigid->AddForce(
+		Vector2(m_Player->m_KeyInput.HorizontalMove * m_PlayerRigid->GetFriction() * 2
+			, 0.f) * DT);
+
+	// 속력이 m_MaxMoveSpeed보다 커지면 감속
+	if (m_Player->m_MoveMaxSpeed < fabs(m_PlayerRigid->GetVelocity().x))
+	{
+		PlayerSpeed.x = m_Player->m_MoveMaxSpeed * m_Player->m_KeyInput.HorizontalMove;
+	}
+
+	if ( -m_Player->m_JumpMaxSpeed > m_PlayerRigid->GetVelocity().y)
+	{
+		PlayerSpeed.y = -m_Player->m_JumpMaxSpeed;
+	}
+
+	m_PlayerRigid->SetVelocity(PlayerSpeed);
 }
 
 void GPlayerFallState::Exit()

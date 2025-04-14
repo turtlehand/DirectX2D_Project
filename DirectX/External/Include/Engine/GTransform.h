@@ -24,7 +24,7 @@ public:
 	void SetRelativeRotation(float _x, float _y, float _z);		// Degree(도) 단위로 입력해야한다.
 
 	Vector3 GetRelativePos() const { return m_RelativePosition; }
-	Vector3 GetWorldPos() const { return m_matWorld.Translation(); }
+	Vector3 GetWorldPos() const;
 
 	Vector3 GetRelativeScale() const { return m_RelativeScale; }
 	Vector3 GetWorldScale() const;
