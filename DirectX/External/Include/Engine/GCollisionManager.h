@@ -19,10 +19,22 @@ class GCollisionManager :
 {
 	SINGLE(GCollisionManager);
 private:
+	PxDefaultAllocator		m_Allocator;
+	PxDefaultErrorCallback	m_ErrorCallback;
+
+	PxFoundation* m_Foundation = NULL;
+	PxPhysics* m_Physics = NULL;
+
+	PxDefaultCpuDispatcher* m_Dispatcher = NULL;
+	PxScene* m_Scene = NULL;
+
+	PxMaterial* m_Material = NULL;
+
 	UINT m_Matrix[MAX_LAYER];
 	map<DWORD_PTR, bool> m_mapInfo;
 
 public:
+	void Init();
 	void Progress();
 	void CollisionLayerCheck(UINT _Left, UINT _Right) {
 

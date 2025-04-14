@@ -24,6 +24,7 @@ void RigidBody2DUI::Render_UI()
 
 	OutputTitle("RigdBody2D");
 
+	/*
 	// Å©±â
 	ImGui::Text("Velocity");
 	ImGui::SameLine(GetTab());
@@ -57,7 +58,7 @@ void RigidBody2DUI::Render_UI()
 		pRigid->SetFriction(fFriction);
 	}
 	AddItemHeight();
-
+	*/
 }
 
 
