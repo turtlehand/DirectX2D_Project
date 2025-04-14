@@ -39,6 +39,12 @@ void GPlayerDefaultState::Enter()
 
 void GPlayerDefaultState::Tick()
 {
+	if (!m_Player->m_IsGround)
+	{
+		m_Player->GetFSM()->ChanageState(L"Fall");
+		return;
+	}
+
 	if (m_Player->m_KeyInput.HorizontalMove != 0)
 	{
 		m_Player->GetFSM()->ChanageState(L"Walk");

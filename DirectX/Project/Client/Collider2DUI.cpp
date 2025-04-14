@@ -23,7 +23,6 @@ void Collider2DUI::Render_UI()
 
 	OutputTitle("GCollider2D");
 
-	/*
 	// Å©±â
 	ImGui::Text("Scale");
 	ImGui::SameLine(GetTab());
@@ -52,5 +51,5 @@ void Collider2DUI::Render_UI()
 		pCollider2D->SetNotifyParent(bNotify);
 	}
 	AddItemHeight();
-	*/
+
 }

@@ -1,0 +1,79 @@
+#include "pch.h"
+#include "GGroundChecker.h"
+
+#include <Engine/components.h>
+
+#include "GPlayer.h"
+
+GGroundChecker::GGroundChecker()
+	:GScript(GROUNDCHECKER)
+	, m_Owner(nullptr)
+{
+}
+
+GGroundChecker::~GGroundChecker()
+{
+}
+
+void GGroundChecker::Begin()
+{
+	GGameObject* ParentObject = GameObject();
+	while (true)
+	{
+		ParentObject = ParentObject->GetParent();
+		assert(ParentObject != nullptr);
+
+		m_Owner = ParentObject->GetComponent<GObjectBasic>();
+		if (m_Owner != nullptr)
+			return;
+	}
+
+	
+}
+
+void GGroundChecker::Update()
+{
+}
+
+void GGroundChecker::OnTriggerEnter(GCollider2D* _Other)
+{
+	
+	if (m_Owner == nullptr)
+		return;
+
+	if (_Other->GameObject()->GetLayer() != (int)LAYER_TYPE::PLATFORM)
+	return;
+
+	++m_Owner->m_IsGround;
+
+	Vector3 OtherPos = _Other->Transform()->GetWorldPos();
+	Vector3 OtherScale = _Other->Transform()->GetWorldScale();
+	Vector3 ThisPos = GameObject()->Transform()->GetWorldPos();
+	Vector3 ThisScale = GameObject()->Transform()->GetWorldScale();
+}
+
+void GGroundChecker::OnTriggerStay(GCollider2D* _Other)
+{
+}
+
+void GGroundChecker::OnTriggerExit(GCollider2D* _Other)
+{
+	if (m_Owner == nullptr)
+		return;
+
+	if (_Other->GameObject()->GetLayer() != (int)LAYER_TYPE::PLATFORM)
+		return;
+
+	--m_Owner->m_IsGround;
+}
+
+void GGroundChecker::SaveToFile(FILE* _File)
+{
+}
+
+void GGroundChecker::LoadFromFile(FILE* _File)
+{
+}
+
+
+

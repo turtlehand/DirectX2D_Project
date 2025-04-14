@@ -467,9 +467,6 @@
     <ClCompile Include="GTilePalette.cpp">
       <Filter>07. Asset\09. TilePalette</Filter>
     </ClCompile>
-    <ClCompile Include="GCollisionManager_Init.cpp">
-      <Filter>04. Manager\07. Collision</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="std2d.fx">

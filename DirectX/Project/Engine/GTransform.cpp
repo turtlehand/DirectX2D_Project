@@ -21,6 +21,15 @@ GTransform::~GTransform()
 
 }
 
+Vector3 GTransform::GetWorldPos() const
+{
+	GGameObject* pParent = GameObject()->GetParent();
+	if (!pParent)
+		return m_RelativePosition;
+
+	return pParent->Transform()->GetWorldPos() + m_RelativePosition;
+}
+
 void GTransform::SetRelativeRotation(Vector3 _Rotation)
 {
 	m_RelativeRotation = _Rotation * (XM_PI / 180.f);
@@ -55,9 +64,9 @@ void GTransform::FinalUpdate()
 
 	if (!GameObject()->Camera())
 	{
-		DrawDebugLine(Vector4(1.f, 0.f, 0.f, 1.f), GetWorldPos(), m_RelativeDir[0], 25.f);
-		DrawDebugLine(Vector4(0.f, 1.f, 0.f, 1.f), GetWorldPos(), m_RelativeDir[1], 25.f);
-		DrawDebugLine(Vector4(0.f, 0.f, 1.f, 1.f), GetWorldPos(), m_RelativeDir[2], 25.f);
+		//DrawDebugLine(Vector4(1.f, 0.f, 0.f, 1.f), GetWorldPos(), m_RelativeDir[0], 25.f);
+		//DrawDebugLine(Vector4(0.f, 1.f, 0.f, 1.f), GetWorldPos(), m_RelativeDir[1], 25.f);
+		//DrawDebugLine(Vector4(0.f, 0.f, 1.f, 1.f), GetWorldPos(), m_RelativeDir[2], 25.f);
 	}
 	
 }

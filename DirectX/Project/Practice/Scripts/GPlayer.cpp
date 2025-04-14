@@ -19,21 +19,27 @@
 #include "GPlayerWalkState.h"
 #include "GPlayerUseItemState.h"
 #include "GPlayerJumpState.h"
+#include "GPlayerFallState.h"
 
 #include "GPlatform.h"
 
 GPlayer::GPlayer()
-	: GScript(PLAYER)
+	: GObjectBasic(PLAYER)
 	, m_FSM(nullptr)
 	, m_MoveInitForce(100.f)
-	, m_MoveMaxSpeed(10.f)
+	, m_MoveMaxSpeed(20.f)
 
 	, m_HookInitForce(30.f)
 	, m_HookMaxSpeed(30.f)
 
-	,m_JumpTimeLimit(1.f)
-	,m_JumpTimer(0.0f)
-	,m_JumpPower(20.f)
+	, m_GravityScale(100)
+
+	, m_JumpMaxSpeed(20.f)
+	, m_JumpTimeLimit(1.f)
+	, m_JumpTimeMin(0.2f)
+	, m_JumpTimer(0.0f)
+	, m_JumpPower(400.f)
+
 {
 
 }
@@ -64,6 +70,7 @@ void GPlayer::Begin()
 	m_FSM->AddState(L"Walk", new GPlayerWalkState);
 	m_FSM->AddState(L"UseItem", new GPlayerUseItemState);
 	m_FSM->AddState(L"Jump", new GPlayerJumpState);
+	m_FSM->AddState(L"Fall", new GPlayerFallState);
 
 	m_FSM->ChanageState(L"Default");
 }
@@ -75,7 +82,19 @@ void GPlayer::Update()
 
 void GPlayer::OnTriggerEnter(GCollider2D* _Other)
 {
+	if (_Other->GameObject()->GetLayer() != (int)LAYER_TYPE::PLATFORM)
+		return;
 
+	Vector3 OtherPos = _Other->Transform()->GetWorldPos();
+	Vector3 OtherScale = _Other->Transform()->GetWorldScale();
+	Vector3 ThisPos = GameObject()->Transform()->GetWorldPos();
+	Vector3 ThisScale = GameObject()->Transform()->GetWorldScale();
+
+	// 닿은 대상이 플레이어보다 아래에 있다면
+	if (OtherPos.y + OtherScale.y < ThisPos.y - ThisScale.y)
+	{
+		m_FSM->ChanageState(L"Default");
+	}
 }
 
 void GPlayer::OnTriggerStay(GCollider2D* _Other)
@@ -218,4 +237,17 @@ bool GPlayer::Bomb()
 		return false;
 
 	// 근처에 바위나 금간
+}
+
+bool GPlayer::LandCheck()
+{
+
+
+
+	return false;
+}
+
+bool GPlayer::FallCheck()
+{
+	return false;
 }

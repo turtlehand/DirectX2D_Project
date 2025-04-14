@@ -8,7 +8,7 @@
 #include <Engine/GTimeManager.h>
 
 GPlayerJumpState::GPlayerJumpState()
-	: GScript(PLAYERDEFAULTSTATE)
+	: GScript(PLAYERJUMPSTATE)
 {
 }
 
@@ -41,11 +41,26 @@ void GPlayerJumpState::Enter()
 
 void GPlayerJumpState::Tick()
 {
-	if (m_Player->m_JumpTimer > m_Player->m_JumpTimeLimit)
+
+	if (!m_Player->m_KeyInput.Jump) 
 	{
-		m_Player->GetFSM()->ChanageState(L"Default");
-		return;
+		if (m_Player->m_JumpTimer >= m_Player->m_JumpTimeMin)
+		{
+			m_Player->GetFSM()->ChanageState(L"Fall");
+			return;
+		}
 	}
+	else
+	{
+		if (m_Player->m_JumpTimer > m_Player->m_JumpTimeLimit)
+		{
+			m_Player->GetFSM()->ChanageState(L"Fall");
+			return;
+
+		}
+	}
+
+
 	m_Player->m_JumpTimer += DT;
 
 	assert(m_PlayerRigid);
@@ -58,8 +73,8 @@ void GPlayerJumpState::Tick()
 
 	// 움직임 설정
 	m_PlayerRigid->AddForce(
-		Vector2(m_Player->m_KeyInput.HorizontalMove * m_PlayerRigid->GetFriction() * 2 
-				, m_Player->m_JumpPower) * DT);
+		Vector2(m_Player->m_KeyInput.HorizontalMove * m_PlayerRigid->GetFriction() * 2
+			, m_PlayerRigid->GetFriction() * 4) * DT);
 
 	// 속력이 m_MaxMoveSpeed보다 커지면 감속
 	if (m_Player->m_MoveMaxSpeed < fabs(m_PlayerRigid->GetVelocity().x))
@@ -67,11 +82,17 @@ void GPlayerJumpState::Tick()
 		PlayerSpeed.x = m_Player->m_MoveMaxSpeed * m_Player->m_KeyInput.HorizontalMove;
 	}
 
+	if (m_Player->m_JumpMaxSpeed < m_PlayerRigid->GetVelocity().y)
+	{
+		PlayerSpeed.y = m_Player->m_JumpMaxSpeed;
+	}
+
 	m_PlayerRigid->SetVelocity(PlayerSpeed);
 }
 
 void GPlayerJumpState::Exit()
 {
+	m_PlayerRigid->SetVelocity(Vector2(m_PlayerRigid->GetVelocity().x, 0.f));
 }
 
 void GPlayerJumpState::ChangeState()

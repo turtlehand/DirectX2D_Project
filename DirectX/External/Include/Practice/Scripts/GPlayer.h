@@ -1,5 +1,5 @@
 #pragma once
-#include <Engine/GScript.h>
+#include "GObjectBasic.h"
 #include <Engine/GPrefab.h>
 
 enum class PLAYER_STATE
@@ -40,7 +40,7 @@ enum class PLAYER_ITEM
 class GFSM;
 
 class GPlayer :
-	public GScript
+	public GObjectBasic
 {
 private:
 	tKeyInput       m_KeyInput;
@@ -49,9 +49,13 @@ private:
 	float           m_MoveInitForce;
 	float           m_MoveMaxSpeed;
 
+	float			m_GravityScale;
+
 	float			m_JumpTimeLimit;
+	float			m_JumpTimeMin;
 	float			m_JumpTimer;
 	float			m_JumpPower;
+	float			m_JumpMaxSpeed;
 
 	PLAYER_STATE    m_PlayerState;							// 현재 상태
 
@@ -98,7 +102,8 @@ private:
 	bool Shield();
 	bool Chicken();
 
-
+	bool LandCheck();
+	bool FallCheck();
 
 public:
 	CLONE(GPlayer);
@@ -110,5 +115,6 @@ public:
 	friend class GPlayerWalkState;
 	friend class GPlayerUseItemState;
 	friend class GPlayerJumpState;
+	friend class GPlayerFallState;
 };
 

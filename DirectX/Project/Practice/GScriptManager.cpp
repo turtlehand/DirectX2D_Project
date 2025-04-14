@@ -3,25 +3,33 @@
 
 #include "GCameraMove.h"
 #include "GFSM.h"
+#include "GGroundChecker.h"
 #include "GMonster.h"
+#include "GObjectBasic.h"
 #include "GPlatform.h"
 #include "GPlayer.h"
 #include "GPlayerDefaultState.h"
+#include "GPlayerFallState.h"
 #include "GPlayerJumpState.h"
 #include "GPlayerUseItemState.h"
 #include "GPlayerWalkState.h"
+#include "GWallChecker.h"
 
 void GScriptManager::GetScriptInfo(vector<wstring>& _vec)
 {
 	_vec.push_back(L"GCameraMove");
 	_vec.push_back(L"GFSM");
+	_vec.push_back(L"GGroundChecker");
 	_vec.push_back(L"GMonster");
+	_vec.push_back(L"GObjectBasic");
 	_vec.push_back(L"GPlatform");
 	_vec.push_back(L"GPlayer");
 	_vec.push_back(L"GPlayerDefaultState");
+	_vec.push_back(L"GPlayerFallState");
 	_vec.push_back(L"GPlayerJumpState");
 	_vec.push_back(L"GPlayerUseItemState");
 	_vec.push_back(L"GPlayerWalkState");
+	_vec.push_back(L"GWallChecker");
 }
 
 GScript * GScriptManager::GetScript(const wstring& _strScriptName)
@@ -30,20 +38,28 @@ GScript * GScriptManager::GetScript(const wstring& _strScriptName)
 		return new GCameraMove;
 	if (L"GFSM" == _strScriptName)
 		return new GFSM;
+	if (L"GGroundChecker" == _strScriptName)
+		return new GGroundChecker;
 	if (L"GMonster" == _strScriptName)
 		return new GMonster;
+	//if (L"GObjectBasic" == _strScriptName)
+		//return new GObjectBasic;
 	if (L"GPlatform" == _strScriptName)
 		return new GPlatform;
 	if (L"GPlayer" == _strScriptName)
 		return new GPlayer;
 	if (L"GPlayerDefaultState" == _strScriptName)
 		return new GPlayerDefaultState;
+	if (L"GPlayerFallState" == _strScriptName)
+		return new GPlayerFallState;
 	if (L"GPlayerJumpState" == _strScriptName)
 		return new GPlayerJumpState;
 	if (L"GPlayerUseItemState" == _strScriptName)
 		return new GPlayerUseItemState;
 	if (L"GPlayerWalkState" == _strScriptName)
 		return new GPlayerWalkState;
+	if (L"GWallChecker" == _strScriptName)
+		return new GWallChecker;
 	return nullptr;
 }
 
@@ -57,8 +73,14 @@ GScript * GScriptManager::GetScript(UINT _iScriptType)
 	case (UINT)SCRIPT_TYPE::FSM:
 		return new GFSM;
 		break;
+	case (UINT)SCRIPT_TYPE::GROUNDCHECKER:
+		return new GGroundChecker;
+		break;
 	case (UINT)SCRIPT_TYPE::MONSTER:
 		return new GMonster;
+		break;
+	//case (UINT)SCRIPT_TYPE::OBJECTBASIC:
+		//return new GObjectBasic;
 		break;
 	case (UINT)SCRIPT_TYPE::PLATFORM:
 		return new GPlatform;
@@ -69,6 +91,9 @@ GScript * GScriptManager::GetScript(UINT _iScriptType)
 	case (UINT)SCRIPT_TYPE::PLAYERDEFAULTSTATE:
 		return new GPlayerDefaultState;
 		break;
+	case (UINT)SCRIPT_TYPE::PLAYERFALLSTATE:
+		return new GPlayerFallState;
+		break;
 	case (UINT)SCRIPT_TYPE::PLAYERJUMPSTATE:
 		return new GPlayerJumpState;
 		break;
@@ -77,6 +102,9 @@ GScript * GScriptManager::GetScript(UINT _iScriptType)
 		break;
 	case (UINT)SCRIPT_TYPE::PLAYERWALKSTATE:
 		return new GPlayerWalkState;
+		break;
+	case (UINT)SCRIPT_TYPE::WALLCHECKER:
+		return new GWallChecker;
 		break;
 	}
 	return nullptr;
@@ -94,9 +122,17 @@ const wchar_t * GScriptManager::GetScriptName(GScript * _pScript)
 		return L"GFSM";
 		break;
 
+	case SCRIPT_TYPE::GROUNDCHECKER:
+		return L"GGroundChecker";
+		break;
+
 	case SCRIPT_TYPE::MONSTER:
 		return L"GMonster";
 		break;
+
+	//case SCRIPT_TYPE::OBJECTBASIC:
+		//return L"GObjectBasic";
+		//break;
 
 	case SCRIPT_TYPE::PLATFORM:
 		return L"GPlatform";
@@ -110,6 +146,10 @@ const wchar_t * GScriptManager::GetScriptName(GScript * _pScript)
 		return L"GPlayerDefaultState";
 		break;
 
+	case SCRIPT_TYPE::PLAYERFALLSTATE:
+		return L"GPlayerFallState";
+		break;
+
 	case SCRIPT_TYPE::PLAYERJUMPSTATE:
 		return L"GPlayerJumpState";
 		break;
@@ -120,6 +160,10 @@ const wchar_t * GScriptManager::GetScriptName(GScript * _pScript)
 
 	case SCRIPT_TYPE::PLAYERWALKSTATE:
 		return L"GPlayerWalkState";
+		break;
+
+	case SCRIPT_TYPE::WALLCHECKER:
+		return L"GWallChecker";
 		break;
 
 	}

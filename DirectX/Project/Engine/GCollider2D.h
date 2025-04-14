@@ -4,8 +4,6 @@ class GCollider2D :
 	public GComponent
 {
 private:
-	PxRigidDynamic* m_Box;
-
 	Vector3 m_Scale;
 	Vector3 m_Offset;
 

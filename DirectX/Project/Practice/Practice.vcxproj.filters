@@ -43,6 +43,9 @@
     <Filter Include="02. Scripts\2. Player\1. State\5. Fall">
       <UniqueIdentifier>{1bb800e5-8147-41c2-9926-5e5729b61b09}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. Scripts\Object">
+      <UniqueIdentifier>{ca35ef32-acc9-4cc5-8f59-4f52adfd6269}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -84,9 +87,21 @@
     <ClInclude Include="enum.h">
       <Filter>Default</Filter>
     </ClInclude>
-    <ClInclude Include="Scripts\GPlatform.h" />
     <ClInclude Include="Scripts\GPlayerJumpState.h">
       <Filter>02. Scripts\2. Player\1. State\4. Jump</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\GPlatform.h">
+      <Filter>02. Scripts\4. Platform</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\GPlayerFallState.h">
+      <Filter>02. Scripts\2. Player\1. State\5. Fall</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\GGroundChecker.h">
+      <Filter>02. Scripts\4. Platform</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\GObjectBasic.h" />
+    <ClInclude Include="Scripts\GWallChecker.h">
+      <Filter>02. Scripts\4. Platform</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -120,9 +135,21 @@
     <ClCompile Include="Scripts\GPlayerUseItemState.cpp">
       <Filter>02. Scripts\2. Player\1. State\3. UseItem</Filter>
     </ClCompile>
-    <ClCompile Include="Scripts\GPlatform.cpp" />
     <ClCompile Include="Scripts\GPlayerJumpState.cpp">
       <Filter>02. Scripts\2. Player\1. State\4. Jump</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\GPlatform.cpp">
+      <Filter>02. Scripts\4. Platform</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\GPlayerFallState.cpp">
+      <Filter>02. Scripts\2. Player\1. State\5. Fall</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\GGroundChecker.cpp">
+      <Filter>02. Scripts\4. Platform</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\GObjectBasic.cpp" />
+    <ClCompile Include="Scripts\GWallChecker.cpp">
+      <Filter>02. Scripts\4. Platform</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

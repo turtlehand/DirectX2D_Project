@@ -75,6 +75,14 @@ void GTaskManager::Progress()
 
 			GGameObject* pObject = (GGameObject*)task.Param0;
 			int LayerIdx = (int)task.Param1;
+
+			if (pObject->GetParent() == nullptr)
+			{
+				pObject->DisconnectWithLayerAsParent();
+				pLevel->AddGameObject(pObject, LayerIdx);
+			}
+
+
 			pObject->m_Layer = LayerIdx;
 			m_LevelChanged = true;
 		}

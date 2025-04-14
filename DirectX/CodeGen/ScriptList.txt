@@ -1,9 +1,13 @@
 GCameraMove
 GFSM
+GGroundChecker
 GMonster
+GObjectBasic
 GPlatform
 GPlayer
 GPlayerDefaultState
+GPlayerFallState
 GPlayerJumpState
 GPlayerUseItemState
 GPlayerWalkState
+GWallChecker

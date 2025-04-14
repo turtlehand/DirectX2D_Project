@@ -1,7 +1,6 @@
 #include "pch.h"
 #include "GCollisionManager.h"
 
-#include "GTimeManager.h"
 #include "GLevelManager.h"
 #include "GLayer.h"
 #include "GLevel.h"
@@ -19,41 +18,12 @@ GCollisionManager::GCollisionManager()
 
 GCollisionManager::~GCollisionManager()
 {
-	if (m_Scene) {
-		m_Scene->release();
-		m_Scene = nullptr;
-	}
 
-	if (m_Dispatcher) {
-		m_Dispatcher->release();
-		m_Dispatcher = nullptr;
-	}
-
-	if (m_Material) {
-		m_Material->release();
-		m_Material = nullptr;
-	}
-
-	if (m_Physics) {
-		m_Physics->release();
-		m_Physics = nullptr;
-	}
-
-	// PVD도 사용했다면
-	// if (gPvd) { gPvd->release(); gPvd = nullptr; }
-
-	if (m_Foundation) {
-		m_Foundation->release();
-		m_Foundation = nullptr;
-	}
 }
 
 // 레이어 끼리 충돌 
 void GCollisionManager::Progress()
 {
-	m_Scene->simulate(DT);
-	m_Scene->fetchResults(true);
-	/*
 	for (UINT row = 0;row < MAX_LAYER; ++row)
 	{
 		for (UINT col = row ;col < MAX_LAYER;++col)
@@ -62,7 +32,6 @@ void GCollisionManager::Progress()
 				CollisionBtwLayer(row, col);
 		}
 	}
-	*/
 }
 
 void GCollisionManager::CollisionBtwLayer(UINT _Left, UINT _Right)
@@ -216,6 +185,6 @@ bool GCollisionManager::IsOverlap(GCollider2D* _LeftCol, GCollider2D* _RightCol)
 	{
 		_LeftCol->Transform()->SetRelativePos(lPos - MTV);
 	}
-
+	
 	return true;
 }
