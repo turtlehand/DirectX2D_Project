@@ -1,34 +1,66 @@
 #pragma once
 #include "GComponent.h"
+
+enum class COLLIDER_TYPE
+{
+	STATIC,
+	DYNAMIC,
+};
+
 class GCollider2D :
 	public GComponent
 {
 private:
-	PxRigidDynamic* m_Box;
 
-	Vector3 m_Scale;
-	Vector3 m_Offset;
+	//b2BodyDef m_BodyDef;
+	b2BodyId m_BodyId;
+	b2ShapeId m_ShapeId;
 
-	int m_OverlapCount;
+	b2BodyType m_BodyType;
+	bool m_Sensor;
+
+	Vector2 m_Scale;
+	bool m_FixedRotation;
+
+	// Dynmaic
+	float m_Mass;
+	float m_Friction;
+
 	bool m_NotifyParent;
 
-	Matrix m_matColWorld;
-
 public:
-public:
-	void SetScale(Vector3 _Scale) { m_Scale = _Scale; }
-	void SetScale(float _x, float _y, float _z) { m_Scale = Vector3(_x, _y, _z); }
-	Vector3 GetScale() { return m_Scale; }
+	bool IsSensor() { return m_Sensor; }
+	void SetSensor(bool _Sensor);
 
-	void SetOffset(Vector3 _Offset) { m_Offset = _Offset; }
-	Vector3 GetOffset() { return m_Offset; }
+	void WakeUp() { b2Body_SetAwake(m_BodyId, true); }
+
+	Vector2 GetPos() { b2Vec2 b2V = b2Body_GetPosition(m_BodyId); return Vector2(b2V.x, b2V.y); }
+
+	Vector2 GetScale() { return m_Scale; }
+	void SetScale(Vector2 _Scale);
+	void SetScale(float _x, float _y);
+
+	b2BodyType GetBodyType() { return m_BodyType; }
+	void SetBodyType(b2BodyType _BodyType);
+
+	Vector2 GetVelocity();
+	void SetVelocity(Vector2 _Velocity);
+	
+	float GetMass() { return m_Mass; }
+	void SetMass(float _Mass);
+
+	float GetFriction() { return m_Friction; }
+	void SetFriction(float _Friction);
 	
 	bool GetNotifyParent() { return m_NotifyParent; }
 	void SetNotifyParent(bool _NotrifyParent) { m_NotifyParent = _NotrifyParent; } // 이 오브젝트가 충돌 시 부모 오브젝트들에게 영향을 줄지 여부를 설정합니다.
 
-	const Matrix& GetWorldMat() { return m_matColWorld; }
+	bool GetFixedRotation() { return m_FixedRotation; }
+	void SetFixedRotation(bool _Fixed) { b2Body_SetFixedRotation(m_BodyId, _Fixed); m_FixedRotation = _Fixed; }
 
 public:
+	virtual void Init() override;
+	virtual void Begin() override;
 	virtual void FinalUpdate() override;
 
 	// 컴포넌트 정보가 파일(레벨)에 저장 / 불러올 때 필수로 저장해야 하는 내용을 작성
@@ -36,6 +68,10 @@ public:
 	virtual void LoadFromFile(FILE* _File);
 
 public:
+	virtual void OnCollisionEnter(GCollider2D* _Other);
+	virtual void OnCollisionStay(GCollider2D* _Other);
+	virtual void OnCollisionExit(GCollider2D* _Other);
+
 	virtual void OnTriggerEnter(GCollider2D* _Other);
 	virtual void OnTriggerStay(GCollider2D* _Other);
 	virtual void OnTriggerExit(GCollider2D* _Other);
@@ -52,5 +88,7 @@ public:
 	GCollider2D();
 	GCollider2D(const GCollider2D& _Origin);
 	~GCollider2D();
+
+	friend class GTransform;
 };
 

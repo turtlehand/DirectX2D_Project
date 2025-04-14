@@ -14,8 +14,8 @@ private:
 	Matrix		m_matWorld;
 
 public:
-	void SetRelativePos(Vector3 _Pos) { m_RelativePosition = _Pos; }
-	void SetRelativePos(float _x, float _y, float _z) { m_RelativePosition = Vector3(_x, _y, _z); }
+	void SetRelativePos(Vector3 _Pos) { m_RelativePosition = _Pos; SetCollider(); }
+	void SetRelativePos(float _x, float _y, float _z) { m_RelativePosition = Vector3(_x, _y, _z); SetCollider(); }
 
 	void SetRelativeScale(Vector3 _Scale) { m_RelativeScale = _Scale; }
 	void SetRelativeScale(float _x, float _y, float _z) { m_RelativeScale = Vector3(_x, _y, _z); }
@@ -48,11 +48,16 @@ public:
 	virtual void SaveToFile(FILE* _File);
 	virtual void LoadFromFile(FILE* _File);
 
+private:
+	void SetCollider();
+
 public:
 	CLONE(GTransform)
 
 public:
 	GTransform();
 	~GTransform();
+
+	friend class GCollider2D;
 };
 

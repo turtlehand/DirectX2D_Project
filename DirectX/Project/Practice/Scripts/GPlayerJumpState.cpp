@@ -32,20 +32,19 @@ void GPlayerJumpState::Enter()
 	m_Player->FlipbookRender()->Play((int)m_Player->m_PlayerState);
 
 	m_Player->SetMoveDirection(m_Player->m_KeyInput.HorizontalMove);
-	m_Player->RigidBody2D()->AddForce(
-		Vector2(m_Player->m_KeyInput.HorizontalMove * m_Player->m_MoveInitForce
-				, m_Player->m_JumpPower));
+	m_Player->Collider2D()->SetVelocity(Vector2(m_Player->m_KeyInput.HorizontalMove * m_Player->m_MoveInitForce
+		, m_Player->m_JumpPower));
+	//m_Player->RigidBody2D()->AddForce(
+	//	Vector2(m_Player->m_KeyInput.HorizontalMove * m_Player->m_MoveInitForce
+	//			, m_Player->m_JumpPower));
 
 	m_Player->m_JumpTimer = 0.f;
 }
 
 void GPlayerJumpState::Tick()
 {
-	if (m_Player->m_JumpTimer > m_Player->m_JumpTimeLimit)
-	{
-		m_Player->GetFSM()->ChanageState(L"Default");
-		return;
-	}
+	m_Player->GetFSM()->ChanageState(L"Default");
+	return;
 	m_Player->m_JumpTimer += DT;
 
 	assert(m_PlayerRigid);
@@ -57,9 +56,8 @@ void GPlayerJumpState::Tick()
 	m_Player->SetMoveDirection(m_Player->m_KeyInput.HorizontalMove);
 
 	// 움직임 설정
-	m_PlayerRigid->AddForce(
-		Vector2(m_Player->m_KeyInput.HorizontalMove * m_PlayerRigid->GetFriction() * 2 
-				, m_Player->m_JumpPower) * DT);
+	m_Player->Collider2D()->SetVelocity(Vector2(m_Player->m_KeyInput.HorizontalMove * m_Player->m_MoveInitForce
+		, m_Player->m_JumpPower));
 
 	// 속력이 m_MaxMoveSpeed보다 커지면 감속
 	if (m_Player->m_MoveMaxSpeed < fabs(m_PlayerRigid->GetVelocity().x))

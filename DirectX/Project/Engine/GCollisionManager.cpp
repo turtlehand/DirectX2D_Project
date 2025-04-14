@@ -19,40 +19,97 @@ GCollisionManager::GCollisionManager()
 
 GCollisionManager::~GCollisionManager()
 {
-	if (m_Scene) {
-		m_Scene->release();
-		m_Scene = nullptr;
-	}
-
-	if (m_Dispatcher) {
-		m_Dispatcher->release();
-		m_Dispatcher = nullptr;
-	}
-
-	if (m_Material) {
-		m_Material->release();
-		m_Material = nullptr;
-	}
-
-	if (m_Physics) {
-		m_Physics->release();
-		m_Physics = nullptr;
-	}
-
-	// PVD도 사용했다면
-	// if (gPvd) { gPvd->release(); gPvd = nullptr; }
-
-	if (m_Foundation) {
-		m_Foundation->release();
-		m_Foundation = nullptr;
-	}
+	b2DestroyWorld(m_WorldId);
 }
 
 // 레이어 끼리 충돌 
 void GCollisionManager::Progress()
 {
-	m_Scene->simulate(DT);
-	m_Scene->fetchResults(true);
+	b2World_Step(m_WorldId, DT, m_SubStepCount);
+
+	b2SensorEvents sensorEvents = b2World_GetSensorEvents(m_WorldId);
+	for (int i = 0; i < sensorEvents.beginCount; ++i)
+	{
+		b2SensorBeginTouchEvent* beginTouch = sensorEvents.beginEvents + i;
+		void* sensorUserData = b2Shape_GetUserData(beginTouch->sensorShapeId);
+		void* visitorUserData = b2Shape_GetUserData(beginTouch->visitorShapeId);
+		
+		// process begin event
+		GCollider2D* sensorCollider = (GCollider2D*)sensorUserData;
+		GCollider2D* visitorCollider = (GCollider2D*)visitorUserData;
+		sensorCollider->OnTriggerEnter(visitorCollider);
+		visitorCollider->OnTriggerEnter(sensorCollider);
+	}
+
+	for (int i = 0; i < sensorEvents.endCount; ++i)
+	{
+		b2SensorEndTouchEvent* endTouch = sensorEvents.endEvents + i;
+
+		void* sensorUserData = b2Shape_IsValid(endTouch->sensorShapeId) ? b2Shape_GetUserData(endTouch->sensorShapeId) : nullptr;
+		void* visitorUserData = b2Shape_IsValid(endTouch->visitorShapeId) ? b2Shape_GetUserData(endTouch->visitorShapeId) : nullptr;
+
+		GCollider2D* sensorCollider = (GCollider2D*)sensorUserData;
+		GCollider2D* visitorCollider = (GCollider2D*)visitorUserData;
+
+		// 안전하게 호출
+		if (sensorCollider && visitorCollider)
+		{
+			sensorCollider->OnTriggerExit(visitorCollider);
+			visitorCollider->OnTriggerExit(sensorCollider);
+		}
+		else if (sensorCollider)
+		{
+			sensorCollider->OnTriggerExit(nullptr);
+		}
+		else if (visitorCollider)
+		{
+			visitorCollider->OnTriggerExit(nullptr);
+		}
+	}
+
+	b2ContactEvents contactEvents = b2World_GetContactEvents(m_WorldId);
+
+	for (int i = 0; i < contactEvents.beginCount; ++i)
+	{
+		b2ContactBeginTouchEvent* beginEvent = contactEvents.beginEvents + i;
+		void* AUserData = b2Shape_GetUserData(beginEvent->shapeIdA);
+		void* BUserData = b2Shape_GetUserData(beginEvent->shapeIdB);
+
+		// process begin event
+		GCollider2D* ACollider = (GCollider2D*)AUserData;
+		GCollider2D* BCollider = (GCollider2D*)BUserData;
+		ACollider->OnCollisionEnter(BCollider);
+		BCollider->OnCollisionEnter(ACollider);
+	}
+
+	for (int i = 0; i < contactEvents.endCount; ++i)
+	{
+		b2ContactEndTouchEvent* endEvent = contactEvents.endEvents + i;
+
+		void* AUserData = b2Shape_IsValid(endEvent->shapeIdA) ? b2Shape_GetUserData(endEvent->shapeIdA) : nullptr;
+		void* BUserData = b2Shape_IsValid(endEvent->shapeIdB) ? b2Shape_GetUserData(endEvent->shapeIdB) : nullptr;
+
+		// process begin event
+		GCollider2D* ACollider = (GCollider2D*)AUserData;
+		GCollider2D* BCollider = (GCollider2D*)BUserData;
+
+		if (ACollider && BCollider)
+		{
+			ACollider->OnCollisionExit(BCollider);
+			BCollider->OnCollisionExit(ACollider);
+		}
+		else if (ACollider)
+		{
+			ACollider->OnCollisionExit(nullptr);
+		}
+		else if (BCollider)
+		{
+			BCollider->OnCollisionExit(nullptr);
+		}
+	}
+
+	//printf("%4.2f %4.2f %4.2f\n", position.x, position.y, b2Rot_GetAngle(rotation));
+
 	/*
 	for (UINT row = 0;row < MAX_LAYER; ++row)
 	{
@@ -150,6 +207,7 @@ void GCollisionManager::CollisionBtwCollider(GCollider2D* _LeftCol, GCollider2D*
 // 해당 콜라이더끼리 충돌
 bool GCollisionManager::IsOverlap(GCollider2D* _LeftCol, GCollider2D* _RightCol)
 {
+	/*
 	// 박스 콜라이더의 최종 위치를 알기위한 행렬
 	const Matrix& matLeft = _LeftCol->GetWorldMat();
 	const Matrix& matRight = _RightCol->GetWorldMat();
@@ -216,6 +274,6 @@ bool GCollisionManager::IsOverlap(GCollider2D* _LeftCol, GCollider2D* _RightCol)
 	{
 		_LeftCol->Transform()->SetRelativePos(lPos - MTV);
 	}
-
+	*/
 	return true;
 }

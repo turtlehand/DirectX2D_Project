@@ -47,21 +47,13 @@ using namespace DirectX::SimpleMath;
 #endif
 
 // PhysX
-#include <PhysX/PxPhysicsAPI.h>
-
-using namespace physx;
+#include <Box2D/box2d.h>
 
 #ifdef _DEBUG
-#pragma comment(lib, "PhysX/PhysX_64.lib")
-#pragma comment(lib, "PhysX/PhysXCommon_64.lib")
-#pragma comment(lib, "PhysX/PhysXFoundation_64.lib")
-#pragma comment(lib, "PhysX/PhysXExtensions_static_64.lib")
+#pragma comment(lib, "Box2D/box2dd.lib")
 
 #else
-#pragma comment(lib, "PhysX/PhysX_64.lib")
-#pragma comment(lib, "PhysX/PhysXCommon_64.lib")
-#pragma comment(lib, "PhysX/PhysXFoundation_64.lib")
-#pragma comment(lib, "PhysX/PhysXExtensions_static_64.lib")
+#pragma comment(lib, "Box2D/box2d.lib")
 #endif
 
 #include <vector>

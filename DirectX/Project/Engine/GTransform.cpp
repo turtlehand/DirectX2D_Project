@@ -5,6 +5,8 @@
 #include "GConstBuffer.h"
 #include "GCamera.h"
 
+#include "GCollider2D.h"
+
 GTransform::GTransform() :
 	GComponent(COMPONENT_TYPE::TRANSFORM),
 	m_RelativePosition(0.f, 0.f, 0.f),
@@ -24,11 +26,13 @@ GTransform::~GTransform()
 void GTransform::SetRelativeRotation(Vector3 _Rotation)
 {
 	m_RelativeRotation = _Rotation * (XM_PI / 180.f);
+	SetCollider();
 }
 
 void GTransform::SetRelativeRotation(float _x, float _y, float _z)
 {
 	m_RelativeRotation = Vector3(_x, _y, _z) * (XM_PI / 180.f);
+	SetCollider();
 }
 
 Vector3 GTransform::GetWorldScale() const
@@ -128,4 +132,14 @@ void GTransform::LoadFromFile(FILE* _File)
 	fread(&m_RelativeRotation, sizeof(Vector3), 1, _File);
 }
 
-
+// Collider의 위치 정보를 변경한다.
+void GTransform::SetCollider()
+{
+	if (Collider2D())
+	{
+		b2Body_SetTransform(Collider2D()->m_BodyId
+			, { m_RelativePosition.x, m_RelativePosition.y }
+		, { cosf(m_RelativeRotation.z), sinf(m_RelativeRotation.z) });
+		Collider2D()->WakeUp();
+	}
+}

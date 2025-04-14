@@ -23,18 +23,34 @@ void Collider2DUI::Render_UI()
 
 	OutputTitle("GCollider2D");
 
-	/*
+	ImGui::Text("Sensor");
+	ImGui::SameLine(GetTab());
+	bool IsSensor = pCollider2D->IsSensor();
+	if(ImGui::Checkbox("##Sensor", &IsSensor))
+	{
+		pCollider2D->SetSensor(IsSensor);
+	}
+	AddItemHeight();
+
+	ImGui::Text("Pos");
+	ImGui::SameLine(GetTab());
+	Vector2 vPos = pCollider2D->GetPos();
+	ImGui::DragFloat2("##Pos", vPos);
+
+	AddItemHeight();
+
+	
 	// Å©±â
 	ImGui::Text("Scale");
 	ImGui::SameLine(GetTab());
-	Vector3 vScale = pCollider2D->GetScale();
-	if (ImGui::DragFloat2("##Scale", vScale))
+	Vector2 vScale = pCollider2D->GetScale();
+	if (ImGui::DragFloat2("##Scale", vScale, 0.1f, 0.01f, FLT_MAX))
 	{
 		pCollider2D->SetScale(vScale);
 	}
 	AddItemHeight();
 
-
+	/*
 	ImGui::Text("Offset");
 	ImGui::SameLine(GetTab());
 	Vector3 vOffset = pCollider2D->GetOffset();

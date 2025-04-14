@@ -42,7 +42,7 @@ void CreateTestLevel()
 	pCamObj->SetName(L"MainCamera");
 	pCamObj->AddComponent(new GTransform);
 	pCamObj->AddComponent(new GCamera);
-	pCamObj->AddComponent(new GCameraMove);
+	//pCamObj->AddComponent(new GCameraMove);
 
 	pCamObj->Transform()->SetRelativePos(0.f, 0.f, -100.f);
 
@@ -68,6 +68,61 @@ void CreateTestLevel()
 	pLight->Light2D()->SetLightColor(Vector3(1.f, 1.f, 1.f));
 
 	SpawnGameObject(pLight);
+
+	// 물리 엔진
+	GGameObject* pObject = new GGameObject;
+	pObject->SetName(L"Box");
+
+	pObject->AddComponent(new GTransform);
+	pObject->AddComponent(new GMeshRender);
+	pObject->AddComponent(new GCollider2D);
+
+	pObject->Transform()->SetRelativePos(10.f, 0.f, 0.f);
+	pObject->Transform()->SetRelativeScale(5.f, 5.f, 0.f);
+
+	pObject->Collider2D()->SetScale(5.f, 5.f);
+
+	//pObject->Collider2D()->SetBodyType(b2_dynamicBody);
+	pObject->Collider2D()->SetBodyType(b2_dynamicBody);
+
+	SpawnGameObject(pObject);
+
+	// 지형
+	pObject = new GGameObject;
+	pObject->SetName(L"Test");
+
+	pObject->AddComponent(new GTransform);
+	pObject->AddComponent(new GMeshRender);
+	pObject->AddComponent(new GCollider2D);
+
+	pObject->Transform()->SetRelativePos(-10.f, 0.f, 0.f);
+	pObject->Transform()->SetRelativeScale(10.f, 5.f, 0.f);
+
+	pObject->Collider2D()->SetScale(10.f, 5.f);
+	pObject->Collider2D()->SetScale(5.f, 5.f);
+
+	pObject->Transform()->SetRelativeScale(5.f, 5.f, 0.f);
+
+	pObject->Collider2D()->SetBodyType(b2_dynamicBody);
+
+	SpawnGameObject(pObject);
+
+	// 지형
+	pObject = new GGameObject;
+	pObject->SetName(L"Ground");
+
+	pObject->AddComponent(new GTransform);
+	pObject->AddComponent(new GMeshRender);
+	pObject->AddComponent(new GCollider2D);
+
+	pObject->Transform()->SetRelativePos(0, -30.f, 0.f);
+	pObject->Transform()->SetRelativeScale(5.f, 5.f, 0.f);
+
+	pObject->Collider2D()->SetScale(100.f, 5.f);
+	pObject->Collider2D()->SetBodyType(b2_kinematicBody);
+	
+
+	SpawnGameObject(pObject);
 
 	/*
 	pLight = new GGameObject;

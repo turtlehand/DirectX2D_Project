@@ -19,24 +19,18 @@ class GCollisionManager :
 {
 	SINGLE(GCollisionManager);
 private:
-	PxDefaultAllocator		m_Allocator;
-	PxDefaultErrorCallback	m_ErrorCallback;
+	b2WorldId m_WorldId;
 
-	PxFoundation* m_Foundation = NULL;
-	PxPhysics* m_Physics = NULL;
+	int m_SubStepCount;
 
-	PxDefaultCpuDispatcher* m_Dispatcher = NULL;
-	PxScene* m_Scene = NULL;
-
-	PxMaterial* m_Material = NULL;
-
+	b2Filter m_Filter;
 	UINT m_Matrix[MAX_LAYER];
 	map<DWORD_PTR, bool> m_mapInfo;
 
 public:
-	void Init();
-	void Progress();
-	void CollisionLayerCheck(UINT _Left, UINT _Right) {
+	const b2WorldId& GetWorldId() { return m_WorldId; }
+	void CollisionLayerCheck(UINT _Left, UINT _Right) 
+	{
 
 		UINT Row = _Left;		// За
 		UINT Col = _Right;		// ї­
@@ -46,11 +40,17 @@ public:
 			Row = _Right;
 			Col = _Left;
 		}
-		
-		m_Matrix[Row] ^=  (1 << Col);
+
+		m_Matrix[Row] ^= (1 << Col);
 	}
+
+
 	void SetCollisionLayer(UINT _Row, UINT _Col) { m_Matrix[_Row] = _Col; }
 	UINT GetCollisionLayer(UINT _Row) { return m_Matrix[_Row]; }
+
+public:
+	void Init();
+	void Progress();
 
 private:
 	void CollisionBtwLayer(UINT _Left, UINT _Right);

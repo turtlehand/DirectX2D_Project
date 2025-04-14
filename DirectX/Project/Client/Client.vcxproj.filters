@@ -278,9 +278,6 @@
     <ClInclude Include="Collider2DUI.h">
       <Filter>EditorUI\4. Component\4. Collider2D</Filter>
     </ClInclude>
-    <ClInclude Include="RigidBody2DUI.h">
-      <Filter>EditorUI\4. Component\5. RigidBody2D</Filter>
-    </ClInclude>
     <ClInclude Include="SpriteRenderUI.h">
       <Filter>EditorUI\4. Component\Render\2. Sprite</Filter>
     </ClInclude>
@@ -298,6 +295,9 @@
     </ClInclude>
     <ClInclude Include="TilePaletteUI.h">
       <Filter>EditorUI\6. Asset\11. TilePalette</Filter>
+    </ClInclude>
+    <ClInclude Include="RigidBody2DUI.h">
+      <Filter>EditorUI\4. Component\5. RigidBody2D</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

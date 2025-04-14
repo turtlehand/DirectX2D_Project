@@ -151,6 +151,12 @@
     <Filter Include="09. Script">
       <UniqueIdentifier>{61d32676-8211-46d9-9767-1ecaa94f99b7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="06. Component\02. Collider\Rigid">
+      <UniqueIdentifier>{ed3ae374-82f2-4d6f-92c8-6d55e7963ef1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="06. Component\02. Collider\static">
+      <UniqueIdentifier>{bb38a3bf-5cea-4545-97b3-87eb6bcd8e4f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">

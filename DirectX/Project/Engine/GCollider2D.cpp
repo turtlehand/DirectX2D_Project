@@ -2,6 +2,9 @@
 #include "GCollider2D.h"
 #include "GScript.h"
 
+#include "GKeyManager.h"
+#include "GCollisionManager.h"
+
 #include "GTransform.h"
 
 #include "GLevelManager.h"
@@ -10,18 +13,29 @@
 
 GCollider2D::GCollider2D()
 	: GComponent(COMPONENT_TYPE::COLLIDER2D)
-	, m_Scale(Vector3(1.f,1.f,1.f))
-	, m_Offset()
-	, m_OverlapCount(0)
+	, m_BodyId()
+	, m_ShapeId()
+	, m_BodyType(b2_staticBody)
+	, m_Sensor(false)
+	, m_Scale(Vector2(1.f,1.f))
+	, m_FixedRotation(true)
+	, m_Mass(1.f)
+	, m_Friction(0.f)
 	, m_NotifyParent(true)
 {
+	
 }
 
 GCollider2D::GCollider2D(const GCollider2D& _Origin)
 	: GComponent(_Origin)
+	, m_BodyId()
+	, m_ShapeId()
+	, m_BodyType(_Origin.m_BodyType)
+	, m_Sensor(_Origin.m_Sensor)
 	, m_Scale(_Origin.m_Scale)
-	, m_Offset(_Origin.m_Offset)
-	, m_OverlapCount(0)
+	, m_FixedRotation(_Origin.m_FixedRotation)
+	, m_Mass(_Origin.m_Mass)
+	, m_Friction(_Origin.m_Friction)
 	, m_NotifyParent(_Origin.m_NotifyParent)
 {
 
@@ -29,12 +43,95 @@ GCollider2D::GCollider2D(const GCollider2D& _Origin)
 
 GCollider2D::~GCollider2D()
 {
+	//b2DestroyShape(m_ShapeId, true);
+	if(b2Body_IsValid(m_BodyId))
+		b2DestroyBody(m_BodyId);
+
+}
+
+void GCollider2D::Init()
+{
+	Vector3 vPos = GameObject()->Transform()->GetWorldPos();
+
+	// body 정의 하기
+	b2BodyDef bodyDef = b2DefaultBodyDef();
+	bodyDef.type = m_BodyType;
+	bodyDef.fixedRotation = m_FixedRotation;
+	bodyDef.position = { vPos.x, vPos.y };
+
+	m_BodyId = b2CreateBody(GCollisionManager::GetInst()->GetWorldId(), &bodyDef);
+}
+
+void GCollider2D::Begin()
+{
+	b2Body_SetAwake(m_BodyId, true);
+
+	b2ShapeDef shapeDef = b2DefaultShapeDef();
+	shapeDef.enableContactEvents = true;
+	shapeDef.enableSensorEvents = true;
+	shapeDef.isSensor = m_Sensor;
+	
+
+	b2Polygon polygon = b2MakeBox(m_Scale.x / 2, m_Scale.y / 2);
+
+	m_ShapeId = b2CreatePolygonShape(m_BodyId, &shapeDef, &polygon);
+
+	SetMass(m_Mass);
+	SetFriction(m_Friction);
+
+	b2Shape_SetUserData(m_ShapeId, this);
+}
+
+void GCollider2D::FinalUpdate()
+{
+	bool Sensor = false;
+	if (b2Shape_IsValid(m_ShapeId))
+		Sensor = b2Shape_IsSensor(m_ShapeId);
+
+
+	Vector3 vObjectPos = Transform()->GetWorldPos();
+	//Vector3 vObjectRot = Transform()->GetRelativeRotation();
+	b2Transform vColliderPos = b2Body_GetTransform(m_BodyId);
+
+	vObjectPos = Vector3(vColliderPos.p.x, vColliderPos.p.y, vObjectPos.z);
+
+	Transform()->m_RelativePosition = vObjectPos;
+
+	DrawDebugRect(Vector4(1.f, 0.f, 0.f, 1.f), vObjectPos, Vector3(m_Scale.x, m_Scale.y,0), Transform()->GetWorldRotation());
+
+
+}
+
+void GCollider2D::SaveToFile(FILE* _File)
+{
+	//fwrite(&m_Scale, sizeof(Vector3), 1, _File);
+	//fwrite(&m_Offset, sizeof(Vector3), 1, _File);
+	//fwrite(&m_NotifyParent, sizeof(bool), 1, _File);
+}
+
+void GCollider2D::LoadFromFile(FILE* _File)
+{
+	//fread(&m_Scale, sizeof(Vector3), 1, _File);
+	//fread(&m_Offset, sizeof(Vector3), 1, _File);
+	//fread(&m_NotifyParent, sizeof(bool), 1, _File);
+}
+
+void GCollider2D::OnCollisionEnter(GCollider2D* _Other)
+{
+}
+
+void GCollider2D::OnCollisionStay(GCollider2D* _Other)
+{
+}
+
+void GCollider2D::OnCollisionExit(GCollider2D* _Other)
+{
 }
 
 
 void GCollider2D::OnTriggerEnter(GCollider2D* _Other)
 {
-	++m_OverlapCount;
+	//++m_OverlapCount;
 	NotifyEnter(_Other);
 }
 
@@ -45,7 +142,7 @@ void GCollider2D::OnTriggerStay(GCollider2D* _Other)
 
 void GCollider2D::OnTriggerExit(GCollider2D* _Other)
 {
-	--m_OverlapCount;
+	//--m_OverlapCount;
 	NotifyExit(_Other);
 }
 
@@ -127,32 +224,71 @@ void GCollider2D::NotifyExit(GCollider2D* _Other)
 	}
 }
 
-void GCollider2D::FinalUpdate()
+void GCollider2D::SetSensor(bool _Sensor)
 {
-	Matrix matScale = XMMatrixScaling(m_Scale.x, m_Scale.y, m_Scale.z);
+	if (b2Shape_IsValid(m_ShapeId))
+		return;
 
-	Matrix matTranslation = XMMatrixTranslation(m_Offset.x, m_Offset.y, m_Offset.z);
-
-	m_matColWorld = matScale * matTranslation * Transform()->GetWorldMat();
-
-	if (m_OverlapCount)
-		DrawDebugRect(Vector4(1.f, 0.f, 0.f, 1.f), m_matColWorld);
-	else
-		DrawDebugRect(Vector4(0.f, 1.f, 0.f, 1.f), m_matColWorld);
-
-	GLevelManager::GetInst()->GetCurrentLevel()->GetLayer(GameObject()->GetLayer())->RegisterCollider2D(this);
+	m_Sensor = _Sensor;
 }
 
-void GCollider2D::SaveToFile(FILE* _File)
+void GCollider2D::SetScale(Vector2 _Scale)
 {
-	fwrite(&m_Scale, sizeof(Vector3), 1, _File);
-	fwrite(&m_Offset, sizeof(Vector3), 1, _File);
-	fwrite(&m_NotifyParent, sizeof(bool), 1, _File);
+	if (b2Shape_IsValid(m_ShapeId))
+		return;
+
+	m_Scale = _Scale;
 }
 
-void GCollider2D::LoadFromFile(FILE* _File)
+void GCollider2D::SetScale(float _x, float _y)
 {
-	fread(&m_Scale, sizeof(Vector3), 1, _File);
-	fread(&m_Offset, sizeof(Vector3), 1, _File);
-	fread(&m_NotifyParent, sizeof(bool), 1, _File);
+	SetScale(Vector2(_x, _y));
 }
+
+void GCollider2D::SetBodyType(b2BodyType _BodyType)
+{
+	b2Body_SetType(m_BodyId, _BodyType);
+
+	m_BodyType = _BodyType;
+}
+
+void GCollider2D::SetVelocity(Vector2 _Velocity)
+{
+	if (m_BodyType == b2_staticBody)
+		return;
+
+	b2Body_SetLinearVelocity(m_BodyId, { _Velocity.x, _Velocity.y });
+}
+
+Vector2 GCollider2D::GetVelocity()
+{
+	b2Vec2 Velocity = b2Body_GetLinearVelocity(m_BodyId);
+	return Vector2(Velocity.x, Velocity.y);
+}
+
+void GCollider2D::SetMass(float _Mass)
+{
+	if (m_BodyType != b2_dynamicBody)
+		return;
+
+	b2MassData massData = b2Body_GetMassData(m_BodyId);
+	massData.mass = _Mass;
+	b2Body_SetMassData(m_BodyId, massData);
+
+	m_Mass = massData.mass;
+}
+
+void GCollider2D::SetFriction(float _Friction)
+{
+	if (m_BodyType != b2_dynamicBody)
+		return;
+
+	m_Friction = _Friction;
+
+	if (!b2Shape_IsValid(m_ShapeId))
+		return;
+
+	b2Shape_SetFriction(m_ShapeId, _Friction);
+	
+}
+
