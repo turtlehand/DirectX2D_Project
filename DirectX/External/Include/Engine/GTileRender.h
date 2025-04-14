@@ -7,7 +7,7 @@
 #include "GTilePalette.h"
 
 /// <summary>
-/// 
+/// Material Param과 같이 TileRender가 가질 수 있는 팔레트 Param
 /// </summary>
 enum class TILE_PALETTE_PARAM
 {
@@ -19,6 +19,7 @@ enum class TILE_PALETTE_PARAM
 };
 
 /// <summary>
+/// Draw가 false라면 타일을 그리지 않는다.
 /// Palette에 있는 타일 중 Row Col 타일을 칠한다는 뜻
 /// </summary>
 struct tTileInfo

@@ -133,6 +133,8 @@ bool GCollisionManager::IsOverlap(GCollider2D* _LeftCol, GCollider2D* _RightCol)
 	// 월드상의 충돌체의 꼭지점 위치를 찾아서, 각 표면 방향을 알아낸다.
 	// 이 방향벡터를 투영축으로 사용할 것
 	Vector3 vProj[4] = {};
+
+	// 최소로 겹쳐진 벡터
 	Vector3 MTV = Vector3(FLT_MAX, FLT_MAX, FLT_MAX);
 
 	vProj[0] = XMVector3TransformCoord(Vector3(0.5f, -0.5f, 0.f), matLeft) - XMVector3TransformCoord(Vector3(-0.5f, -0.5f, 0.f), matLeft);			// 왼쪽 아래 점에서 오른쪽 아래 점 벡터
@@ -161,22 +163,28 @@ bool GCollisionManager::IsOverlap(GCollider2D* _LeftCol, GCollider2D* _RightCol)
 		if (ProjLength < ProjCenter)							// 중심이 더 길다면 충돌 X
 			return false;
 
+		// 투영 길이 - 중심 길이 = 침범 크기
+		// 이중 가장 크기가 작은 벡터를 사용하여 밀어냄
+		// 만약 충돌하지 않았다면 어차피 return 되므로 침범 크기가 음수가 될 걱정할 필요 없음
 		MTV = MTV.Length() > ProjLength - ProjCenter ? (ProjLength - ProjCenter ) * vProjTarget : MTV;
 	}
 
-	MTV = vCenter.Dot(MTV) < 0.f ? -MTV : MTV;			// 방향이 반대라면 바꾸기
-								// 
+	// 방향이 반대라면 바꾸기
+	MTV = vCenter.Dot(MTV) < 0.f ? -MTV : MTV;			
 
 	// 밀어내기
 	Vector3 lPos = _LeftCol->Transform()->GetWorldPos();
 	Vector3 rPos = _RightCol->Transform()->GetWorldPos();
 
+	// RigidBody2D를 가지고 있는 대상만 밀어냄
 	if (_LeftCol->RigidBody2D() != nullptr && _RightCol->RigidBody2D() != nullptr)
 	{
+		// 질량은 계산하지 않고 그냥 반반씩 밀어냄
 		MTV = MTV / 2;
 		_LeftCol->Transform()->SetRelativePos(lPos - MTV);
 		_RightCol->Transform()->SetRelativePos(rPos + MTV);
 	}
+	// 한 대상만 RigidBody2D를 가지지 않는다면 가진 대상만 온전히 밀려남
 	else if (_RightCol->RigidBody2D() != nullptr)
 	{
 		_RightCol->Transform()->SetRelativePos(rPos + MTV);
