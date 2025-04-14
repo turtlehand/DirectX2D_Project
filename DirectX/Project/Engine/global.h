@@ -46,24 +46,6 @@ using namespace DirectX::SimpleMath;
 #pragma comment(lib, "FMOD/fmod64_vc.lib")
 #endif
 
-// PhysX
-#include <PhysX/PxPhysicsAPI.h>
-
-using namespace physx;
-
-#ifdef _DEBUG
-#pragma comment(lib, "PhysX/PhysX_64.lib")
-#pragma comment(lib, "PhysX/PhysXCommon_64.lib")
-#pragma comment(lib, "PhysX/PhysXFoundation_64.lib")
-#pragma comment(lib, "PhysX/PhysXExtensions_static_64.lib")
-
-#else
-#pragma comment(lib, "PhysX/PhysX_64.lib")
-#pragma comment(lib, "PhysX/PhysXCommon_64.lib")
-#pragma comment(lib, "PhysX/PhysXFoundation_64.lib")
-#pragma comment(lib, "PhysX/PhysXExtensions_static_64.lib")
-#endif
-
 #include <vector>
 #include <list>
 #include <stack>
