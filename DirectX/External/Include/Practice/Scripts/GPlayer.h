@@ -30,9 +30,9 @@ enum class PLAYER_ITEM
 	BOMB,
 	SHOVEL,
 	HUG,
-	SHOT_GUN,
+	//SHOT_GUN,
 	SWORD,
-	SHIELD,
+	//SHIELD,
 	CHICKEN,
 	END
 };
@@ -62,6 +62,13 @@ private:
 	bool            m_PlayerItems[(UINT)PLAYER_ITEM::END];	// 현재 가지고 있는 아이템
 	PLAYER_ITEM		m_PlayerUseItem;						// 현재 사용중인 아이템 END라면 사용 중 X
 
+	float			m_ItemTimer;
+
+	GGameObject*	m_Sword;
+	Ptr<GPrefab>	m_SwordPrefab;
+	Vector3			m_SwordPos;
+	float			m_SwordTime;
+
 	float			m_HookInitForce;
 	float			m_HookMaxSpeed;
 
@@ -85,9 +92,13 @@ public:
 	// 해당 방향을 바라보게 한다.
 	void SetMoveDirection(int _Direction);
 
+	virtual void CeilingEnter() override;
+
 private:
 	void KeyInput();
+	void UseItem();
 
+	// 상호작용 체크
 	bool Interaction();
 
 	bool BoxCheck();
@@ -98,12 +109,9 @@ private:
 	bool Shovel();
 	bool Hug();
 	bool Sword();
-	bool ShotGun();
-	bool Shield();
+	//bool ShotGun();
+	//bool Shield();
 	bool Chicken();
-
-	bool LandCheck();
-	bool FallCheck();
 
 public:
 	CLONE(GPlayer);

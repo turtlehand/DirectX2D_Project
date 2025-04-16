@@ -44,6 +44,15 @@ void GPlayerWalkState::Tick()
 		return;
 	}
 
+	if (m_Player->m_KeyInput.Interaction)
+	{
+		if (m_Player->Interaction())
+		{
+			m_Player->GetFSM()->ChanageState(L"UseItem");
+			return;
+		}
+	}
+
 	if (m_Player->m_KeyInput.HorizontalMove == 0)
 	{
 		m_Player->GetFSM()->ChanageState(L"Default");

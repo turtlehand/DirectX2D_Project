@@ -12,8 +12,18 @@ private:
 
 public:
 	void SetVelocity(Vector2 _Velocity) { m_Velocity = _Velocity; };
+	void SetVelocity(float _x, float _y) { m_Velocity = Vector2(_x, _y); }
+	void SetVelocityX(float _x) { m_Velocity.x = _x; }
+	void SetVelocityY(float _y) { m_Velocity.y = _y; }
+
 	Vector2 GetVelocity() { return m_Velocity; }
+	float GetVelocityX() { return m_Velocity.x; }
+	float GetVelocityY() { return m_Velocity.y; }
+
 	void AddVelocity(Vector2 _Velocity) { m_Velocity += _Velocity; };
+	void AddVelocity(float _x, float _y) { m_Velocity += Vector2(_x, _y); }
+	void AddVelocityX(float _x) { m_Velocity.x += _x; }
+	void AddVelocityY(float _y) { m_Velocity.y += _y; }
 
 	void SetMass(float _Mass) { m_Mass = _Mass; }
 	float GetMass() { return m_Mass; }

@@ -103,6 +103,9 @@
     <ClInclude Include="Scripts\GWallChecker.h">
       <Filter>02. Scripts\4. Platform</Filter>
     </ClInclude>
+    <ClInclude Include="Scripts\GCeilingChecker.h">
+      <Filter>02. Scripts\4. Platform</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -149,6 +152,9 @@
     </ClCompile>
     <ClCompile Include="Scripts\GObjectBasic.cpp" />
     <ClCompile Include="Scripts\GWallChecker.cpp">
+      <Filter>02. Scripts\4. Platform</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\GCeilingChecker.cpp">
       <Filter>02. Scripts\4. Platform</Filter>
     </ClCompile>
   </ItemGroup>

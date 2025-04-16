@@ -2,6 +2,7 @@
 #include "GScriptManager.h"
 
 #include "GCameraMove.h"
+#include "GCeilingChecker.h"
 #include "GFSM.h"
 #include "GGroundChecker.h"
 #include "GMonster.h"
@@ -18,6 +19,7 @@
 void GScriptManager::GetScriptInfo(vector<wstring>& _vec)
 {
 	_vec.push_back(L"GCameraMove");
+	_vec.push_back(L"GCeilingChecker");
 	_vec.push_back(L"GFSM");
 	_vec.push_back(L"GGroundChecker");
 	_vec.push_back(L"GMonster");
@@ -36,6 +38,8 @@ GScript * GScriptManager::GetScript(const wstring& _strScriptName)
 {
 	if (L"GCameraMove" == _strScriptName)
 		return new GCameraMove;
+	if (L"GCeilingChecker" == _strScriptName)
+		return new GCeilingChecker;
 	if (L"GFSM" == _strScriptName)
 		return new GFSM;
 	if (L"GGroundChecker" == _strScriptName)
@@ -70,6 +74,9 @@ GScript * GScriptManager::GetScript(UINT _iScriptType)
 	case (UINT)SCRIPT_TYPE::CAMERAMOVE:
 		return new GCameraMove;
 		break;
+	case (UINT)SCRIPT_TYPE::CEILINGCHECKER:
+		return new GCeilingChecker;
+		break;
 	case (UINT)SCRIPT_TYPE::FSM:
 		return new GFSM;
 		break;
@@ -81,7 +88,7 @@ GScript * GScriptManager::GetScript(UINT _iScriptType)
 		break;
 	//case (UINT)SCRIPT_TYPE::OBJECTBASIC:
 		//return new GObjectBasic;
-		break;
+		//break;
 	case (UINT)SCRIPT_TYPE::PLATFORM:
 		return new GPlatform;
 		break;
@@ -118,6 +125,10 @@ const wchar_t * GScriptManager::GetScriptName(GScript * _pScript)
 		return L"GCameraMove";
 		break;
 
+	case SCRIPT_TYPE::CEILINGCHECKER:
+		return L"GCeilingChecker";
+		break;
+
 	case SCRIPT_TYPE::FSM:
 		return L"GFSM";
 		break;
@@ -130,9 +141,9 @@ const wchar_t * GScriptManager::GetScriptName(GScript * _pScript)
 		return L"GMonster";
 		break;
 
-	//case SCRIPT_TYPE::OBJECTBASIC:
-		//return L"GObjectBasic";
-		//break;
+	case SCRIPT_TYPE::OBJECTBASIC:
+		return L"GObjectBasic";
+		break;
 
 	case SCRIPT_TYPE::PLATFORM:
 		return L"GPlatform";

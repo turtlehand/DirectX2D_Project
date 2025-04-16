@@ -3,8 +3,6 @@
 
 #include <Engine/components.h>
 
-#include "GPlayer.h"
-
 GGroundChecker::GGroundChecker()
 	:GScript(GROUNDCHECKER)
 	, m_Owner(nullptr)
@@ -27,8 +25,6 @@ void GGroundChecker::Begin()
 		if (m_Owner != nullptr)
 			return;
 	}
-
-	
 }
 
 void GGroundChecker::Update()
@@ -45,6 +41,8 @@ void GGroundChecker::OnTriggerEnter(GCollider2D* _Other)
 	return;
 
 	++m_Owner->m_IsGround;
+
+	m_Owner->GroundEnter();
 
 	Vector3 OtherPos = _Other->Transform()->GetWorldPos();
 	Vector3 OtherScale = _Other->Transform()->GetWorldScale();
@@ -65,14 +63,6 @@ void GGroundChecker::OnTriggerExit(GCollider2D* _Other)
 		return;
 
 	--m_Owner->m_IsGround;
-}
-
-void GGroundChecker::SaveToFile(FILE* _File)
-{
-}
-
-void GGroundChecker::LoadFromFile(FILE* _File)
-{
 }
 
 

@@ -37,16 +37,26 @@ void GPlayerFallState::Enter()
 {
 	m_Player->m_PlayerState = PLAYER_STATE::FALL;
 
-	if (!m_Player->FlipbookRender())
-		return;
-
-	m_Player->FlipbookRender()->Play((int)m_Player->m_PlayerState);
-
 	m_PlayerRigid->SetGravity(m_Player->m_GravityScale);
 }
 
 void GPlayerFallState::Tick()
 {
+	if (m_Player->FlipbookRender()->GetCurIndex() != (int)PLAYER_STATE::FALL)
+	{
+		if (m_PlayerRigid->GetVelocity().y < 0)
+			m_Player->FlipbookRender()->Play((int)PLAYER_STATE::FALL);
+	}
+
+	if (m_Player->m_KeyInput.Interaction)
+	{
+		if (m_Player->Interaction())
+		{
+			m_Player->GetFSM()->ChanageState(L"UseItem");
+			return;
+		}
+	}
+
 	if (m_Player->m_IsGround)
 	{
 		m_Player->GetFSM()->ChanageState(L"Default");

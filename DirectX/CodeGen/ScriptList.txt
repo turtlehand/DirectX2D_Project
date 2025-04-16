@@ -1,4 +1,5 @@
 GCameraMove
+GCeilingChecker
 GFSM
 GGroundChecker
 GMonster

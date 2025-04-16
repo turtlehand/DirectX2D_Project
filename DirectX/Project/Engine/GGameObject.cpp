@@ -66,6 +66,26 @@ void GGameObject::AddChild(GGameObject* _Child)
 	_Child->m_Parent = this;
 }
 
+void GGameObject::SetChild(GGameObject* _Child)
+{
+	assert(_Child);
+
+	tTask task = {};
+	task.Type = TASK_TYPE::ADD_CHILD;
+	task.Param0 = (DWORD_PTR)this;
+	task.Param1 = (DWORD_PTR)_Child;
+	GTaskManager::GetInst()->AddTask(task);
+}
+
+void GGameObject::SetParent(GGameObject* _Parent)
+{
+	tTask task = {};
+	task.Type = TASK_TYPE::ADD_CHILD;
+	task.Param0 = (DWORD_PTR)_Parent;
+	task.Param1 = (DWORD_PTR)this;
+	GTaskManager::GetInst()->AddTask(task);
+}
+
 bool GGameObject::IsAncestor(GGameObject* _Object)
 {
 	GGameObject* pAncestor = GetParent();

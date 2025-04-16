@@ -36,14 +36,31 @@ void GPlayerJumpState::Enter()
 		Vector2(m_Player->m_KeyInput.HorizontalMove * m_Player->m_MoveInitForce
 				, m_Player->m_JumpPower));
 
+	m_PlayerRigid->SetGravity(m_Player->m_GravityScale);
+
 	m_Player->m_JumpTimer = 0.f;
 }
 
 void GPlayerJumpState::Tick()
 {
+	if (m_Player->m_KeyInput.Interaction)
+	{
+		if (m_Player->Interaction())
+		{
+			m_Player->GetFSM()->ChanageState(L"UseItem");
+			return;
+		}
+	}
+
+	if (m_Player->m_IsCeiling > 0)
+	{
+		m_Player->GetFSM()->ChanageState(L"Fall");
+		return;
+	}
 
 	if (!m_Player->m_KeyInput.Jump) 
 	{
+		// 최소 시간은 점프한다.
 		if (m_Player->m_JumpTimer >= m_Player->m_JumpTimeMin)
 		{
 			m_Player->GetFSM()->ChanageState(L"Fall");
@@ -52,6 +69,7 @@ void GPlayerJumpState::Tick()
 	}
 	else
 	{
+		// 최대 시간을 점프하였다.
 		if (m_Player->m_JumpTimer > m_Player->m_JumpTimeLimit)
 		{
 			m_Player->GetFSM()->ChanageState(L"Fall");
@@ -92,7 +110,7 @@ void GPlayerJumpState::Tick()
 
 void GPlayerJumpState::Exit()
 {
-	m_PlayerRigid->SetVelocity(Vector2(m_PlayerRigid->GetVelocity().x, 0.f));
+	
 }
 
 void GPlayerJumpState::ChangeState()

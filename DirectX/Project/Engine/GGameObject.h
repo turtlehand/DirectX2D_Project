@@ -22,6 +22,8 @@ private:
 
 public:
 	void AddChild(GGameObject* _Child);
+	void SetChild(GGameObject* _Child);
+	void SetParent(GGameObject* _Parent);
 	const vector<GGameObject*>& GetChild() { return m_vecChild; }
 	GGameObject* GetParent() { return m_Parent; }
 	bool IsAncestor(GGameObject* _Object);

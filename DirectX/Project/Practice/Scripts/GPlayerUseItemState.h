@@ -3,6 +3,7 @@
 
 class GPlayer;
 class GRigidBody2D;
+class GGameObject;
 
 class GPlayerUseItemState :
     public GScript, public GState
@@ -29,7 +30,12 @@ public:
 private:
     void ChangeState();
 
-    void Hook();
+    void Enter_Hug();
+    void Tick_Hug();
+    void Exit_Hug();
+
+
+    void Tick_Hook();
 
 public:
     CLONE(GPlayerUseItemState)

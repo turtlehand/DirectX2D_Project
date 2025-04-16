@@ -3,7 +3,7 @@
 
 GPlatform::GPlatform()
 	:GScript(PLATFORM)
-	,m_PlatformType(PLATFORM_TYPE::WOOD)
+	,m_PlatformType(PLATFORM_TYPE::DEFAULT)
 {
 }
 

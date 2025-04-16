@@ -29,17 +29,26 @@ GPlayer::GPlayer()
 	, m_MoveInitForce(100.f)
 	, m_MoveMaxSpeed(20.f)
 
-	, m_HookInitForce(30.f)
-	, m_HookMaxSpeed(30.f)
-
 	, m_GravityScale(100)
 
-	, m_JumpMaxSpeed(20.f)
-	, m_JumpTimeLimit(1.f)
+	, m_JumpMaxSpeed(30.f)
+	, m_JumpTimeLimit(0.6f)
 	, m_JumpTimeMin(0.2f)
 	, m_JumpTimer(0.0f)
 	, m_JumpPower(400.f)
 
+	, m_PlayerItems{ false }	// 현재 가지고 있는 아이템
+	, m_PlayerUseItem(PLAYER_ITEM::END)				// 현재 사용중인 아이템 END라면 사용 중 X
+
+	, m_ItemTimer(0.f)
+
+	, m_Sword(nullptr)
+	, m_SwordPrefab(nullptr)
+	, m_SwordPos()
+	, m_SwordTime(0.5f)
+
+	, m_HookInitForce(30.f)
+	, m_HookMaxSpeed(30.f)
 {
 
 }
@@ -60,6 +69,11 @@ void GPlayer::Init()
 	ADD_BOOL("HOOK", &m_PlayerItems[(INT)PLAYER_ITEM::HOOK]);
 	ADD_FLOAT("HookInitForce", &m_HookInitForce);
 	ADD_FLOAT("HookMaxSpeed", &m_HookMaxSpeed);
+
+	ADD_BOOL("Sword", &m_PlayerItems[(INT)PLAYER_ITEM::SWORD]);
+	ADD_PREFAB("SwordPrefab", &m_SwordPrefab);
+	ADD_VECTOR3("SwrodPos", &m_SwordPos)
+	ADD_FLOAT("SwrodTime", &m_SwordTime);
 }
 
 void GPlayer::Begin()
@@ -78,6 +92,7 @@ void GPlayer::Begin()
 void GPlayer::Update()
 {
 	KeyInput();
+	UseItem();
 }
 
 void GPlayer::OnTriggerEnter(GCollider2D* _Other)
@@ -125,9 +140,16 @@ void GPlayer::SetMoveDirection(int _Direction)
 	Transform()->SetRelativeScale(DefaultScale);
 }
 
+void GPlayer::CeilingEnter()
+{
+	// 천장에 닿았을 때 만약 속도가 양수라면 0으로 바꾼다.
+	if(RigidBody2D()->GetVelocityY() > 0)
+		RigidBody2D()->SetVelocityY(0);
+	
+}
+
 void GPlayer::KeyInput()
 {
-
 	m_KeyInput = tKeyInput();
 
 	// 키입력에 따라서 사각형이 움직이도록 한다.
@@ -139,6 +161,21 @@ void GPlayer::KeyInput()
 	m_KeyInput.Jump = KEY_PRESSED(KEY::Z);
 	m_KeyInput.Interaction = KEY_DOWN(KEY::X);
 
+}
+
+// 검과 폭탄같이 다른 행동이 계속 가능한 대상은 Player에서 처리한다.
+void GPlayer::UseItem()
+{
+	if (m_PlayerUseItem == PLAYER_ITEM::SWORD)
+	{
+		// 시간을 완료시 삭제
+		if (m_ItemTimer > m_SwordTime)
+		{
+			m_PlayerUseItem = PLAYER_ITEM::END;
+			m_Sword->Destroy();
+		}
+		m_ItemTimer += DT;
+	}
 }
 
 // 상호작용을 할만한 대상이 있는지 확인하고
@@ -157,7 +194,6 @@ bool GPlayer::Interaction()
 	// ItemCheck
 	if (ItemCheck())
 	{
-		m_FSM->ChanageState(L"UseItem");
 		return true;
 	}
 	return false;
@@ -173,12 +209,33 @@ bool GPlayer::BoxCheck()
 // 아이템을 쓸만한 상황인지 확인한다.
 // 쓸만한 상황이라면 m_PlayerUseItem = true가 되며
 // ItemCheck는 True를 반환한다.
+
+// 검과 폭탄을 제외한 아이템들은 상태로 넘어간다.
 bool GPlayer::ItemCheck()
 {
+	if (m_PlayerUseItem != PLAYER_ITEM::END)
+		return false;
+
 	if (Hook())
 	{
 		m_PlayerUseItem = PLAYER_ITEM::HOOK;
 		return true;
+	}
+	else if (Sword())
+	{
+		m_PlayerUseItem = PLAYER_ITEM::SWORD;
+
+		// 검 생성
+		m_Sword = m_SwordPrefab->Instantiate();
+		m_ItemTimer = 0;
+
+		SpawnGameObject(m_Sword);
+		GameObject()->SetChild(m_Sword);
+	}
+	else if (Bomb())
+	{
+		m_PlayerUseItem = PLAYER_ITEM::BOMB;
+		m_ItemTimer = 0;
 	}
 
 	return false;
@@ -191,7 +248,6 @@ bool GPlayer::Hook()
 		return false;
 
 	// 플레이어 바로 위쪽에 나무가 있다면 true를 반환
-	
 	vector<GGameObject*> vecPlatform = GLevelManager::GetInst()->GetCurrentLevel()->GetLayer((int)LAYER_TYPE::PLATFORM)->GetObjects();
 
 	GPlatform* AbovePF = nullptr;
@@ -239,15 +295,20 @@ bool GPlayer::Bomb()
 	// 근처에 바위나 금간
 }
 
-bool GPlayer::LandCheck()
+bool GPlayer::Hug()
 {
+	// 해당 아이템을 갖고 있지 않다면 false를 반환
+	if (!m_PlayerItems[(int)PLAYER_ITEM::HUG])
+		return false;
 
-
-
-	return false;
+	return true;
 }
 
-bool GPlayer::FallCheck()
+bool GPlayer::Sword()
 {
-	return false;
+	// 해당 아이템을 갖고 있지 않다면 false를 반환
+	if (!m_PlayerItems[(int)PLAYER_ITEM::SWORD])
+		return false;
+
+	return true;
 }
