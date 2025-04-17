@@ -37,15 +37,15 @@ void GPlayerFallState::Enter()
 {
 	m_Player->m_PlayerState = PLAYER_STATE::FALL;
 
-	m_PlayerRigid->SetGravity(m_Player->m_GravityScale);
+	//m_PlayerRigid->SetGravity(m_Player->m_GravityScale);
 }
 
 void GPlayerFallState::Tick()
 {
-	if (m_Player->FlipbookRender()->GetCurIndex() != (int)PLAYER_STATE::FALL)
+	if (m_Player->FlipbookRender()->GetCurIndex() != (int)PLAYER_FLIPBOOK::FALL)
 	{
 		if (m_PlayerRigid->GetVelocity().y < 0)
-			m_Player->FlipbookRender()->Play((int)PLAYER_STATE::FALL);
+			m_Player->FlipbookRender()->Play((int)PLAYER_FLIPBOOK::FALL);
 	}
 
 	if (m_Player->m_KeyInput.Interaction)
@@ -90,8 +90,8 @@ void GPlayerFallState::Tick()
 
 void GPlayerFallState::Exit()
 {
-	m_PlayerRigid->SetVelocity(Vector2(m_PlayerRigid->GetVelocity().x, 0.f));
-	m_PlayerRigid->SetGravity(0);
+	//m_PlayerRigid->SetVelocity(Vector2(m_PlayerRigid->GetVelocity().x, 0.f));
+	//m_PlayerRigid->SetGravity(0);
 }
 
 void GPlayerFallState::OnTriggerEnter(GCollider2D* _Other)

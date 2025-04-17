@@ -63,4 +63,6 @@ void GCeilingChecker::OnTriggerExit(GCollider2D* _Other)
 		return;
 
 	--m_Owner->m_IsCeiling;
+
+	m_Owner->CeilingExit();
 }

@@ -34,7 +34,7 @@ void GPlayerDefaultState::Enter()
 	if (!m_Player->FlipbookRender())
 		return;
 
-	m_Player->FlipbookRender()->Play((int)m_Player->m_PlayerState);
+	m_Player->FlipbookRender()->Play((int)PLAYER_FLIPBOOK::DEFAULT);
 }
 
 void GPlayerDefaultState::Tick()

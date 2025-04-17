@@ -7,6 +7,7 @@ private:
 	Vector2 m_Velocity;
 	float m_Mass;
 	float m_Gravity;
+	float m_TerminalSpeed;		// 종단 속도
 	Vector2 m_Force;
 	float m_Friction;
 
@@ -30,6 +31,9 @@ public:
 
 	void SetGravity(float _Gravity) { m_Gravity = _Gravity; }
 	float GetGravity() { return m_Gravity; }
+
+	void SetTerminalSpeed(float _TerminalSpeed) { m_TerminalSpeed = _TerminalSpeed; }
+	float GetTerminalSpeed() { return m_TerminalSpeed; }
 
 	void AddForce(Vector2 _Force) {	m_Force += _Force; }
 

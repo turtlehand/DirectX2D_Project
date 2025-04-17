@@ -12,6 +12,7 @@ GRigidBody2D::GRigidBody2D()
 	m_Velocity(),
 	m_Mass(1),
 	m_Gravity(0),
+	m_TerminalSpeed(FLT_MAX),
 	m_Force()
 {
 
@@ -29,8 +30,9 @@ void GRigidBody2D::FinalUpdate()
 	Vector2 vAccel = m_Force / m_Mass;
 
 	CalFriction();
-	
-	vAccel.y -= m_Gravity * DT;
+
+	// ÇöÀç 
+	vAccel.y += m_Velocity.y < -m_TerminalSpeed ? m_Gravity * DT : -m_Gravity * DT;
 
 	m_Velocity += vAccel;
 	
@@ -74,6 +76,7 @@ void GRigidBody2D::SaveToFile(FILE* _File)
 	fwrite(&m_Velocity, sizeof(Vector2), 1, _File);
 	fwrite(&m_Mass, sizeof(float), 1, _File);
 	fwrite(&m_Gravity, sizeof(float), 1, _File);
+	fwrite(&m_TerminalSpeed, sizeof(float), 1, _File);
 	fwrite(&m_Force, sizeof(Vector2), 1, _File);
 	fwrite(&m_Friction, sizeof(float), 1, _File);
 }
@@ -83,6 +86,7 @@ void GRigidBody2D::LoadFromFile(FILE* _File)
 	fread(&m_Velocity, sizeof(Vector2), 1, _File);
 	fread(&m_Mass, sizeof(float), 1, _File);
 	fread(&m_Gravity, sizeof(float), 1, _File);
+	fread(&m_TerminalSpeed, sizeof(float), 1, _File);
 	fread(&m_Force, sizeof(Vector2), 1, _File);
 	fread(&m_Friction, sizeof(float), 1, _File);
 }

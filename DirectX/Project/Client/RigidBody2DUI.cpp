@@ -49,6 +49,15 @@ void RigidBody2DUI::Render_UI()
 	}
 	AddItemHeight();
 
+	ImGui::Text("TerminalSpeed");
+	ImGui::SameLine(GetTab());
+	float fTerminalSpeed = pRigid->GetTerminalSpeed();
+	if (ImGui::DragFloat("##TerminalSpeed", &fTerminalSpeed))
+	{
+		pRigid->SetTerminalSpeed(fTerminalSpeed);
+	}
+	AddItemHeight();
+
 	ImGui::Text("Friction");
 	ImGui::SameLine(GetTab());
 	float fFriction = pRigid->GetFriction();

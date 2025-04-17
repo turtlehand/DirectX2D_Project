@@ -29,8 +29,6 @@ GPlayer::GPlayer()
 	, m_MoveInitForce(100.f)
 	, m_MoveMaxSpeed(20.f)
 
-	, m_GravityScale(100)
-
 	, m_JumpMaxSpeed(30.f)
 	, m_JumpTimeLimit(0.6f)
 	, m_JumpTimeMin(0.2f)
@@ -45,7 +43,10 @@ GPlayer::GPlayer()
 	, m_Sword(nullptr)
 	, m_SwordPrefab(nullptr)
 	, m_SwordPos()
-	, m_SwordTime(0.5f)
+	, m_SwordTime(0.3f)
+
+	, m_HugDetectScale(Vector2(10,10))
+	, m_HugTime(0.5f)
 
 	, m_HookInitForce(30.f)
 	, m_HookMaxSpeed(30.f)
@@ -70,10 +71,14 @@ void GPlayer::Init()
 	ADD_FLOAT("HookInitForce", &m_HookInitForce);
 	ADD_FLOAT("HookMaxSpeed", &m_HookMaxSpeed);
 
-	ADD_BOOL("Sword", &m_PlayerItems[(INT)PLAYER_ITEM::SWORD]);
+	ADD_BOOL("SWORD", &m_PlayerItems[(INT)PLAYER_ITEM::SWORD]);
 	ADD_PREFAB("SwordPrefab", &m_SwordPrefab);
 	ADD_VECTOR3("SwrodPos", &m_SwordPos)
 	ADD_FLOAT("SwrodTime", &m_SwordTime);
+
+	ADD_BOOL("HUG", &m_PlayerItems[(INT)PLAYER_ITEM::HUG]);
+	ADD_VECTOR2("HugDetectScale", &m_HugDetectScale);
+	ADD_FLOAT("HugTime", &m_HugTime);
 }
 
 void GPlayer::Begin()
@@ -221,6 +226,16 @@ bool GPlayer::ItemCheck()
 		m_PlayerUseItem = PLAYER_ITEM::HOOK;
 		return true;
 	}
+	else if (Hug())
+	{
+		m_PlayerUseItem = PLAYER_ITEM::HUG;
+		return true;
+	}
+	else if (Bomb())
+	{
+		m_PlayerUseItem = PLAYER_ITEM::BOMB;
+		m_ItemTimer = 0;
+	}
 	else if (Sword())
 	{
 		m_PlayerUseItem = PLAYER_ITEM::SWORD;
@@ -232,11 +247,7 @@ bool GPlayer::ItemCheck()
 		SpawnGameObject(m_Sword);
 		GameObject()->SetChild(m_Sword);
 	}
-	else if (Bomb())
-	{
-		m_PlayerUseItem = PLAYER_ITEM::BOMB;
-		m_ItemTimer = 0;
-	}
+
 
 	return false;
 }

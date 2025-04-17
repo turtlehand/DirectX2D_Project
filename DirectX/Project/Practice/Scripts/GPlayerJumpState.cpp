@@ -29,7 +29,7 @@ void GPlayerJumpState::Enter()
 	if (!m_Player->FlipbookRender())
 		return;
 
-	m_Player->FlipbookRender()->Play((int)m_Player->m_PlayerState);
+	m_Player->FlipbookRender()->Play((int)PLAYER_FLIPBOOK::JUMP);
 
 	m_Player->SetMoveDirection(m_Player->m_KeyInput.HorizontalMove);
 	m_Player->RigidBody2D()->AddForce(

@@ -12,6 +12,8 @@ private:
     GPlayer* m_Player;
     GRigidBody2D* m_PlayerRigid;
 
+    bool m_IsHugSucess;
+
 public:
     virtual void Update() {};
 

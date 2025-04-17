@@ -10,10 +10,13 @@ protected:
     int m_IsLeftWall;
     int m_IsCeiling;
 
-public:
-    virtual void GroundEnter() {}
-    virtual void CeilingEnter() {}
+    float			m_GravityScale;
 
+public:
+    virtual void GroundEnter();
+    virtual void GroundExit();
+    virtual void CeilingEnter();
+    virtual void CeilingExit();
 public:
     GObjectBasic(SCRIPT_TYPE _Type);
     ~GObjectBasic();

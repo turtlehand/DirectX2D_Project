@@ -30,7 +30,7 @@ void GPlayerWalkState::Enter()
 	if (!m_Player->FlipbookRender())
 		return;
 
-	m_Player->FlipbookRender()->Play((int)m_Player->m_PlayerState);
+	m_Player->FlipbookRender()->Play((int)PLAYER_FLIPBOOK::WALK);
 
 	m_Player->SetMoveDirection(m_Player->m_KeyInput.HorizontalMove);
 	m_Player->RigidBody2D()->AddForce(Vector2(m_Player->m_KeyInput.HorizontalMove, 0) * m_Player->m_MoveInitForce);

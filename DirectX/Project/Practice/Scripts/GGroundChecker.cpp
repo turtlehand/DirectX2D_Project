@@ -63,6 +63,8 @@ void GGroundChecker::OnTriggerExit(GCollider2D* _Other)
 		return;
 
 	--m_Owner->m_IsGround;
+
+	m_Owner->GroundExit();
 }
 
 

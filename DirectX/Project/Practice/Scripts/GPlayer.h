@@ -1,5 +1,6 @@
 #pragma once
 #include "GObjectBasic.h"
+#include <Engine/GTransform.h>
 #include <Engine/GPrefab.h>
 
 enum class PLAYER_STATE
@@ -8,12 +9,26 @@ enum class PLAYER_STATE
 	WALK,
 	JUMP,
 	FALL,
-	SWIM,
+	//SWIM,
 	USEITEM,
 	GETITEM,
 	OPENBOX,
 	FLINCH,
 	ENDING,
+	END
+};
+
+enum class PLAYER_FLIPBOOK
+{
+	DEFAULT,
+	WALK,
+	JUMP,
+	FALL,
+	HUG,
+	HUG_READY,
+	GETITEM,
+	OPENBOX,
+	FLINCH,
 	END
 };
 
@@ -49,7 +64,6 @@ private:
 	float           m_MoveInitForce;
 	float           m_MoveMaxSpeed;
 
-	float			m_GravityScale;
 
 	float			m_JumpTimeLimit;
 	float			m_JumpTimeMin;
@@ -68,6 +82,9 @@ private:
 	Ptr<GPrefab>	m_SwordPrefab;
 	Vector3			m_SwordPos;
 	float			m_SwordTime;
+
+	Vector2			m_HugDetectScale;
+	float			m_HugTime;
 
 	float			m_HookInitForce;
 	float			m_HookMaxSpeed;
