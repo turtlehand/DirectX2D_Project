@@ -7,6 +7,7 @@ enum class SCRIPT_PARAM
 {
     BOOL,
     INT,
+    ENUM,
     FLOAT,
     VEC2,
     VEC3,
@@ -33,7 +34,7 @@ private:
     vector<tScriptParam> m_vecScriptParam;
 
 public:
-    int GetScriptType() { return m_ScriptType; }
+    int GetScriptType() const { return m_ScriptType; }
     void AddScriptParam(SCRIPT_PARAM _Type, const string& _Desc, void* _Data
         , DWORD_PTR _Param0 = 0, DWORD_PTR _Param1 = 0, DWORD_PTR _Param2 = 0)
     {

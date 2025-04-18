@@ -26,38 +26,95 @@
 
 GPlayer::GPlayer()
 	: GObjectBasic(PLAYER)
+	, m_KeyInput()
 	, m_FSM(nullptr)
+
+	, m_PlayerState(PLAYER_STATE::DEFAULT)
+
 	, m_MoveInitForce(100.f)
 	, m_MoveMaxSpeed(20.f)
 
-	, m_JumpMaxSpeed(30.f)
 	, m_JumpTimeLimit(0.6f)
 	, m_JumpTimeMin(0.2f)
 	, m_JumpTimer(0.0f)
 	, m_JumpPower(400.f)
+	, m_JumpMaxSpeed(30.f)
 
 	, m_PlayerItems{ false }	// 현재 가지고 있는 아이템
 	, m_PlayerUseItem(PLAYER_ITEM::END)				// 현재 사용중인 아이템 END라면 사용 중 X
 
 	, m_ItemTimer(0.f)
 
+	, m_HookInitForce(30.f)
+	, m_HookMaxSpeed(30.f)
+
+	, m_Bomb(nullptr)
+	, m_BombPrefab(nullptr)
+	, m_BombDetectScale()
+	, m_BombTime(0.1f)
+
+	, m_Shovel(nullptr)
+	, m_ShovelPrefab(nullptr)
+	, m_DestroyPlatform(nullptr)
+	, m_ShovelTime(0.5f)
+
+	, m_HugDetectScale(Vector2(20,10))
+	, m_HugTime(0.5f)
+
 	, m_Sword(nullptr)
 	, m_SwordPrefab(nullptr)
 	, m_SwordPos()
 	, m_SwordTime(0.3f)
-
-	, m_HugDetectScale(Vector2(10,10))
-	, m_HugTime(0.5f)
-
-	, m_HookInitForce(30.f)
-	, m_HookMaxSpeed(30.f)
-
-	,m_Shovel(nullptr)
-	,m_ShovelPrefab(nullptr)
-	,m_DestroyPlatform(nullptr)
-	,m_ShovelTime(0.5f)
 {
 
+}
+
+GPlayer::GPlayer(const GPlayer& _Origin)
+	: GObjectBasic(PLAYER)
+	, m_KeyInput()
+	, m_FSM(nullptr)
+
+	, m_PlayerState(PLAYER_STATE::DEFAULT)
+
+	, m_MoveInitForce(_Origin.m_MoveInitForce)
+	, m_MoveMaxSpeed(_Origin.m_MoveMaxSpeed)
+
+	, m_JumpTimeLimit(_Origin.m_JumpTimeLimit)
+	, m_JumpTimeMin(_Origin.m_JumpTimeMin)
+	, m_JumpTimer(0.0f)
+	, m_JumpPower(_Origin.m_JumpPower)
+	, m_JumpMaxSpeed(_Origin.m_JumpMaxSpeed)
+
+	, m_PlayerItems{false}	// 현재 가지고 있는 아이템
+	, m_PlayerUseItem(PLAYER_ITEM::END)				// 현재 사용중인 아이템 END라면 사용 중 X
+
+	, m_ItemTimer(0.f)
+
+	, m_HookInitForce(_Origin.m_HookInitForce)
+	, m_HookMaxSpeed(_Origin.m_HookMaxSpeed)
+
+	, m_Bomb(nullptr)
+	, m_BombPrefab(_Origin.m_BombPrefab)
+	, m_BombDetectScale(_Origin.m_BombDetectScale)
+	, m_BombTime(_Origin.m_BombTime)
+
+	, m_Shovel(nullptr)
+	, m_ShovelPrefab(_Origin.m_ShovelPrefab)
+	, m_DestroyPlatform(nullptr)
+	, m_ShovelTime(_Origin.m_ShovelTime)
+
+	, m_HugDetectScale(_Origin.m_HugDetectScale)
+	, m_HugTime(_Origin.m_HugTime)
+
+	, m_Sword(nullptr)
+	, m_SwordPrefab(_Origin.m_SwordPrefab)
+	, m_SwordPos(_Origin.m_SwordPos)
+	, m_SwordTime(_Origin.m_SwordTime)
+{
+	for (int i = 0; i <(int) PLAYER_ITEM::END; ++i)
+	{
+		m_PlayerItems[i] = _Origin.m_PlayerItems[i];
+	}
 }
 
 GPlayer::~GPlayer()
@@ -106,6 +163,7 @@ void GPlayer::Begin()
 	m_FSM->ChanageState(L"Default");
 
 	m_SwordPrefab = GAssetManager::GetInst()->FindAsset<GPrefab>(L"Prefab\\Sword.prefab");
+	m_ShovelPrefab = GAssetManager::GetInst()->FindAsset<GPrefab>(L"Prefab\\Shovel.prefab");
 }
 
 void GPlayer::Update()
@@ -158,16 +216,6 @@ void GPlayer::LoadFromFile(FILE* _File)
 {
 
 }
-
-void GPlayer::SetMoveDirection(int _Direction)
-{
-	if (_Direction == 0)
-		return;
-	Vector3 DefaultScale = Transform()->GetRelativeScale();
-	DefaultScale.x = _Direction * fabs(DefaultScale.x);
-	Transform()->SetRelativeScale(DefaultScale);
-}
-
 void GPlayer::KeyInput()
 {
 	m_KeyInput = tKeyInput();

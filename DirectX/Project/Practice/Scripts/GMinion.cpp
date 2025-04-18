@@ -68,11 +68,10 @@ void GMinion::OnTriggerEnter(GCollider2D* _Other)
 	}
 }
 
-void GMinion::SetMoveDirection(int _Direction)
+void GMinion::SaveToFile(FILE* _File)
 {
-	if (_Direction == 0)
-		return;
-	Vector3 DefaultScale = Transform()->GetRelativeScale();
-	DefaultScale.x = _Direction * fabs(DefaultScale.x);
-	Transform()->SetRelativeScale(DefaultScale);
+}
+
+void GMinion::LoadFromFile(FILE* _File)
+{
 }

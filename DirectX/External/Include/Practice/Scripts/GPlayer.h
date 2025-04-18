@@ -41,27 +41,14 @@ struct tKeyInput
 	bool Interaction;
 };
 
-enum class PLAYER_ITEM
-{
-	HOOK,
-	BOMB,
-	SHOVEL,
-	HUG,
-	//SHOT_GUN,
-	SWORD,
-	//SHIELD,
-	CHICKEN,
-	END
-};
-
-
-
 class GPlayer :
 	public GObjectBasic
 {
 private:
 	tKeyInput       m_KeyInput;
 	GFSM*           m_FSM;
+
+	PLAYER_STATE    m_PlayerState;							// 현재 상태
 
 	float           m_MoveInitForce;
 	float           m_MoveMaxSpeed;
@@ -72,7 +59,7 @@ private:
 	float			m_JumpPower;
 	float			m_JumpMaxSpeed;
 
-	PLAYER_STATE    m_PlayerState;							// 현재 상태
+
 
 	bool            m_PlayerItems[(UINT)PLAYER_ITEM::END];	// 현재 가지고 있는 아이템
 	PLAYER_ITEM		m_PlayerUseItem;						// 현재 사용중인 아이템 END라면 사용 중 X
@@ -119,7 +106,6 @@ public:
 public:
 	// 해당 방향을 바라보게 한다.
 	int GetDirection() { return 0 < Transform()->GetRelativeScale().x ? 1 : -1; }
-	void SetMoveDirection(int _Direction);
 
 private:
 	void KeyInput();
@@ -144,6 +130,7 @@ public:
 	CLONE(GPlayer);
 public:
 	GPlayer();
+	GPlayer(const GPlayer& _Origin);
 	~GPlayer();
 
 	friend class GPlayerDefaultState;

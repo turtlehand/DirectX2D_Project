@@ -2,8 +2,9 @@ GCameraMove
 GCeilingChecker
 GFSM
 GGroundChecker
+GItem
+GLord
 GMinion
-GObjectBasic
 GPlatform
 GPlayer
 GPlayerDefaultState
@@ -11,3 +12,4 @@ GPlayerFallState
 GPlayerJumpState
 GPlayerUseItemState
 GPlayerWalkState
+GPrincess

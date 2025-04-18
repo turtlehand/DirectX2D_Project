@@ -76,6 +76,38 @@ void ScriptUI::Render_UI()
 			AddItemHeight();
 		}
 		break;
+		case SCRIPT_PARAM::ENUM:
+		{
+			ImGui::Text(ScriptParam[i].Desc.c_str());
+			ImGui::SameLine(GetTab());
+
+			int* Index = (int*)ScriptParam[i].pData;
+			vector<string>* m_vecString = (vector<string>*)ScriptParam[i].Param0;
+
+			// Combo 박스
+			if (ImGui::BeginCombo(szID, (*m_vecString)[(*Index)].c_str()))
+			{
+				for (int i = 0; i < (*m_vecString).size(); ++i)
+				{
+					// 인덱스의 플립북 키값
+					string enumName = (*m_vecString)[i] + "##" + to_string(i);
+
+					// 현재 선택된 플립북 인덱스가 플립북과 같다면
+					bool is_selected = ((*Index) == i);
+
+					// 플립북을 선택하였다면 그 플립북 재생
+					// string을 사용하기 위해 Selectable을 사용
+					if (ImGui::Selectable(enumName.c_str(), is_selected))
+						(*Index) = i;
+
+					if (is_selected)
+						ImGui::SetItemDefaultFocus();
+				}
+				ImGui::EndCombo();
+			}
+			AddItemHeight();
+		}
+		break;
 		case SCRIPT_PARAM::FLOAT:
 		{
 			ImGui::Text(ScriptParam[i].Desc.c_str());

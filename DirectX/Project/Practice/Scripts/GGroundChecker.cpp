@@ -24,6 +24,7 @@ void GGroundChecker::Begin()
 		m_Owner = ParentObject->GetComponent<GObjectBasic>();
 		if (m_Owner != nullptr)
 			return;
+		assert(m_Owner);
 	}
 }
 

@@ -70,6 +70,15 @@
     <Filter Include="02. Scripts\Object\1. Player\1. State\6. Flinch">
       <UniqueIdentifier>{ae16c862-f302-40cb-8af8-5fd548f2742e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. Scripts\Object\2. Monster\Lord">
+      <UniqueIdentifier>{cf4930b2-4fb6-454a-b25a-53a9fcf00a69}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Scripts\Object\1. Player\1. State\7. GetItem">
+      <UniqueIdentifier>{84961a92-570e-4da8-adad-b39c8e28a3bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Scripts\Item">
+      <UniqueIdentifier>{7d5ff709-cd2b-47c8-8b7b-d587f17d3f1a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -123,9 +132,6 @@
     <ClInclude Include="Scripts\GCeilingChecker.h">
       <Filter>02. Scripts\4. Platform</Filter>
     </ClInclude>
-    <ClInclude Include="Scripts\GObjectBasic.h">
-      <Filter>02. Scripts\Object</Filter>
-    </ClInclude>
     <ClInclude Include="Scripts\GMinion.h">
       <Filter>02. Scripts\Object\2. Monster\Minion</Filter>
     </ClInclude>
@@ -140,6 +146,18 @@
     </ClInclude>
     <ClInclude Include="GMinionDeadState.h">
       <Filter>02. Scripts\Object\2. Monster\Minion\State\3. Dead</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\GLord.h">
+      <Filter>02. Scripts\Object\2. Monster\Lord</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\GPrincess.h">
+      <Filter>02. Scripts\Object\3. NPC</Filter>
+    </ClInclude>
+    <ClInclude Include="GObjectBasic.h">
+      <Filter>02. Scripts\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\GItem.h">
+      <Filter>02. Scripts\Item</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -185,9 +203,6 @@
     <ClCompile Include="Scripts\GCeilingChecker.cpp">
       <Filter>02. Scripts\4. Platform</Filter>
     </ClCompile>
-    <ClCompile Include="Scripts\GObjectBasic.cpp">
-      <Filter>02. Scripts\Object</Filter>
-    </ClCompile>
     <ClCompile Include="Scripts\GMinion.cpp">
       <Filter>02. Scripts\Object\2. Monster\Minion</Filter>
     </ClCompile>
@@ -202,6 +217,18 @@
     </ClCompile>
     <ClCompile Include="GMinionDeadState.cpp">
       <Filter>02. Scripts\Object\2. Monster\Minion\State\3. Dead</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\GLord.cpp">
+      <Filter>02. Scripts\Object\2. Monster\Lord</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\GPrincess.cpp">
+      <Filter>02. Scripts\Object\3. NPC</Filter>
+    </ClCompile>
+    <ClCompile Include="GObjectBasic.cpp">
+      <Filter>02. Scripts\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\GItem.cpp">
+      <Filter>02. Scripts\Item</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

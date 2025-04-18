@@ -2,6 +2,7 @@
 #include "GPlayerUseItemState.h"
 
 #include <Engine/GTimeManager.h>
+#include <Engine/GRenderManager.h>
 
 #include <Engine/GLevelManager.h>
 #include <Engine/GLevel.h>
@@ -89,8 +90,11 @@ void GPlayerUseItemState::ChangeState()
 void GPlayerUseItemState::Enter_Hug()
 {
 	// 앞에 오브젝트가 있는지 확인한다.
-	LAYER_TYPE Type[2] = { LAYER_TYPE::MONSTER, LAYER_TYPE::NPC };
+	LAYER_TYPE Type[3] = { LAYER_TYPE::MONSTER, LAYER_TYPE::NPC, LAYER_TYPE::ETC_OBJCET };
 	GObjectBasic* FrontOB = nullptr;
+	Vector3 ThisPos = m_Player->Transform()->GetWorldPos();
+
+	//DrawDebugRect(Vector4(1.f, 1.f, 0.f, 1.f), ThisPos, Vector3(m_Player->m_HugDetectScale.x, m_Player->m_HugDetectScale.y, -1.f), Vector3(0.f, 0.f, 0.f));
 	
 	for (int i = 0; i < size(Type); ++i)
 	{
@@ -101,8 +105,6 @@ void GPlayerUseItemState::Enter_Hug()
 			GObjectBasic* pOB = vecObject[i]->GetComponent<GObjectBasic>();
 			if (pOB == nullptr)
 				continue;
-
-			Vector3 ThisPos = m_Player->Transform()->GetWorldPos();
 
 			Vector3 OBPos = pOB->Transform()->GetWorldPos();
 			Vector3 OBScale = pOB->Transform()->GetWorldScale();
@@ -123,7 +125,7 @@ void GPlayerUseItemState::Enter_Hug()
 
 			// 오브젝트의 크기 안에 플레이어가 없다면 넘어간다.
 			if (OBPos.y < ThisPos.y - m_Player->m_HugDetectScale.y / 2
-				|| ThisPos.y + m_Player->m_HugDetectScale.y / 2 < ThisPos.y)
+				|| ThisPos.y + m_Player->m_HugDetectScale.y / 2 < OBPos.y)
 				continue;
 
 			// 첫 대상이라면 설정한다.

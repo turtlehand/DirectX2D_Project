@@ -16,3 +16,17 @@ enum class LAYER_TYPE
 
 	END = 32
 };
+
+enum class PLAYER_ITEM
+{
+	HOOK,
+	BOMB,
+	SHOVEL,
+	HUG,
+	//SHOT_GUN,
+	SWORD,
+	//SHIELD,
+	CHICKEN,
+	END
+};
+

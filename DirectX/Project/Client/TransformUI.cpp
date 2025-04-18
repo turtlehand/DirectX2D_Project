@@ -31,7 +31,7 @@ void TransformUI::Render_UI()
 
 	ImGui::Text("Trans");
 	ImGui::SameLine(GetTab());
-	if (ImGui::DragFloat3("##Translation", vRelativePos))
+	if (ImGui::DragFloat3("##Translation", vRelativePos, 0.1f))
 	{
 		pTrans->SetRelativePos(vRelativePos);
 	}
@@ -39,7 +39,7 @@ void TransformUI::Render_UI()
 
 	ImGui::Text("Scale");
 	ImGui::SameLine(GetTab());
-	if (ImGui::DragFloat3("##Scale", vRelativeScale))
+	if (ImGui::DragFloat3("##Scale", vRelativeScale, 0.1f))
 	{
 		pTrans->SetRelativeScale(vRelativeScale);
 	}
@@ -47,7 +47,7 @@ void TransformUI::Render_UI()
 
 	ImGui::Text("Roatation");
 	ImGui::SameLine(GetTab());
-	if (ImGui::DragFloat3("##Rotation", vRelativeRotation))
+	if (ImGui::DragFloat3("##Rotation", vRelativeRotation, 0.1f))
 	{
 		pTrans->SetRelativeRotation(vRelativeRotation);
 	}

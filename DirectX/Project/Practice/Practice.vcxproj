@@ -172,6 +172,7 @@ call CodeGen.exe</Command>
     <ClInclude Include="GMinionAttackState.h" />
     <ClInclude Include="GMinionDeadState.h" />
     <ClInclude Include="GMinionWalkState.h" />
+    <ClInclude Include="GObjectBasic.h" />
     <ClInclude Include="GPlayerFlinchState.h" />
     <ClInclude Include="GScriptManager.h" />
     <ClInclude Include="pch.h" />
@@ -179,8 +180,9 @@ call CodeGen.exe</Command>
     <ClInclude Include="Scripts\GCeilingChecker.h" />
     <ClInclude Include="Scripts\GFSM.h" />
     <ClInclude Include="Scripts\GGroundChecker.h" />
+    <ClInclude Include="Scripts\GItem.h" />
+    <ClInclude Include="Scripts\GLord.h" />
     <ClInclude Include="Scripts\GMinion.h" />
-    <ClInclude Include="Scripts\GObjectBasic.h" />
     <ClInclude Include="Scripts\GPlatform.h" />
     <ClInclude Include="Scripts\GPlayer.h" />
     <ClInclude Include="Scripts\GPlayerDefaultState.h" />
@@ -188,12 +190,14 @@ call CodeGen.exe</Command>
     <ClInclude Include="Scripts\GPlayerJumpState.h" />
     <ClInclude Include="Scripts\GPlayerUseItemState.h" />
     <ClInclude Include="Scripts\GPlayerWalkState.h" />
+    <ClInclude Include="Scripts\GPrincess.h" />
     <ClInclude Include="States\GState.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GMinionAttackState.cpp" />
     <ClCompile Include="GMinionDeadState.cpp" />
     <ClCompile Include="GMinionWalkState.cpp" />
+    <ClCompile Include="GObjectBasic.cpp" />
     <ClCompile Include="GPlayerFlinchState.cpp" />
     <ClCompile Include="GScriptManager.cpp" />
     <ClCompile Include="pch.cpp">
@@ -206,8 +210,9 @@ call CodeGen.exe</Command>
     <ClCompile Include="Scripts\GCeilingChecker.cpp" />
     <ClCompile Include="Scripts\GFSM.cpp" />
     <ClCompile Include="Scripts\GGroundChecker.cpp" />
+    <ClCompile Include="Scripts\GItem.cpp" />
+    <ClCompile Include="Scripts\GLord.cpp" />
     <ClCompile Include="Scripts\GMinion.cpp" />
-    <ClCompile Include="Scripts\GObjectBasic.cpp" />
     <ClCompile Include="Scripts\GPlatform.cpp" />
     <ClCompile Include="Scripts\GPlayer.cpp" />
     <ClCompile Include="Scripts\GPlayerDefaultState.cpp" />
@@ -215,6 +220,7 @@ call CodeGen.exe</Command>
     <ClCompile Include="Scripts\GPlayerJumpState.cpp" />
     <ClCompile Include="Scripts\GPlayerUseItemState.cpp" />
     <ClCompile Include="Scripts\GPlayerWalkState.cpp" />
+    <ClCompile Include="Scripts\GPrincess.cpp" />
     <ClCompile Include="States\GState.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
