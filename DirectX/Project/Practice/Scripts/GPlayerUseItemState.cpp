@@ -49,6 +49,10 @@ void GPlayerUseItemState::Enter()
 	{
 		Enter_Hug();
 	}
+	else if (m_Player->m_PlayerUseItem == PLAYER_ITEM::SHOVEL)
+	{
+		Enter_Shovel();
+	}
 
 }
 
@@ -58,6 +62,10 @@ void GPlayerUseItemState::Tick()
 	{
 		Tick_Hook();
 	}
+	else if (m_Player->m_PlayerUseItem == PLAYER_ITEM::SHOVEL)
+	{
+		Tick_Shovel();
+	}
 	else if (m_Player->m_PlayerUseItem == PLAYER_ITEM::HUG)
 	{
 		Tick_Hug();
@@ -66,6 +74,11 @@ void GPlayerUseItemState::Tick()
 
 void GPlayerUseItemState::Exit()
 {
+	if (m_Player->m_PlayerUseItem == PLAYER_ITEM::SHOVEL)
+	{
+		Exit_Shovel();
+	}
+
 	m_Player->m_PlayerUseItem = PLAYER_ITEM::END;
 }
 
@@ -76,7 +89,7 @@ void GPlayerUseItemState::ChangeState()
 void GPlayerUseItemState::Enter_Hug()
 {
 	// 앞에 오브젝트가 있는지 확인한다.
-	LAYER_TYPE Type[2] = { LAYER_TYPE::MONSTER,LAYER_TYPE::OBJCET };
+	LAYER_TYPE Type[2] = { LAYER_TYPE::MONSTER, LAYER_TYPE::NPC };
 	GObjectBasic* FrontOB = nullptr;
 	
 	for (int i = 0; i < size(Type); ++i)
@@ -86,7 +99,10 @@ void GPlayerUseItemState::Enter_Hug()
 		for (int i = 0; i < vecObject.size(); ++i)
 		{
 			GObjectBasic* pOB = vecObject[i]->GetComponent<GObjectBasic>();
-			assert(pOB);
+			if (pOB == nullptr)
+				continue;
+
+			Vector3 ThisPos = m_Player->Transform()->GetWorldPos();
 
 			Vector3 OBPos = pOB->Transform()->GetWorldPos();
 			Vector3 OBScale = pOB->Transform()->GetWorldScale();
@@ -95,19 +111,19 @@ void GPlayerUseItemState::Enter_Hug()
 			// 또는 오브젝트와 거리가 너무 멀다면 넘어간다.
 			if (m_Player->GetDirection() == 1)
 			{
-				if (OBPos.x < Transform()->GetWorldPos().x || Transform()->GetWorldPos().x + m_Player->m_HugDetectScale.x < OBPos.x)
+				if (OBPos.x < ThisPos.x || m_Player->Transform()->GetWorldPos().x + ThisPos.x < OBPos.x)
 					continue;
 			}
 			else
 			{
-				if (OBPos.x < Transform()->GetWorldPos().x - m_Player->m_HugDetectScale.x || Transform()->GetWorldPos().x  < OBPos.x)
+				if (OBPos.x < ThisPos.x - m_Player->m_HugDetectScale.x || ThisPos.x  < OBPos.x)
 					continue;
 			}
 			
 
 			// 오브젝트의 크기 안에 플레이어가 없다면 넘어간다.
-			if (OBPos.y < Transform()->GetWorldPos().y - m_Player->m_HugDetectScale.y / 2 
-				|| Transform()->GetWorldPos().y + m_Player->m_HugDetectScale.y / 2 < Transform()->GetWorldPos().y)
+			if (OBPos.y < ThisPos.y - m_Player->m_HugDetectScale.y / 2
+				|| ThisPos.y + m_Player->m_HugDetectScale.y / 2 < ThisPos.y)
 				continue;
 
 			// 첫 대상이라면 설정한다.
@@ -157,6 +173,33 @@ void GPlayerUseItemState::Tick_Hug()
 
 void GPlayerUseItemState::Exit_Hug()
 {
+}
+
+void GPlayerUseItemState::Enter_Shovel()
+{
+	// 검 생성
+	m_Player->m_Shovel = m_Player->m_ShovelPrefab->Instantiate();
+	m_Player->m_ItemTimer = 0;
+
+	SpawnGameObject(m_Player->m_Shovel);
+	m_Player->GameObject()->SetChild(m_Player->m_Shovel);
+}
+
+void GPlayerUseItemState::Tick_Shovel()
+{
+	// 시간을 완료시 삭제
+	if (m_Player->m_ItemTimer > m_Player->m_ShovelTime)
+	{
+		m_Player->GetFSM()->ChanageState(L"Default");
+	}
+	m_Player->m_ItemTimer += DT;
+}
+
+void GPlayerUseItemState::Exit_Shovel()
+{
+	m_Player->m_Shovel->Destroy();
+
+	m_Player->m_DestroyPlatform->GameObject()->Destroy();
 }
 
 void GPlayerUseItemState::Tick_Hook()

@@ -3,6 +3,8 @@
 #include <Engine/GTransform.h>
 #include <Engine/GPrefab.h>
 
+class GFSM;
+
 enum class PLAYER_STATE
 {
 	DEFAULT,
@@ -26,9 +28,9 @@ enum class PLAYER_FLIPBOOK
 	FALL,
 	HUG,
 	HUG_READY,
+	FLINCH,
 	GETITEM,
 	OPENBOX,
-	FLINCH,
 	END
 };
 
@@ -52,7 +54,7 @@ enum class PLAYER_ITEM
 	END
 };
 
-class GFSM;
+
 
 class GPlayer :
 	public GObjectBasic
@@ -63,7 +65,6 @@ private:
 
 	float           m_MoveInitForce;
 	float           m_MoveMaxSpeed;
-
 
 	float			m_JumpTimeLimit;
 	float			m_JumpTimeMin;
@@ -78,16 +79,26 @@ private:
 
 	float			m_ItemTimer;
 
-	GGameObject*	m_Sword;
-	Ptr<GPrefab>	m_SwordPrefab;
-	Vector3			m_SwordPos;
-	float			m_SwordTime;
+	float			m_HookInitForce;
+	float			m_HookMaxSpeed;
+
+	GGameObject*	m_Bomb;
+	Ptr<GPrefab>	m_BombPrefab;
+	Vector2			m_BombDetectScale;
+	float			m_BombTime;
+
+	GGameObject*	m_Shovel;
+	Ptr<GPrefab>	m_ShovelPrefab;
+	GPlatform*		m_DestroyPlatform;
+	float			m_ShovelTime;
 
 	Vector2			m_HugDetectScale;
 	float			m_HugTime;
 
-	float			m_HookInitForce;
-	float			m_HookMaxSpeed;
+	GGameObject*	m_Sword;
+	Ptr<GPrefab>	m_SwordPrefab;
+	Vector3			m_SwordPos;
+	float			m_SwordTime;
 
 public:
 	GFSM* GetFSM() { return m_FSM; }
@@ -109,8 +120,6 @@ public:
 	// 해당 방향을 바라보게 한다.
 	int GetDirection() { return 0 < Transform()->GetRelativeScale().x ? 1 : -1; }
 	void SetMoveDirection(int _Direction);
-
-	virtual void CeilingEnter() override;
 
 private:
 	void KeyInput();
@@ -142,5 +151,6 @@ public:
 	friend class GPlayerUseItemState;
 	friend class GPlayerJumpState;
 	friend class GPlayerFallState;
+	friend class GPlayerFlinchState;
 };
 

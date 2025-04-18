@@ -268,7 +268,7 @@ void FlipbookUI::Image(int _Idx)
 		LeftTop = pSprite->GetLeftTop();
 		Slice = pSprite->GetSlice();
 		Color = m_Flip->GetInfo(_Idx).Color;
-		Ratio.x = 200.f * Slice.x / Slice.y;
+		Ratio.x = 200.f * pSprite->GetSlice_P().x / pSprite->GetSlice_P().y;
 		ImID = (ImTextureID)pTexture->GetSRV().Get();
 	}
 	ImVec2 uv_min = ImVec2(LeftTop.x, LeftTop.y);                 // Top-left

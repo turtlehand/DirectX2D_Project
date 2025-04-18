@@ -36,6 +36,7 @@ void CreateTestLevel()
 
 	GCollisionManager::GetInst()->CollisionLayerCheck(0, 0);
 	GCollisionManager::GetInst()->CollisionLayerCheck(2, 3);
+	GCollisionManager::GetInst()->CollisionLayerCheck(2, 5);
 	
 	// 카메라 역할 오브젝트 생성
 	GGameObject* pCamObj = new GGameObject;

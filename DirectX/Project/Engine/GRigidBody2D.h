@@ -36,6 +36,8 @@ public:
 	float GetTerminalSpeed() { return m_TerminalSpeed; }
 
 	void AddForce(Vector2 _Force) {	m_Force += _Force; }
+	void AddForceX(float _x) { m_Force.x += _x; }
+	void AddForceY(float _y) { m_Force.y += _y; }
 
 	float GetFriction() { return m_Friction; }
 	void SetFriction(float _Friction) { m_Friction = _Friction; }

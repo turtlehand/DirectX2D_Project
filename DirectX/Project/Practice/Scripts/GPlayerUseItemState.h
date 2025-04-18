@@ -36,6 +36,11 @@ private:
     void Tick_Hug();
     void Exit_Hug();
 
+    void Enter_Shovel();
+    void Tick_Shovel();
+    void Exit_Shovel();
+
+
 
     void Tick_Hook();
 

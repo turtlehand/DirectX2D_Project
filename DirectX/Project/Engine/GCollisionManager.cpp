@@ -34,6 +34,75 @@ void GCollisionManager::Progress()
 	}
 }
 
+bool GCollisionManager::Line_Casting(Vector3 _WorldPos, Vector3 _Dir, float _Dist, UINT _Layer, CASTING_TYPE _Type)
+{
+	_Dir.Normalize();
+	Vector3 vLineCenter = _WorldPos + (_Dir * (_Dist / 2));
+
+	for (UINT row = 0; row < MAX_LAYER; ++row)
+	{
+		// 해당 레이어는 검사하지 않는다.
+		if (!((1 << row) & _Layer))
+			continue;
+
+		const vector<GCollider2D*>& vecCollider = GLevelManager::GetInst()->GetCurrentLevel()->GetLayer(row)->GetCollider2D();
+
+		for (int i = 0; i < vecCollider.size(); ++i)
+		{
+			bool IsLineOverlap = true;
+
+			// 박스 콜라이더의 최종 위치를 알기위한 행렬
+			const Matrix& matCol = vecCollider[i]->GetWorldMat();
+
+			// 행렬 4행의 위치값(충돌체의 월드 위치)
+			Vector3 vColPos = matCol.Translation();
+
+			// 두 충돌체의 중심을 잇는 벡터
+			Vector3 vCenter = vColPos - vLineCenter;
+
+			// 월드상의 충돌체의 꼭지점 위치를 찾아서, 각 표면 방향을 알아낸다.
+			// 이 방향벡터를 투영축으로 사용할 것
+			Vector3 vProj[3] = {};
+
+			vProj[0] = XMVector3TransformCoord(Vector3(0.5f, -0.5f, 0.f), matCol) - XMVector3TransformCoord(Vector3(-0.5f, -0.5f, 0.f), matCol);			// 왼쪽 아래 점에서 오른쪽 아래 점 벡터
+			vProj[1] = XMVector3TransformCoord(Vector3(-0.5f, 0.5f, 0.f), matCol) - XMVector3TransformCoord(Vector3(-0.5f, -0.5f, 0.f), matCol);			// 왼쪽 아래 점에서 왼쪽 위 점 벡터
+			vProj[2] = _Dir * _Dist;
+
+			for (int i = 0; i < 3; ++i)
+			{
+				Vector3 vProjTarget = vProj[i];
+				vProjTarget = vProjTarget.Normalize();		// 직선 : 단위벡터로 변경
+
+				float ProjLength = 0.f;									// 변 투영 길이의 합
+				float ProjCenter = 0.f;									// 중심 투영 길이의 합
+
+				for (int j = 0; j < 3; ++j)
+				{
+					ProjLength += fabs(vProjTarget.Dot(vProj[j]));		// 변을 직선에 투영 시키고 투영된 길이를 더함
+				}
+				ProjLength /= 2;
+
+				ProjCenter = fabs(vProjTarget.Dot(vCenter));			// 중심 선분을 직선에 투영
+
+				// ProjLength < ProjCenter 라면 경계끼리 겹쳐도 충돌로 인정
+				// ProjLength <= ProjCenter 라면 경계끼리 겹치는 것은 충돌이 아님
+				if (ProjLength < ProjCenter)							// 중심이 더 길다면 충돌 X
+				{	
+					IsLineOverlap = false;
+					break;
+				}
+			}
+
+			if (IsLineOverlap)
+				return true;
+		}
+	}
+
+	// 해당 레이어의 모든 오브젝트와 겹치지 않는다.
+	return false;
+	
+}
+
 void GCollisionManager::CollisionBtwLayer(UINT _Left, UINT _Right)
 {
 	// 현재 레벨에 저장된 Collider를 가져온다.

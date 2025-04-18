@@ -6,6 +6,7 @@
 GObjectBasic::GObjectBasic(SCRIPT_TYPE _Type)
 	:GScript(_Type)
 	, m_GravityScale(200.f)
+	, m_FlinchForce(60, 40)
 {
 }
 

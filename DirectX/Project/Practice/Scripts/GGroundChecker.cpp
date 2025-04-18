@@ -41,6 +41,7 @@ void GGroundChecker::OnTriggerEnter(GCollider2D* _Other)
 	return;
 
 	++m_Owner->m_IsGround;
+	m_Owner->m_vecPlatform.push_back(_Other->GameObject());
 
 	m_Owner->GroundEnter();
 
@@ -52,6 +53,7 @@ void GGroundChecker::OnTriggerEnter(GCollider2D* _Other)
 
 void GGroundChecker::OnTriggerStay(GCollider2D* _Other)
 {
+
 }
 
 void GGroundChecker::OnTriggerExit(GCollider2D* _Other)
@@ -63,6 +65,9 @@ void GGroundChecker::OnTriggerExit(GCollider2D* _Other)
 		return;
 
 	--m_Owner->m_IsGround;
+	
+	vector<GGameObject*>::iterator iter = std::find(m_Owner->m_vecPlatform.begin(), m_Owner->m_vecPlatform.end(),_Other->GameObject());
+	m_Owner->m_vecPlatform.erase(iter);
 
 	m_Owner->GroundExit();
 }

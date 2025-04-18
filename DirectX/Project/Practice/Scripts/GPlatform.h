@@ -7,7 +7,8 @@ enum class PLATFORM_TYPE
     WATER,
     LAVA,
     SOFT,
-    WOOD
+    WOOD,
+    END
 };
 
 class GPlatform :

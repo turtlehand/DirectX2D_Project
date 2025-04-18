@@ -14,6 +14,13 @@ union COLLISION_ID
 	DWORD_PTR ID;
 };
 
+enum class CASTING_TYPE
+{
+	ANYTHING,
+	NEAREST,
+	FARTHEST,
+};
+
 class GCollisionManager :
 	public GSingleton<GCollisionManager>
 {
@@ -39,6 +46,9 @@ public:
 	}
 	void SetCollisionLayer(UINT _Row, UINT _Col) { m_Matrix[_Row] = _Col; }
 	UINT GetCollisionLayer(UINT _Row) { return m_Matrix[_Row]; }
+
+	bool Line_Casting(Vector3 _WorldPos, Vector3 _Dir, float _Dist, UINT _Layer, CASTING_TYPE _Type = CASTING_TYPE::ANYTHING);
+	//GCollider2D* Box_Casting(Vector3 _WorldPos, Vector2 _Scale, UINT _Layer, CASTING_TYPE _Type = CASTING_TYPE::ANYTHING);
 
 private:
 	void CollisionBtwLayer(UINT _Left, UINT _Right);

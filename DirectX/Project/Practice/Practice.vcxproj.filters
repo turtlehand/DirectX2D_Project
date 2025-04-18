@@ -13,38 +13,62 @@
     <Filter Include="02. Scripts\1. FSM">
       <UniqueIdentifier>{697207c5-06fe-4c42-a354-65bfc81801a9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. Scripts\2. Player">
-      <UniqueIdentifier>{0fe5fe33-68a2-47fa-9347-cfa0a95dc038}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. Scripts\3. Monster">
-      <UniqueIdentifier>{af08eba4-321a-4771-9d5f-2ea0b9378bff}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02. Scripts\0. ETC">
       <UniqueIdentifier>{b62f6e19-1fb4-4c35-9ef9-0b95de7b55c1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. Scripts\2. Player\1. State">
-      <UniqueIdentifier>{114d8563-a097-457c-b8cd-85110529338f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. Scripts\2. Player\1. State\1. Defalut">
-      <UniqueIdentifier>{485a72a4-a2cc-4e84-b98b-53298d1cf086}</UniqueIdentifier>
     </Filter>
     <Filter Include="02. Scripts\4. Platform">
       <UniqueIdentifier>{659fa161-578d-4787-8c5b-63aded4124ef}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. Scripts\2. Player\1. State\3. UseItem">
-      <UniqueIdentifier>{5c1e6de4-ff0a-459f-8f64-7b55d9b5c042}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. Scripts\2. Player\1. State\2. Walk">
-      <UniqueIdentifier>{00fd1741-3397-4b7f-a6bd-2022479f8296}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. Scripts\2. Player\1. State\4. Jump">
-      <UniqueIdentifier>{899ffac2-983f-4709-9427-dca139c15b25}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. Scripts\2. Player\1. State\5. Fall">
-      <UniqueIdentifier>{1bb800e5-8147-41c2-9926-5e5729b61b09}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02. Scripts\Object">
       <UniqueIdentifier>{ca35ef32-acc9-4cc5-8f59-4f52adfd6269}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Scripts\Object\1. Player">
+      <UniqueIdentifier>{0fe5fe33-68a2-47fa-9347-cfa0a95dc038}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Scripts\Object\1. Player\1. State">
+      <UniqueIdentifier>{114d8563-a097-457c-b8cd-85110529338f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Scripts\Object\1. Player\1. State\1. Defalut">
+      <UniqueIdentifier>{485a72a4-a2cc-4e84-b98b-53298d1cf086}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Scripts\Object\1. Player\1. State\3. UseItem">
+      <UniqueIdentifier>{5c1e6de4-ff0a-459f-8f64-7b55d9b5c042}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Scripts\Object\1. Player\1. State\2. Walk">
+      <UniqueIdentifier>{00fd1741-3397-4b7f-a6bd-2022479f8296}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Scripts\Object\1. Player\1. State\4. Jump">
+      <UniqueIdentifier>{899ffac2-983f-4709-9427-dca139c15b25}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Scripts\Object\1. Player\1. State\5. Fall">
+      <UniqueIdentifier>{1bb800e5-8147-41c2-9926-5e5729b61b09}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Scripts\Object\2. Monster">
+      <UniqueIdentifier>{af08eba4-321a-4771-9d5f-2ea0b9378bff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Scripts\Object\3. NPC">
+      <UniqueIdentifier>{fe21f12b-de97-4a1a-9d7d-319fabb31838}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Scripts\Object\4. ETC">
+      <UniqueIdentifier>{39127c19-49d4-46d5-82bd-3f7d9f08707f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Scripts\Object\2. Monster\Minion">
+      <UniqueIdentifier>{8a8e777c-8a88-430f-ba25-cedd77243e48}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Scripts\Object\2. Monster\Minion\State">
+      <UniqueIdentifier>{d023be98-67b7-444a-a48c-a47eef11936a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Scripts\Object\2. Monster\Minion\State\1. Walk">
+      <UniqueIdentifier>{211cfa59-ab48-4751-aeaf-78af1a1eb68d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Scripts\Object\2. Monster\Minion\State\2. Attack">
+      <UniqueIdentifier>{a0eb9e26-2c58-4379-87f6-aa4956988154}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Scripts\Object\2. Monster\Minion\State\3. Dead">
+      <UniqueIdentifier>{4ef101db-a5f4-4f0d-a04d-d19ad0777b9d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Scripts\Object\1. Player\1. State\6. Flinch">
+      <UniqueIdentifier>{ae16c862-f302-40cb-8af8-5fd548f2742e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -66,45 +90,56 @@
     <ClInclude Include="Scripts\GFSM.h">
       <Filter>02. Scripts\1. FSM</Filter>
     </ClInclude>
-    <ClInclude Include="Scripts\GMonster.h">
-      <Filter>02. Scripts\3. Monster</Filter>
-    </ClInclude>
     <ClInclude Include="Scripts\GPlayer.h">
-      <Filter>02. Scripts\2. Player</Filter>
+      <Filter>02. Scripts\Object\1. Player</Filter>
     </ClInclude>
     <ClInclude Include="States\GState.h">
       <Filter>02. Scripts\1. FSM</Filter>
     </ClInclude>
     <ClInclude Include="Scripts\GPlayerDefaultState.h">
-      <Filter>02. Scripts\2. Player\1. State\1. Defalut</Filter>
+      <Filter>02. Scripts\Object\1. Player\1. State\1. Defalut</Filter>
     </ClInclude>
     <ClInclude Include="Scripts\GPlayerWalkState.h">
-      <Filter>02. Scripts\2. Player\1. State\2. Walk</Filter>
+      <Filter>02. Scripts\Object\1. Player\1. State\2. Walk</Filter>
     </ClInclude>
     <ClInclude Include="Scripts\GPlayerUseItemState.h">
-      <Filter>02. Scripts\2. Player\1. State\3. UseItem</Filter>
+      <Filter>02. Scripts\Object\1. Player\1. State\3. UseItem</Filter>
     </ClInclude>
     <ClInclude Include="enum.h">
       <Filter>Default</Filter>
     </ClInclude>
     <ClInclude Include="Scripts\GPlayerJumpState.h">
-      <Filter>02. Scripts\2. Player\1. State\4. Jump</Filter>
+      <Filter>02. Scripts\Object\1. Player\1. State\4. Jump</Filter>
     </ClInclude>
     <ClInclude Include="Scripts\GPlatform.h">
       <Filter>02. Scripts\4. Platform</Filter>
     </ClInclude>
     <ClInclude Include="Scripts\GPlayerFallState.h">
-      <Filter>02. Scripts\2. Player\1. State\5. Fall</Filter>
+      <Filter>02. Scripts\Object\1. Player\1. State\5. Fall</Filter>
     </ClInclude>
     <ClInclude Include="Scripts\GGroundChecker.h">
       <Filter>02. Scripts\4. Platform</Filter>
     </ClInclude>
-    <ClInclude Include="Scripts\GObjectBasic.h" />
-    <ClInclude Include="Scripts\GWallChecker.h">
-      <Filter>02. Scripts\4. Platform</Filter>
-    </ClInclude>
     <ClInclude Include="Scripts\GCeilingChecker.h">
       <Filter>02. Scripts\4. Platform</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\GObjectBasic.h">
+      <Filter>02. Scripts\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\GMinion.h">
+      <Filter>02. Scripts\Object\2. Monster\Minion</Filter>
+    </ClInclude>
+    <ClInclude Include="GMinionWalkState.h">
+      <Filter>02. Scripts\Object\2. Monster\Minion\State\1. Walk</Filter>
+    </ClInclude>
+    <ClInclude Include="GMinionAttackState.h">
+      <Filter>02. Scripts\Object\2. Monster\Minion\State\2. Attack</Filter>
+    </ClInclude>
+    <ClInclude Include="GPlayerFlinchState.h">
+      <Filter>02. Scripts\Object\1. Player\1. State\6. Flinch</Filter>
+    </ClInclude>
+    <ClInclude Include="GMinionDeadState.h">
+      <Filter>02. Scripts\Object\2. Monster\Minion\State\3. Dead</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -120,42 +155,53 @@
     <ClCompile Include="Scripts\GFSM.cpp">
       <Filter>02. Scripts\1. FSM</Filter>
     </ClCompile>
-    <ClCompile Include="Scripts\GMonster.cpp">
-      <Filter>02. Scripts\3. Monster</Filter>
-    </ClCompile>
     <ClCompile Include="Scripts\GPlayer.cpp">
-      <Filter>02. Scripts\2. Player</Filter>
+      <Filter>02. Scripts\Object\1. Player</Filter>
     </ClCompile>
     <ClCompile Include="States\GState.cpp">
       <Filter>02. Scripts\1. FSM</Filter>
     </ClCompile>
     <ClCompile Include="Scripts\GPlayerDefaultState.cpp">
-      <Filter>02. Scripts\2. Player\1. State\1. Defalut</Filter>
+      <Filter>02. Scripts\Object\1. Player\1. State\1. Defalut</Filter>
     </ClCompile>
     <ClCompile Include="Scripts\GPlayerWalkState.cpp">
-      <Filter>02. Scripts\2. Player\1. State\2. Walk</Filter>
+      <Filter>02. Scripts\Object\1. Player\1. State\2. Walk</Filter>
     </ClCompile>
     <ClCompile Include="Scripts\GPlayerUseItemState.cpp">
-      <Filter>02. Scripts\2. Player\1. State\3. UseItem</Filter>
+      <Filter>02. Scripts\Object\1. Player\1. State\3. UseItem</Filter>
     </ClCompile>
     <ClCompile Include="Scripts\GPlayerJumpState.cpp">
-      <Filter>02. Scripts\2. Player\1. State\4. Jump</Filter>
+      <Filter>02. Scripts\Object\1. Player\1. State\4. Jump</Filter>
     </ClCompile>
     <ClCompile Include="Scripts\GPlatform.cpp">
       <Filter>02. Scripts\4. Platform</Filter>
     </ClCompile>
     <ClCompile Include="Scripts\GPlayerFallState.cpp">
-      <Filter>02. Scripts\2. Player\1. State\5. Fall</Filter>
+      <Filter>02. Scripts\Object\1. Player\1. State\5. Fall</Filter>
     </ClCompile>
     <ClCompile Include="Scripts\GGroundChecker.cpp">
       <Filter>02. Scripts\4. Platform</Filter>
     </ClCompile>
-    <ClCompile Include="Scripts\GObjectBasic.cpp" />
-    <ClCompile Include="Scripts\GWallChecker.cpp">
-      <Filter>02. Scripts\4. Platform</Filter>
-    </ClCompile>
     <ClCompile Include="Scripts\GCeilingChecker.cpp">
       <Filter>02. Scripts\4. Platform</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\GObjectBasic.cpp">
+      <Filter>02. Scripts\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\GMinion.cpp">
+      <Filter>02. Scripts\Object\2. Monster\Minion</Filter>
+    </ClCompile>
+    <ClCompile Include="GMinionWalkState.cpp">
+      <Filter>02. Scripts\Object\2. Monster\Minion\State\1. Walk</Filter>
+    </ClCompile>
+    <ClCompile Include="GMinionAttackState.cpp">
+      <Filter>02. Scripts\Object\2. Monster\Minion\State\2. Attack</Filter>
+    </ClCompile>
+    <ClCompile Include="GPlayerFlinchState.cpp">
+      <Filter>02. Scripts\Object\1. Player\1. State\6. Flinch</Filter>
+    </ClCompile>
+    <ClCompile Include="GMinionDeadState.cpp">
+      <Filter>02. Scripts\Object\2. Monster\Minion\State\3. Dead</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

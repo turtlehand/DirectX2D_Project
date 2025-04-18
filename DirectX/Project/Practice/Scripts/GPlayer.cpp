@@ -20,6 +20,7 @@
 #include "GPlayerUseItemState.h"
 #include "GPlayerJumpState.h"
 #include "GPlayerFallState.h"
+#include "GPlayerFlinchState.h"
 
 #include "GPlatform.h"
 
@@ -50,6 +51,11 @@ GPlayer::GPlayer()
 
 	, m_HookInitForce(30.f)
 	, m_HookMaxSpeed(30.f)
+
+	,m_Shovel(nullptr)
+	,m_ShovelPrefab(nullptr)
+	,m_DestroyPlatform(nullptr)
+	,m_ShovelTime(0.5f)
 {
 
 }
@@ -76,9 +82,14 @@ void GPlayer::Init()
 	ADD_VECTOR3("SwrodPos", &m_SwordPos)
 	ADD_FLOAT("SwrodTime", &m_SwordTime);
 
+	ADD_BOOL("SHOVEL", &m_PlayerItems[(INT)PLAYER_ITEM::SHOVEL]);
+	ADD_PREFAB("ShovelPrefab", &m_ShovelPrefab);
+	ADD_FLOAT("ShovelTime", &m_ShovelTime);
+
 	ADD_BOOL("HUG", &m_PlayerItems[(INT)PLAYER_ITEM::HUG]);
 	ADD_VECTOR2("HugDetectScale", &m_HugDetectScale);
 	ADD_FLOAT("HugTime", &m_HugTime);
+
 }
 
 void GPlayer::Begin()
@@ -90,8 +101,11 @@ void GPlayer::Begin()
 	m_FSM->AddState(L"UseItem", new GPlayerUseItemState);
 	m_FSM->AddState(L"Jump", new GPlayerJumpState);
 	m_FSM->AddState(L"Fall", new GPlayerFallState);
+	m_FSM->AddState(L"Flinch", new GPlayerFlinchState);
 
 	m_FSM->ChanageState(L"Default");
+
+	m_SwordPrefab = GAssetManager::GetInst()->FindAsset<GPrefab>(L"Prefab\\Sword.prefab");
 }
 
 void GPlayer::Update()
@@ -102,19 +116,28 @@ void GPlayer::Update()
 
 void GPlayer::OnTriggerEnter(GCollider2D* _Other)
 {
-	if (_Other->GameObject()->GetLayer() != (int)LAYER_TYPE::PLATFORM)
-		return;
+	if (_Other->GameObject()->GetLayer() == (int)LAYER_TYPE::ENEMY_ATTACK && m_PlayerState != PLAYER_STATE::FLINCH)
+	{
+		m_FSM->ChanageState(L"Flinch");
+		int Dir = Transform()->GetWorldPos().x - _Other->Transform()->GetWorldPos().x;
+		Dir = Dir / abs(Dir);
+		RigidBody2D()->AddForce(Vector2(Dir * m_FlinchForce.x, m_FlinchForce.y));
+	}
+		
 
-	Vector3 OtherPos = _Other->Transform()->GetWorldPos();
-	Vector3 OtherScale = _Other->Transform()->GetWorldScale();
-	Vector3 ThisPos = GameObject()->Transform()->GetWorldPos();
-	Vector3 ThisScale = GameObject()->Transform()->GetWorldScale();
+	//if (_Other->GameObject()->GetLayer() != (int)LAYER_TYPE::PLATFORM)
+	//	return;
+
+	//Vector3 OtherPos = _Other->Transform()->GetWorldPos();
+	//Vector3 OtherScale = _Other->Transform()->GetWorldScale();
+	//Vector3 ThisPos = GameObject()->Transform()->GetWorldPos();
+	//Vector3 ThisScale = GameObject()->Transform()->GetWorldScale();
 
 	// 닿은 대상이 플레이어보다 아래에 있다면
-	if (OtherPos.y + OtherScale.y < ThisPos.y - ThisScale.y)
-	{
-		m_FSM->ChanageState(L"Default");
-	}
+	//if (OtherPos.y + OtherScale.y < ThisPos.y - ThisScale.y)
+	//{
+	//	m_FSM->ChanageState(L"Default");
+	//}
 }
 
 void GPlayer::OnTriggerStay(GCollider2D* _Other)
@@ -143,14 +166,6 @@ void GPlayer::SetMoveDirection(int _Direction)
 	Vector3 DefaultScale = Transform()->GetRelativeScale();
 	DefaultScale.x = _Direction * fabs(DefaultScale.x);
 	Transform()->SetRelativeScale(DefaultScale);
-}
-
-void GPlayer::CeilingEnter()
-{
-	// 천장에 닿았을 때 만약 속도가 양수라면 0으로 바꾼다.
-	if(RigidBody2D()->GetVelocityY() > 0)
-		RigidBody2D()->SetVelocityY(0);
-	
 }
 
 void GPlayer::KeyInput()
@@ -226,15 +241,20 @@ bool GPlayer::ItemCheck()
 		m_PlayerUseItem = PLAYER_ITEM::HOOK;
 		return true;
 	}
-	else if (Hug())
+	else if (Shovel())
 	{
-		m_PlayerUseItem = PLAYER_ITEM::HUG;
+		m_PlayerUseItem = PLAYER_ITEM::SHOVEL;
 		return true;
 	}
 	else if (Bomb())
 	{
 		m_PlayerUseItem = PLAYER_ITEM::BOMB;
 		m_ItemTimer = 0;
+	}
+	else if (Hug())
+	{
+		m_PlayerUseItem = PLAYER_ITEM::HUG;
+		return true;
 	}
 	else if (Sword())
 	{
@@ -303,7 +323,79 @@ bool GPlayer::Bomb()
 	if (!m_PlayerItems[(int)PLAYER_ITEM::BOMB])
 		return false;
 
-	// 근처에 바위나 금간
+	GObjectBasic* OB = nullptr;
+
+	const vector<GGameObject*>& vecObject = GLevelManager::GetInst()->GetCurrentLevel()->GetLayer((int)LAYER_TYPE::ETC_OBJCET)->GetObjects();
+
+	for (int i = 0; i < vecObject.size(); ++i)
+	{
+		GObjectBasic* pOB = vecObject[i]->GetComponent<GObjectBasic>();
+		assert(pOB);
+
+		Vector3 OBPos = pOB->Transform()->GetWorldPos();
+		Vector3 OBScale = pOB->Transform()->GetWorldScale();
+
+		// 플레이어가 해당 플렛폼 안에 없다면 넘어간다.
+			// 플레이어가 바라보고 있는 방향에 없다면 넘어간다.
+			// 또는 오브젝트와 거리가 너무 멀다면 넘어간다.
+		if (OBPos.x < Transform()->GetWorldPos().x - m_BombDetectScale.x || Transform()->GetWorldPos().x + m_BombDetectScale.x < OBPos.x)
+			continue;
+
+		if (OBPos.y < Transform()->GetWorldPos().y - m_BombDetectScale.y || Transform()->GetWorldPos().y + m_BombDetectScale.y < OBPos.y)
+			continue;
+
+		// 첫 대상이라면 설정한다.
+		// 대상이 플레이어보다 더 가깝다면 설정한다.
+
+		if (OB == nullptr)
+		{
+			OB = pOB;
+			break;
+		}
+
+	}
+
+	if (OB == nullptr)
+		return false;
+
+	return true;
+}
+
+bool GPlayer::Shovel()
+{
+	if (!m_PlayerItems[(int)PLAYER_ITEM::SHOVEL])
+		return false;
+
+	if (!m_IsGround)
+		return false;
+
+	GPlatform* BottomPF = nullptr;
+
+	for (int i = 0; i < m_vecPlatform.size(); ++i)
+	{
+		GPlatform* pPlatform = m_vecPlatform[i]->GetComponent<GPlatform>();
+		assert(pPlatform);
+
+		Vector3 PFPos = pPlatform->Transform()->GetWorldPos();
+		Vector3 PFScale = pPlatform->Transform()->GetWorldScale();
+
+		// 플레이어가 해당 플렛폼 안에 없다면 넘어간다.
+		if (PFPos.x - PFScale.x / 2 <= Transform()->GetWorldPos().x && Transform()->GetWorldPos().x <= PFPos.x + PFScale.x / 2)
+		{
+			BottomPF = pPlatform;
+		}
+
+	}
+
+	if (BottomPF == nullptr)
+		return false;
+
+	// 부드러운 땅일 때만
+	if (BottomPF->GetPlatformType() != PLATFORM_TYPE::SOFT)
+		return false;
+
+	m_DestroyPlatform = BottomPF;
+	return true;
 }
 
 bool GPlayer::Hug()
