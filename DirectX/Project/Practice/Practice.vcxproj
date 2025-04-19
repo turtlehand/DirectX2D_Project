@@ -169,6 +169,7 @@ call CodeGen.exe</Command>
     <ClInclude Include="define.h" />
     <ClInclude Include="enum.h" />
     <ClInclude Include="framework.h" />
+    <ClInclude Include="GGameManager.h" />
     <ClInclude Include="GMinionAttackState.h" />
     <ClInclude Include="GMinionDeadState.h" />
     <ClInclude Include="GMinionWalkState.h" />
@@ -179,6 +180,8 @@ call CodeGen.exe</Command>
     <ClInclude Include="pch.h" />
     <ClInclude Include="Scripts\GCameraMove.h" />
     <ClInclude Include="Scripts\GCeilingChecker.h" />
+    <ClInclude Include="Scripts\GEndingCamera.h" />
+    <ClInclude Include="Scripts\GEndingScene.h" />
     <ClInclude Include="Scripts\GFSM.h" />
     <ClInclude Include="Scripts\GGroundChecker.h" />
     <ClInclude Include="Scripts\GItem.h" />
@@ -195,6 +198,7 @@ call CodeGen.exe</Command>
     <ClInclude Include="States\GState.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="GGameManager.cpp" />
     <ClCompile Include="GMinionAttackState.cpp" />
     <ClCompile Include="GMinionDeadState.cpp" />
     <ClCompile Include="GMinionWalkState.cpp" />
@@ -210,6 +214,8 @@ call CodeGen.exe</Command>
     </ClCompile>
     <ClCompile Include="Scripts\GCameraMove.cpp" />
     <ClCompile Include="Scripts\GCeilingChecker.cpp" />
+    <ClCompile Include="Scripts\GEndingCamera.cpp" />
+    <ClCompile Include="Scripts\GEndingScene.cpp" />
     <ClCompile Include="Scripts\GFSM.cpp" />
     <ClCompile Include="Scripts\GGroundChecker.cpp" />
     <ClCompile Include="Scripts\GItem.cpp" />

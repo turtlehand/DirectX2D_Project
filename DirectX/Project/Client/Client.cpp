@@ -43,7 +43,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	RegisterClassExW(&wcex);
 
 
-	if (FAILED(GEngine::GetInst()->Init(g_hInst, 1280, 768,
+	if (FAILED(GEngine::GetInst()->Init(g_hInst, 1280, 720,
 		(GAMEOBJECT_SAVE)GLevelSaveLoad::SaveGameObject,
 		(GAMEOBJECT_LOAD)GLevelSaveLoad::LoadGameObject)))
 	{

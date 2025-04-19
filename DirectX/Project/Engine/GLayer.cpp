@@ -24,6 +24,17 @@ GLayer::~GLayer()
 	Delete_Vec(m_vecParentObjects);
 }
 
+GGameObject* GLayer::FindObject(const wstring& _Name)
+{
+	for (int i = 0; i < m_vecObjects.size(); ++i)
+	{
+		if (m_vecObjects[i]->GetName() == _Name)
+			return m_vecObjects[i];
+	}
+
+	return nullptr;
+}
+
 void GLayer::Begin()
 {
 	for (size_t i = 0; i < m_vecParentObjects.size(); ++i)

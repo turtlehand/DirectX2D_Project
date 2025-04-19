@@ -11,6 +11,7 @@ private:
 	LARGE_INTEGER m_CurCount;
 
 	UINT m_FPS;
+	float m_TimeScale;
 	float m_DT;	// Delta TIme : 프레임 간격 시간, 1 프레임 동작하는데 걸리는 시간
 	float m_Time;
 
@@ -22,6 +23,9 @@ private:
 public:
 	void Init();
 	void Progress();
+
+	float GetTimeScale() { return m_TimeScale; }
+	void SetTimeScale(float _TimeScale) { m_TimeScale = _TimeScale; }
 
 	float DeltaTime() { return m_DT; }
 	float AccTime() { return m_Time; }

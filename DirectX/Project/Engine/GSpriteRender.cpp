@@ -27,8 +27,14 @@ void GSpriteRender::CreateSpriteMaterial()
 		Ptr<GGraphicShader> pShader = new GGraphicShader;
 		pShader->CreateVertexShader(L"HLSL\\sprite.fx", "VS_SPRITE");
 		pShader->CreatePixelShader(L"HLSL\\sprite.fx", "PS_SPRITE");
-		pShader->SetDomain(SHADER_DOMAIN::DOMAIN_MASKED);
+		//pShader->SetDomain(SHADER_DOMAIN::DOMAIN_MASKED);
+		//pShader->SetRSType(RS_TYPE::CULL_NONE);
+		pShader->SetDomain(SHADER_DOMAIN::DOMAIN_TRANSPARENT);
 		pShader->SetRSType(RS_TYPE::CULL_NONE);
+		pShader->SetDSType(DS_TYPE::NO_WRITE);
+		pShader->SetBSType(BS_TYPE::ALPHABLEND);
+
+
 
 		// ¿¡µðÅÍ
 		pShader->AddTexParam(TEX_PARAM::TEX_0, L"Atlas");

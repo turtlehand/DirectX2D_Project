@@ -3,6 +3,8 @@
 
 #include "GCameraMove.h"
 #include "GCeilingChecker.h"
+#include "GEndingCamera.h"
+#include "GEndingScene.h"
 #include "GFSM.h"
 #include "GGroundChecker.h"
 #include "GItem.h"
@@ -21,6 +23,8 @@ void GScriptManager::GetScriptInfo(vector<wstring>& _vec)
 {
 	_vec.push_back(L"GCameraMove");
 	_vec.push_back(L"GCeilingChecker");
+	_vec.push_back(L"GEndingCamera");
+	_vec.push_back(L"GEndingScene");
 	_vec.push_back(L"GFSM");
 	_vec.push_back(L"GGroundChecker");
 	_vec.push_back(L"GItem");
@@ -42,6 +46,10 @@ GScript * GScriptManager::GetScript(const wstring& _strScriptName)
 		return new GCameraMove;
 	if (L"GCeilingChecker" == _strScriptName)
 		return new GCeilingChecker;
+	if (L"GEndingCamera" == _strScriptName)
+		return new GEndingCamera;
+	if (L"GEndingScene" == _strScriptName)
+		return new GEndingScene;
 	if (L"GFSM" == _strScriptName)
 		return new GFSM;
 	if (L"GGroundChecker" == _strScriptName)
@@ -80,6 +88,12 @@ GScript * GScriptManager::GetScript(UINT _iScriptType)
 		break;
 	case (UINT)SCRIPT_TYPE::CEILINGCHECKER:
 		return new GCeilingChecker;
+		break;
+	case (UINT)SCRIPT_TYPE::ENDINGCAMERA:
+		return new GEndingCamera;
+		break;
+	case (UINT)SCRIPT_TYPE::ENDINGSCENE:
+		return new GEndingScene;
 		break;
 	case (UINT)SCRIPT_TYPE::FSM:
 		return new GFSM;
@@ -134,6 +148,14 @@ const wchar_t * GScriptManager::GetScriptName(GScript * _pScript)
 
 	case SCRIPT_TYPE::CEILINGCHECKER:
 		return L"GCeilingChecker";
+		break;
+
+	case SCRIPT_TYPE::ENDINGCAMERA:
+		return L"GEndingCamera";
+		break;
+
+	case SCRIPT_TYPE::ENDINGSCENE:
+		return L"GEndingScene";
 		break;
 
 	case SCRIPT_TYPE::FSM:

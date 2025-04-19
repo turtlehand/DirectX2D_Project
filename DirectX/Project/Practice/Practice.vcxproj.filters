@@ -79,6 +79,9 @@
     <Filter Include="02. Scripts\Item">
       <UniqueIdentifier>{7d5ff709-cd2b-47c8-8b7b-d587f17d3f1a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. Scripts\GameManager">
+      <UniqueIdentifier>{39ef8cc9-42dd-4752-8708-c8315789093d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -162,6 +165,15 @@
     <ClInclude Include="GPlayerGetItemState.h">
       <Filter>02. Scripts\Object\1. Player\1. State\7. GetItem</Filter>
     </ClInclude>
+    <ClInclude Include="GGameManager.h">
+      <Filter>02. Scripts\GameManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\GEndingCamera.h">
+      <Filter>02. Scripts\GameManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\GEndingScene.h">
+      <Filter>02. Scripts\GameManager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -235,6 +247,15 @@
     </ClCompile>
     <ClCompile Include="GPlayerGetItemState.cpp">
       <Filter>02. Scripts\Object\1. Player\1. State\7. GetItem</Filter>
+    </ClCompile>
+    <ClCompile Include="GGameManager.cpp">
+      <Filter>02. Scripts\GameManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\GEndingCamera.cpp">
+      <Filter>02. Scripts\GameManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\GEndingScene.cpp">
+      <Filter>02. Scripts\GameManager</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

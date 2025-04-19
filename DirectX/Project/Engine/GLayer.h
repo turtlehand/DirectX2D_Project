@@ -30,6 +30,8 @@ public:
 
 	const vector<GCollider2D*>& GetCollider2D() { return m_vecCollider2D; }
 
+	GGameObject* FindObject(const wstring& _Name);
+
 public:
 	void Begin();
 	void Update();

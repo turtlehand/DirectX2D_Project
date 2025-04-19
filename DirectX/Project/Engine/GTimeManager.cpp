@@ -10,6 +10,7 @@ GTimeManager::GTimeManager() :
 	m_PrevCount{},
 	m_CurCount{},
 	m_FPS(0),
+	m_TimeScale(1.f),
 	m_DT(0.f),
 	m_Time(0.f),
 	m_EngineDT(0.f),	// Delta TIme : 프레임 간격 시간, 1 프레임 동작하는데 걸리는 시간
@@ -45,17 +46,17 @@ void GTimeManager::Progress()
 	// Level의 상태값 체크
 	LEVEL_STATE State = GLevelManager::GetInst()->GetCurrentLevelState();
 
-	if (LEVEL_STATE::PLAY != State) {
+	if (LEVEL_STATE::PLAY != State) 
+	{
 		m_DT = 0.f;
 	}
 	else
 	{
+		m_DT = m_DT * m_TimeScale;
 		m_Time += m_DT;
 	}
 
 	m_EngineTime += m_EngineDT;
-
-
 
 	// 전역 상수 데이터 갱싱
 	g_Global.g_DT = m_DT;

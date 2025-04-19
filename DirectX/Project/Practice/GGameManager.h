@@ -1,0 +1,60 @@
+#pragma once
+#include <Engine/GSingleton.h>
+#include <Engine/GTexture.h>
+
+class GEndingCamera;
+class GEndingScnene;
+
+enum class ENDING_TYPE
+{
+	Older_Man_Attack,		// 노인 공격
+	Mighty_Minion,			// 미니언에게 사망
+	Cruel_Minion_Killer,	// 미니언 여러번 찌르기
+	Mundane_Pouch,			// 아이템 많이 들어서 다리 부러지기
+	Disappointing_Hero,		// 돌부리에 넘어짐
+	Delicious_Strawberry,	// 산 꼭대기 딸기
+	Battleground,			// 갑분배틀그라운드
+	Yahoo,					// 마리오 토관
+	Lava,					// 용암
+	Taking_Day_Off,			// 집돌이
+	Stress_Relief,			// 공주에게 분풀이
+	Execution,				// 마왕에게 처형
+	Cowardly_Hero,			// 마왕 뒤치
+	Bear_Hug,				// 허리가 부러진 노인
+	Minon_Allergy,			// 미니언 알레르기
+	Rejection,				// 퇴짜
+	LovePower,				// 사랑의 힘
+	Leap_of_Faith,			// 신뢰의 도약
+
+	END
+};
+
+class GPlayer;
+
+class GGameManager
+	: public GSingleton<GGameManager>
+{
+private:
+	SINGLE(GGameManager);
+	bool m_Ending[(int)ENDING_TYPE::END];
+	Ptr<GTexture> m_EndingScene[(int)ENDING_TYPE::END];
+
+private:
+	GPlayer* m_Player;
+	bool m_IsEnd;
+	float m_EndingTime;
+	float m_EndingTimer;
+
+	class GEndingCamera* m_Camera;
+	class GEndingScene* m_Scene;
+
+public:
+	void Init();
+	void Progress();
+
+public:
+	void SaveGameEnding();
+	void GameReset();		// 상태 초기화
+	void GameEnding(ENDING_TYPE _Type);
+};
+

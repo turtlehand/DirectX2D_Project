@@ -153,6 +153,8 @@ void GPlayer::Init()
 
 void GPlayer::Begin()
 {
+	GGameManager::GetInst()->Init();
+
 	m_FSM = GameObject()->GetComponent<GFSM>();
 
 	m_FSM->AddState(L"Default", new GPlayerDefaultState);

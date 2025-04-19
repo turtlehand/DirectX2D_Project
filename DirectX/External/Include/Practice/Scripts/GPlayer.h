@@ -3,6 +3,8 @@
 #include <Engine/GTransform.h>
 #include <Engine/GPrefab.h>
 
+#include "GGameManager.h"
+
 class GFSM;
 
 enum class PLAYER_STATE

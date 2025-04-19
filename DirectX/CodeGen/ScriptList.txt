@@ -1,5 +1,7 @@
 GCameraMove
 GCeilingChecker
+GEndingCamera
+GEndingScene
 GFSM
 GGroundChecker
 GItem

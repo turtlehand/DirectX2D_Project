@@ -1,6 +1,8 @@
 #include "pch.h"
 #include "GPlayerJumpState.h"
 
+#include "GGameManager.h"
+
 #include "GPlayer.h"
 #include <Engine/GFlipbookRender.h>
 #include <Engine/GRigidBody2D.h>
@@ -24,6 +26,8 @@ void GPlayerJumpState::Awake()
 
 void GPlayerJumpState::Enter()
 {
+	GGameManager::GetInst()->GameEnding(ENDING_TYPE::Older_Man_Attack);
+
 	m_Player->m_PlayerState = PLAYER_STATE::JUMP;
 
 	if (!m_Player->FlipbookRender())
