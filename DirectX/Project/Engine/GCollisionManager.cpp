@@ -162,15 +162,15 @@ void GCollisionManager::CollisionBtwCollider(GCollider2D* _LeftCol, GCollider2D*
 		// 이전에 충돌한 적이 없고 현재는 충돌
 		if (!iter->second)
 		{
-			_LeftCol->OnTriggerEnter(_RightCol);
-			_RightCol->OnTriggerEnter(_LeftCol);
+			_LeftCol->OnOverlapEnter(_RightCol);
+			_RightCol->OnOverlapEnter(_LeftCol);
 		}
 
 		// 이전에 충돌한 적이 있고 현재도 충돌
 		else
 		{
-			_LeftCol->OnTriggerStay(_RightCol);
-			_RightCol->OnTriggerStay(_LeftCol);
+			_LeftCol->OnOverlapStay(_RightCol);
+			_RightCol->OnOverlapStay(_LeftCol);
 		}
 		iter->second = true;
 
@@ -181,8 +181,8 @@ void GCollisionManager::CollisionBtwCollider(GCollider2D* _LeftCol, GCollider2D*
 		// 이전에 충돌한 적이 있으나 현재는 아님
 		if (iter->second)
 		{
-			_LeftCol->OnTriggerExit(_RightCol);
-			_RightCol->OnTriggerExit(_LeftCol);
+			_LeftCol->OnOverlapExit(_RightCol);
+			_RightCol->OnOverlapExit(_LeftCol);
 		}
 		iter->second = false;
 	}
@@ -241,30 +241,36 @@ bool GCollisionManager::IsOverlap(GCollider2D* _LeftCol, GCollider2D* _RightCol)
 		MTV = MTV.Length() > ProjLength - ProjCenter ? (ProjLength - ProjCenter ) * vProjTarget : MTV;
 	}
 
-	// 방향이 반대라면 바꾸기
-	MTV = vCenter.Dot(MTV) < 0.f ? -MTV : MTV;			
+	// 2개다 Trigger가 아닐때만 밀어낸다.
+	if (!_LeftCol->IsTrigger() && !_RightCol->IsTrigger())
+	{
+		// 방향이 반대라면 바꾸기
+		MTV = vCenter.Dot(MTV) < 0.f ? -MTV : MTV;
 
-	// 밀어내기
-	Vector3 lPos = _LeftCol->Transform()->GetWorldPos();
-	Vector3 rPos = _RightCol->Transform()->GetWorldPos();
+		// 밀어내기
+		Vector3 lPos = _LeftCol->Transform()->GetWorldPos();
+		Vector3 rPos = _RightCol->Transform()->GetWorldPos();
 
-	// RigidBody2D를 가지고 있는 대상만 밀어냄
-	if (_LeftCol->RigidBody2D() != nullptr && _RightCol->RigidBody2D() != nullptr)
-	{
-		// 질량은 계산하지 않고 그냥 반반씩 밀어냄
-		MTV = MTV / 2;
-		_LeftCol->Transform()->SetRelativePos(lPos - MTV);
-		_RightCol->Transform()->SetRelativePos(rPos + MTV);
+		// RigidBody2D를 가지고 있는 대상만 밀어냄
+		if (_LeftCol->RigidBody2D() != nullptr && _RightCol->RigidBody2D() != nullptr)
+		{
+			// 질량은 계산하지 않고 그냥 반반씩 밀어냄
+			MTV = MTV / 2;
+			_LeftCol->Transform()->SetRelativePos(lPos - MTV);
+			_RightCol->Transform()->SetRelativePos(rPos + MTV);
+		}
+		// 한 대상만 RigidBody2D를 가지지 않는다면 가진 대상만 온전히 밀려남
+		else if (_RightCol->RigidBody2D() != nullptr)
+		{
+			_RightCol->Transform()->SetRelativePos(rPos + MTV);
+		}
+		else if (_LeftCol->RigidBody2D() != nullptr)
+		{
+			_LeftCol->Transform()->SetRelativePos(lPos - MTV);
+		}
 	}
-	// 한 대상만 RigidBody2D를 가지지 않는다면 가진 대상만 온전히 밀려남
-	else if (_RightCol->RigidBody2D() != nullptr)
-	{
-		_RightCol->Transform()->SetRelativePos(rPos + MTV);
-	}
-	else if (_LeftCol->RigidBody2D() != nullptr)
-	{
-		_LeftCol->Transform()->SetRelativePos(lPos - MTV);
-	}
+
+
 	
 	return true;
 }

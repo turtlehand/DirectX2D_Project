@@ -4,6 +4,7 @@ class GCollider2D :
 	public GComponent
 {
 private:
+	bool m_IsTrigger;
 	Vector3 m_Scale;
 	Vector3 m_Offset;
 
@@ -13,7 +14,9 @@ private:
 	Matrix m_matColWorld;
 
 public:
-public:
+	void SetTrigger(bool _Trigger) { m_IsTrigger = _Trigger; }
+	bool IsTrigger() { return m_IsTrigger; }
+
 	void SetScale(Vector3 _Scale) { m_Scale = _Scale; }
 	void SetScale(float _x, float _y, float _z) { m_Scale = Vector3(_x, _y, _z); }
 	Vector3 GetScale() { return m_Scale; }
@@ -34,9 +37,9 @@ public:
 	virtual void LoadFromFile(FILE* _File);
 
 public:
-	virtual void OnTriggerEnter(GCollider2D* _Other);
-	virtual void OnTriggerStay(GCollider2D* _Other);
-	virtual void OnTriggerExit(GCollider2D* _Other);
+	virtual void OnOverlapEnter(GCollider2D* _Other);
+	virtual void OnOverlapStay(GCollider2D* _Other);
+	virtual void OnOverlapExit(GCollider2D* _Other);
 
 private:
 	void NotifyEnter(GCollider2D* _Other);

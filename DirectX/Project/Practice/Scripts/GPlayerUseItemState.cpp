@@ -218,7 +218,7 @@ void GPlayerUseItemState::Tick_Hook()
 	
 }
 
-void GPlayerUseItemState::OnTriggerEnter(GCollider2D* _Other)
+void GPlayerUseItemState::OnOverlapEnter(GCollider2D* _Other)
 {
 	// Hook 사용 상태에서 Wood Platform에 닿았다면 변경
 

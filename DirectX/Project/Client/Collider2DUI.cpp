@@ -24,6 +24,16 @@ void Collider2DUI::Render_UI()
 	OutputTitle("GCollider2D");
 
 	// 크기
+	ImGui::Text("IsTrigger");
+	ImGui::SameLine(GetTab());
+	bool bTrigger = pCollider2D->IsTrigger();
+	if (ImGui::Checkbox("##Trigger",&bTrigger))
+	{
+		pCollider2D->SetTrigger(bTrigger);
+	}
+	AddItemHeight();
+
+	// 크기
 	ImGui::Text("Scale");
 	ImGui::SameLine(GetTab());
 	Vector3 vScale = pCollider2D->GetScale();

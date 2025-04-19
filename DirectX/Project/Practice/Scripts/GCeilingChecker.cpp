@@ -31,7 +31,7 @@ void GCeilingChecker::Update()
 {
 }
 
-void GCeilingChecker::OnTriggerEnter(GCollider2D* _Other)
+void GCeilingChecker::OnOverlapEnter(GCollider2D* _Other)
 {
 
 	if (m_Owner == nullptr)
@@ -50,11 +50,11 @@ void GCeilingChecker::OnTriggerEnter(GCollider2D* _Other)
 	Vector3 ThisScale = GameObject()->Transform()->GetWorldScale();
 }
 
-void GCeilingChecker::OnTriggerStay(GCollider2D* _Other)
+void GCeilingChecker::OnOverlapStay(GCollider2D* _Other)
 {
 }
 
-void GCeilingChecker::OnTriggerExit(GCollider2D* _Other)
+void GCeilingChecker::OnOverlapExit(GCollider2D* _Other)
 {
 	if (m_Owner == nullptr)
 		return;

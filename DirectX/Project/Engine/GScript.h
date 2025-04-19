@@ -48,9 +48,9 @@ public:
     virtual void FinalUpdate() final;
     virtual void Update() = 0;
 
-    virtual void OnTriggerEnter(GCollider2D* _Other) {};
-    virtual void OnTriggerStay(GCollider2D* _Other) {};
-    virtual void OnTriggerExit(GCollider2D* _Other) {};
+    virtual void OnOverlapEnter(GCollider2D* _Other) {};
+    virtual void OnOverlapStay(GCollider2D* _Other) {};
+    virtual void OnOverlapExit(GCollider2D* _Other) {};
 
 public:
     void Instantiate(Ptr<GPrefab> _Prefab, Vector3 _WorldPos = Vector3(0.f,0.f,0.f));

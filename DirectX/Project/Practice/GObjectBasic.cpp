@@ -45,6 +45,7 @@ void GObjectBasic::SetMoveDirection(int _Direction)
 void GObjectBasic::GroundEnter()
 {
 	RigidBody2D()->SetGravity(0);
+	RigidBody2D()->SetVelocityY(0);
 }
 
 void GObjectBasic::GroundExit()

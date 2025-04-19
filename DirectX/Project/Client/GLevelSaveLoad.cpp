@@ -274,19 +274,24 @@ void GLevelSaveLoad::SaveProjectSetting(FILE* _File)
 		SaveWString(LayerName, _File);
 	}
 
-	//GCollisionManager::GetInst()->CollisionLayerCheck(2, 7);
-	//GCollisionManager::GetInst()->CollisionLayerCheck(3, 7);
-
-	//GCollisionManager::GetInst()->CollisionLayerCheck(3, 10);	// 플 몬공
-	//GCollisionManager::GetInst()->CollisionLayerCheck(4, 9);	// 몬 플공
-	//GCollisionManager::GetInst()->CollisionLayerCheck(5, 9);	// NPC, 플공
-	//GCollisionManager::GetInst()->CollisionLayerCheck(6, 9);	// 기타, 플공
-	//GCollisionManager::GetInst()->CollisionLayerCheck(3, 4);
-	//GCollisionManager::GetInst()->CollisionLayerCheck(2, 4);
-
-	//GCollisionManager::GetInst()->CollisionLayerCheck(0, 0);
-	//GCollisionManager::GetInst()->CollisionLayerCheck(2, 3);
-	//GCollisionManager::GetInst()->CollisionLayerCheck(2, 5);
+	GCollisionManager::GetInst()->ResetCollisionLayer();
+	GCollisionManager::GetInst()->CollisionLayerCheck(0, 0);	// 기본 기본
+	GCollisionManager::GetInst()->CollisionLayerCheck(2, 3);	// 플랫폼 플레이어
+	GCollisionManager::GetInst()->CollisionLayerCheck(2, 4);	// 플랫폼 몬스터
+	GCollisionManager::GetInst()->CollisionLayerCheck(2, 5);	// 플랫폼 NPC
+	GCollisionManager::GetInst()->CollisionLayerCheck(2, 6);	// 플랫폼 기타
+	GCollisionManager::GetInst()->CollisionLayerCheck(2, 7);	// 플랫폼 아이템
+	 
+	GCollisionManager::GetInst()->CollisionLayerCheck(3, 4);	// 플레이어 몬스터
+	GCollisionManager::GetInst()->CollisionLayerCheck(3, 7);	// 플레이어 아이템
+	GCollisionManager::GetInst()->CollisionLayerCheck(3, 10);	// 플레이어 몬공
+	
+	GCollisionManager::GetInst()->CollisionLayerCheck(4, 9);	// 몬 플공
+	 
+	GCollisionManager::GetInst()->CollisionLayerCheck(5, 9);	// NPC, 플공
+	 
+	GCollisionManager::GetInst()->CollisionLayerCheck(6, 9);	// 기타, 플공
+	
 
 	// ============
 	// 충돌

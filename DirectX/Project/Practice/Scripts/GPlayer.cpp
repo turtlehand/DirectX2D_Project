@@ -165,8 +165,8 @@ void GPlayer::Begin()
 
 	m_FSM->ChanageState(L"Default");
 
-	m_SwordPrefab = GAssetManager::GetInst()->FindAsset<GPrefab>(L"Prefab\\Sword.prefab");
-	m_ShovelPrefab = GAssetManager::GetInst()->FindAsset<GPrefab>(L"Prefab\\Shovel.prefab");
+	m_SwordPrefab = GAssetManager::GetInst()->FindAsset<GPrefab>(L"Prefab\\Sword_Player.prefab");
+	m_ShovelPrefab = GAssetManager::GetInst()->FindAsset<GPrefab>(L"Prefab\\Shovel_Player.prefab");
 }
 
 void GPlayer::Update()
@@ -175,7 +175,7 @@ void GPlayer::Update()
 	UseItem();
 }
 
-void GPlayer::OnTriggerEnter(GCollider2D* _Other)
+void GPlayer::OnOverlapEnter(GCollider2D* _Other)
 {
 	if (_Other->GameObject()->GetLayer() == (int)LAYER_TYPE::ENEMY_ATTACK && m_PlayerState != PLAYER_STATE::FLINCH)
 	{
@@ -208,11 +208,11 @@ void GPlayer::OnTriggerEnter(GCollider2D* _Other)
 	//}
 }
 
-void GPlayer::OnTriggerStay(GCollider2D* _Other)
+void GPlayer::OnOverlapStay(GCollider2D* _Other)
 {
 }
 
-void GPlayer::OnTriggerExit(GCollider2D* _Other)
+void GPlayer::OnOverlapExit(GCollider2D* _Other)
 {
 
 }

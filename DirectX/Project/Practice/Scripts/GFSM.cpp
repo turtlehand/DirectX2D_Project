@@ -79,21 +79,21 @@ void GFSM::Update()
 	m_CurState->Tick();
 }
 
-void GFSM::OnTriggerEnter(GCollider2D* _Other)
+void GFSM::OnOverlapEnter(GCollider2D* _Other)
 {
 	if (m_CurState == nullptr)
 		return;
 	m_CurState->OnTriggerEnter(_Other);
 }
 
-void GFSM::OnTriggerStay(GCollider2D* _Other)
+void GFSM::OnOverlapStay(GCollider2D* _Other)
 {
 	if (m_CurState == nullptr)
 		return;
 	m_CurState->OnTriggerStay(_Other);
 }
 
-void GFSM::OnTriggerExit(GCollider2D* _Other)
+void GFSM::OnOverlapExit(GCollider2D* _Other)
 {
 	if (m_CurState == nullptr)
 		return;

@@ -94,16 +94,16 @@ void GPlayerFallState::Exit()
 	//m_PlayerRigid->SetGravity(0);
 }
 
-void GPlayerFallState::OnTriggerEnter(GCollider2D* _Other)
+void GPlayerFallState::OnOverlapEnter(GCollider2D* _Other)
 {
 
 }
 
-void GPlayerFallState::OnTriggerStay(GCollider2D* _Other)
+void GPlayerFallState::OnOverlapStay(GCollider2D* _Other)
 {
 }
 
-void GPlayerFallState::OnTriggerExit(GCollider2D* _Other)
+void GPlayerFallState::OnOverlapExit(GCollider2D* _Other)
 {
 }
 

@@ -48,7 +48,7 @@ void GMinion::Begin()
 
 	m_FSM->ChanageState(L"Walk");
 
-	m_MinionSword = GAssetManager::GetInst()->FindAsset<GPrefab>(L"Prefab\\Attack_Minion.prefab");
+	m_MinionSword = GAssetManager::GetInst()->FindAsset<GPrefab>(L"Prefab\\Sword_Minion.prefab");
 }
 
 void GMinion::Update()
@@ -56,7 +56,7 @@ void GMinion::Update()
 
 }
 
-void GMinion::OnTriggerEnter(GCollider2D* _Other)
+void GMinion::OnOverlapEnter(GCollider2D* _Other)
 {
 	if (_Other->GameObject()->GetLayer() == (int)LAYER_TYPE::PLAYER_ATTACK)
 	{

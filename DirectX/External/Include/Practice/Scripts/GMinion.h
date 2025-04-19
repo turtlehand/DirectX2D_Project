@@ -33,7 +33,7 @@ public:
 	virtual void Begin() override;
 	virtual void Update() override;
 
-	virtual void OnTriggerEnter(GCollider2D* _Other) override;
+	virtual void OnOverlapEnter(GCollider2D* _Other) override;
 
 	// 컴포넌트 정보가 파일(레벨)에 저장 / 불러올 때 필수로 저장해야 하는 내용을 작성
 	virtual void SaveToFile(FILE* _File);

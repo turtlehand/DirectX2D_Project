@@ -22,7 +22,7 @@ void GPrincess::Update()
 {
 }
 
-void GPrincess::OnTriggerEnter(GCollider2D* _Other)
+void GPrincess::OnOverlapEnter(GCollider2D* _Other)
 {
 }
 

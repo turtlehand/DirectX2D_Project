@@ -15,7 +15,7 @@ void GLord::Update()
 {
 }
 
-void GLord::OnTriggerEnter(GCollider2D* _Other)
+void GLord::OnOverlapEnter(GCollider2D* _Other)
 {
 }
 

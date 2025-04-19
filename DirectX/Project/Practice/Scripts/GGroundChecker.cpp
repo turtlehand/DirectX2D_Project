@@ -32,7 +32,7 @@ void GGroundChecker::Update()
 {
 }
 
-void GGroundChecker::OnTriggerEnter(GCollider2D* _Other)
+void GGroundChecker::OnOverlapEnter(GCollider2D* _Other)
 {
 	
 	if (m_Owner == nullptr)
@@ -52,12 +52,12 @@ void GGroundChecker::OnTriggerEnter(GCollider2D* _Other)
 	Vector3 ThisScale = GameObject()->Transform()->GetWorldScale();
 }
 
-void GGroundChecker::OnTriggerStay(GCollider2D* _Other)
+void GGroundChecker::OnOverlapStay(GCollider2D* _Other)
 {
 
 }
 
-void GGroundChecker::OnTriggerExit(GCollider2D* _Other)
+void GGroundChecker::OnOverlapExit(GCollider2D* _Other)
 {
 	if (m_Owner == nullptr)
 		return;

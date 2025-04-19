@@ -10,6 +10,7 @@
 
 GCollider2D::GCollider2D()
 	: GComponent(COMPONENT_TYPE::COLLIDER2D)
+	, m_IsTrigger(false)
 	, m_Scale(Vector3(1.f,1.f,1.f))
 	, m_Offset()
 	, m_OverlapCount(0)
@@ -19,6 +20,7 @@ GCollider2D::GCollider2D()
 
 GCollider2D::GCollider2D(const GCollider2D& _Origin)
 	: GComponent(_Origin)
+	, m_IsTrigger(_Origin.m_IsTrigger)
 	, m_Scale(_Origin.m_Scale)
 	, m_Offset(_Origin.m_Offset)
 	, m_OverlapCount(0)
@@ -32,18 +34,18 @@ GCollider2D::~GCollider2D()
 }
 
 
-void GCollider2D::OnTriggerEnter(GCollider2D* _Other)
+void GCollider2D::OnOverlapEnter(GCollider2D* _Other)
 {
 	++m_OverlapCount;
 	NotifyEnter(_Other);
 }
 
-void GCollider2D::OnTriggerStay(GCollider2D* _Other)
+void GCollider2D::OnOverlapStay(GCollider2D* _Other)
 {
 	NotifyStay(_Other);
 }
 
-void GCollider2D::OnTriggerExit(GCollider2D* _Other)
+void GCollider2D::OnOverlapExit(GCollider2D* _Other)
 {
 	--m_OverlapCount;
 	NotifyExit(_Other);
@@ -55,7 +57,7 @@ void GCollider2D::NotifyEnter(GCollider2D* _Other)
 	const vector<GScript*>& vecScripts = GameObject()->GetScripts();
 	for (size_t i = 0;i < vecScripts.size();++i)
 	{
-		vecScripts[i]->OnTriggerEnter(_Other);
+		vecScripts[i]->OnOverlapEnter(_Other);
 	}
 
 	// true라면 부모 오브젝트의 스크립트에게도 충돌을 호출해준다.
@@ -68,7 +70,7 @@ void GCollider2D::NotifyEnter(GCollider2D* _Other)
 			const vector<GScript*>& vecScripts = pParent->GetScripts();
 			for (size_t i = 0;i < vecScripts.size();++i)
 			{
-				vecScripts[i]->OnTriggerEnter(_Other);
+				vecScripts[i]->OnOverlapEnter(_Other);
 			}
 			pParent = pParent->GetParent();
 		}
@@ -81,7 +83,7 @@ void GCollider2D::NotifyStay(GCollider2D* _Other)
 	const vector<GScript*>& vecScripts = GameObject()->GetScripts();
 	for (size_t i = 0;i < vecScripts.size();++i)
 	{
-		vecScripts[i]->OnTriggerStay(_Other);
+		vecScripts[i]->OnOverlapStay(_Other);
 	}
 
 	// true라면 부모 오브젝트의 스크립트에게도 충돌을 호출해준다.
@@ -94,7 +96,7 @@ void GCollider2D::NotifyStay(GCollider2D* _Other)
 			const vector<GScript*>& vecScripts = pParent->GetScripts();
 			for (size_t i = 0;i < vecScripts.size();++i)
 			{
-				vecScripts[i]->OnTriggerStay(_Other);
+				vecScripts[i]->OnOverlapStay(_Other);
 			}
 			pParent = pParent->GetParent();
 		}
@@ -107,7 +109,7 @@ void GCollider2D::NotifyExit(GCollider2D* _Other)
 	const vector<GScript*>& vecScripts = GameObject()->GetScripts();
 	for (size_t i = 0;i < vecScripts.size();++i)
 	{
-		vecScripts[i]->OnTriggerExit(_Other);
+		vecScripts[i]->OnOverlapExit(_Other);
 	}
 
 	// true라면 부모 오브젝트의 스크립트에게도 충돌을 호출해준다.
@@ -120,7 +122,7 @@ void GCollider2D::NotifyExit(GCollider2D* _Other)
 			const vector<GScript*>& vecScripts = pParent->GetScripts();
 			for (size_t i = 0;i < vecScripts.size();++i)
 			{
-				vecScripts[i]->OnTriggerExit(_Other);
+				vecScripts[i]->OnOverlapExit(_Other);
 			}
 			pParent = pParent->GetParent();
 		}
@@ -145,6 +147,7 @@ void GCollider2D::FinalUpdate()
 
 void GCollider2D::SaveToFile(FILE* _File)
 {
+	fwrite(&m_IsTrigger, sizeof(bool), 1, _File);
 	fwrite(&m_Scale, sizeof(Vector3), 1, _File);
 	fwrite(&m_Offset, sizeof(Vector3), 1, _File);
 	fwrite(&m_NotifyParent, sizeof(bool), 1, _File);
@@ -152,6 +155,7 @@ void GCollider2D::SaveToFile(FILE* _File)
 
 void GCollider2D::LoadFromFile(FILE* _File)
 {
+	fread(&m_IsTrigger, sizeof(bool), 1, _File);
 	fread(&m_Scale, sizeof(Vector3), 1, _File);
 	fread(&m_Offset, sizeof(Vector3), 1, _File);
 	fread(&m_NotifyParent, sizeof(bool), 1, _File);
