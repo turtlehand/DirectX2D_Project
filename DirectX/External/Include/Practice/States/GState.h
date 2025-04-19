@@ -20,7 +20,9 @@ public:
 
 public:
     virtual void Awake() {};
-    virtual void Enter() = 0;
+    virtual void Enter() {};
+    virtual void Enter(DWORD_PTR _Param1) {};
+    virtual void Enter(DWORD_PTR _Param1, DWORD_PTR _Param2) {};
     virtual void Tick() = 0;
     virtual void Exit() = 0;
 

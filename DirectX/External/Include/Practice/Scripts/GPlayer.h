@@ -30,7 +30,7 @@ enum class PLAYER_FLIPBOOK
 	HUG_READY,
 	FLINCH,
 	GETITEM,
-	OPENBOX,
+	//OPENBOX,
 	END
 };
 
@@ -139,5 +139,6 @@ public:
 	friend class GPlayerJumpState;
 	friend class GPlayerFallState;
 	friend class GPlayerFlinchState;
+	friend class GPlayerGetItemState;
 };
 

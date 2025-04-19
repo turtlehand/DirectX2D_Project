@@ -12,6 +12,7 @@ enum class SCRIPT_PARAM
     VEC2,
     VEC3,
     VEC4,
+    STRING,
     TEXTURE,
     PREFAB,
 };

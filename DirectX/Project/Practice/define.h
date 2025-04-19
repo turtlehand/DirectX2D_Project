@@ -9,6 +9,7 @@
 #define ADD_ENUM(Desc, pData, EnumName)
 #define ADD_FLOAT(Desc, pData)
 #define ADD_PREFAB(Desc, pData)
+#define ADD_STRING(Desc, pData);
 #define ADD_VECTOR2(Desc, pData)
 #define ADD_VECTOR3(Desc, pData)
 
@@ -18,6 +19,7 @@
 #define ADD_ENUM(Desc, pData, EnumName) AddScriptParam(SCRIPT_PARAM::ENUM, Desc, pData, EnumName);
 #define ADD_FLOAT(Desc, pData) AddScriptParam(SCRIPT_PARAM::FLOAT, Desc, pData);
 #define ADD_PREFAB(Desc, pData) AddScriptParam(SCRIPT_PARAM::PREFAB, Desc, pData);
+#define ADD_STRING(Desc, pData) AddScriptParam(SCRIPT_PARAM::STRING, Desc, pData);
 #define ADD_VECTOR2(Desc, pData) AddScriptParam(SCRIPT_PARAM::VEC2, Desc, pData);
 #define ADD_VECTOR3(Desc, pData) AddScriptParam(SCRIPT_PARAM::VEC3, Desc, pData);
 

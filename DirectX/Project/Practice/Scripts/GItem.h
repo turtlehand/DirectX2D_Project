@@ -10,6 +10,9 @@ private:
     static vector<string> ItemName;
 
 public:
+    PLAYER_ITEM GetItemType() { return  m_ItemType; }
+
+public:
     virtual void Init();
     virtual void Update();
 

@@ -24,6 +24,9 @@ GCollisionManager::~GCollisionManager()
 // 레이어 끼리 충돌 
 void GCollisionManager::Progress()
 {
+	if (GLevelManager::GetInst()->GetCurrentLevelState() != LEVEL_STATE::PLAY)
+		return;
+
 	for (UINT row = 0;row < MAX_LAYER; ++row)
 	{
 		for (UINT col = row ;col < MAX_LAYER;++col)

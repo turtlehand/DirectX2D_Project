@@ -48,7 +48,7 @@ GState* GFSM::FindState(const wstring& _Key)
 	return iter->second;
 }
 
-void GFSM::ChanageState(const wstring& _Key)
+void GFSM::ChanageState(const wstring& _Key, DWORD_PTR _Param1, DWORD_PTR _Param2)
 {
 	GState* pNextState = FindState(_Key);
 	assert(pNextState != nullptr);
@@ -58,7 +58,18 @@ void GFSM::ChanageState(const wstring& _Key)
 
 	
 	m_CurState = pNextState;
-	m_CurState->Enter();
+	m_CurStateName = ToString(_Key);
+	if (_Param1 != 0 && _Param2 != 0)
+		m_CurState->Enter(_Param1, _Param2);
+	else if (_Param1 != 0 && _Param2 == 0)
+		m_CurState->Enter(_Param1);
+	else
+		m_CurState->Enter();
+}
+
+void GFSM::Init()
+{
+	ADD_STRING("Cur State", &m_CurStateName);
 }
 
 void GFSM::Update()

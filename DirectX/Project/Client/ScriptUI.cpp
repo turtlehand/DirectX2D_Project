@@ -140,6 +140,15 @@ void ScriptUI::Render_UI()
 			AddItemHeight();
 		}
 		break;
+		case SCRIPT_PARAM::STRING:
+		{
+			ImGui::Text(ScriptParam[i].Desc.c_str());
+			ImGui::SameLine(GetTab());
+			string* str = (string*)ScriptParam[i].pData;
+			ImGui::Text(str->c_str(), str->size());
+			AddItemHeight();
+		}
+		break;
 		case SCRIPT_PARAM::TEXTURE:
 		{
 			AddItemHeight();

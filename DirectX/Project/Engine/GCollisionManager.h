@@ -31,6 +31,12 @@ private:
 
 public:
 	void Progress();
+	void ResetCollisionLayer() {
+		for (UINT i = 0; i < MAX_LAYER; ++i)
+		{
+			m_Matrix[i] = 0;
+		}
+	}
 	void CollisionLayerCheck(UINT _Left, UINT _Right) {
 
 		UINT Row = _Left;		// За

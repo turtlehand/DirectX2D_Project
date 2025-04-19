@@ -14,6 +14,7 @@
 
 
 #include "GFSM.h"
+#include "GItem.h"
 
 #include "GPlayerDefaultState.h"
 #include "GPlayerWalkState.h"
@@ -21,6 +22,7 @@
 #include "GPlayerJumpState.h"
 #include "GPlayerFallState.h"
 #include "GPlayerFlinchState.h"
+#include "GPlayerGetItemState.h"
 
 #include "GPlatform.h"
 
@@ -159,6 +161,7 @@ void GPlayer::Begin()
 	m_FSM->AddState(L"Jump", new GPlayerJumpState);
 	m_FSM->AddState(L"Fall", new GPlayerFallState);
 	m_FSM->AddState(L"Flinch", new GPlayerFlinchState);
+	m_FSM->AddState(L"GetItem", new GPlayerGetItemState);
 
 	m_FSM->ChanageState(L"Default");
 
@@ -181,7 +184,14 @@ void GPlayer::OnTriggerEnter(GCollider2D* _Other)
 		Dir = Dir / abs(Dir);
 		RigidBody2D()->AddForce(Vector2(Dir * m_FlinchForce.x, m_FlinchForce.y));
 	}
-		
+	
+	if (_Other->GameObject()->GetLayer() == (int)LAYER_TYPE::ITEM && (m_PlayerState == PLAYER_STATE::DEFAULT || m_PlayerState == PLAYER_STATE::WALK))
+	{
+		GItem* Item = _Other->GameObject()->GetComponent<GItem>();
+		assert(Item);
+
+		m_FSM->ChanageState(L"GetItem",(DWORD_PTR)Item);
+	}
 
 	//if (_Other->GameObject()->GetLayer() != (int)LAYER_TYPE::PLATFORM)
 	//	return;

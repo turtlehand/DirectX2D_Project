@@ -159,6 +159,9 @@
     <ClInclude Include="Scripts\GItem.h">
       <Filter>02. Scripts\Item</Filter>
     </ClInclude>
+    <ClInclude Include="GPlayerGetItemState.h">
+      <Filter>02. Scripts\Object\1. Player\1. State\7. GetItem</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -229,6 +232,9 @@
     </ClCompile>
     <ClCompile Include="Scripts\GItem.cpp">
       <Filter>02. Scripts\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="GPlayerGetItemState.cpp">
+      <Filter>02. Scripts\Object\1. Player\1. State\7. GetItem</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

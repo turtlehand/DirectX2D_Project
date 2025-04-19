@@ -274,7 +274,10 @@ void GLevelSaveLoad::SaveProjectSetting(FILE* _File)
 		SaveWString(LayerName, _File);
 	}
 
-	//GCollisionManager::GetInst()->CollisionLayerCheck(3,10);	// 플 몬공
+	//GCollisionManager::GetInst()->CollisionLayerCheck(2, 7);
+	//GCollisionManager::GetInst()->CollisionLayerCheck(3, 7);
+
+	//GCollisionManager::GetInst()->CollisionLayerCheck(3, 10);	// 플 몬공
 	//GCollisionManager::GetInst()->CollisionLayerCheck(4, 9);	// 몬 플공
 	//GCollisionManager::GetInst()->CollisionLayerCheck(5, 9);	// NPC, 플공
 	//GCollisionManager::GetInst()->CollisionLayerCheck(6, 9);	// 기타, 플공
