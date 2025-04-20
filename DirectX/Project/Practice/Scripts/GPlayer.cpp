@@ -228,6 +228,7 @@ void GPlayer::LoadFromFile(FILE* _File)
 {
 
 }
+
 void GPlayer::KeyInput()
 {
 	m_KeyInput = tKeyInput();
@@ -236,7 +237,6 @@ void GPlayer::KeyInput()
 	m_KeyInput.HorizontalMove = 0;
 	m_KeyInput.HorizontalMove -= KEY_PRESSED(KEY::LEFT) ? 1 : 0;
 	m_KeyInput.HorizontalMove += KEY_PRESSED(KEY::RIGHT) ? 1 : 0;
-
 
 	m_KeyInput.Jump = KEY_PRESSED(KEY::Z);
 	m_KeyInput.Interaction = KEY_DOWN(KEY::X);
@@ -306,11 +306,11 @@ bool GPlayer::ItemCheck()
 		m_PlayerUseItem = PLAYER_ITEM::SHOVEL;
 		return true;
 	}
-	else if (Bomb())
-	{
-		m_PlayerUseItem = PLAYER_ITEM::BOMB;
-		m_ItemTimer = 0;
-	}
+	//else if (Bomb())
+	//{
+	//	m_PlayerUseItem = PLAYER_ITEM::BOMB;
+	//	m_ItemTimer = 0;
+	//}
 	else if (Hug())
 	{
 		m_PlayerUseItem = PLAYER_ITEM::HUG;

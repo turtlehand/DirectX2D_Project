@@ -21,9 +21,9 @@ public:
     virtual void Tick();
     virtual void Exit();
 
-    virtual void OnTriggerEnter(GCollider2D* _Other);
-    virtual void OnTriggerStay(GCollider2D* _Other);
-    virtual void OnTriggerExit(GCollider2D* _Other);
+    virtual void OnOverlapEnter(GCollider2D* _Other);
+    virtual void OnOverlapStay(GCollider2D* _Other);
+    virtual void OnOverlapExit(GCollider2D* _Other);
 
 public:
     GPlayerGetItemState();

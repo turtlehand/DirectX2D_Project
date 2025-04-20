@@ -67,15 +67,15 @@ void GPlayerGetItemState::Exit()
 
 }
 
-void GPlayerGetItemState::OnTriggerEnter(GCollider2D* _Other)
+void GPlayerGetItemState::OnOverlapEnter(GCollider2D* _Other)
 {
 }
 
-void GPlayerGetItemState::OnTriggerStay(GCollider2D* _Other)
+void GPlayerGetItemState::OnOverlapStay(GCollider2D* _Other)
 {
 }
 
-void GPlayerGetItemState::OnTriggerExit(GCollider2D* _Other)
+void GPlayerGetItemState::OnOverlapExit(GCollider2D* _Other)
 {
 }
 

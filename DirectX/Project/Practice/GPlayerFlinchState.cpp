@@ -34,15 +34,15 @@ void GPlayerFlinchState::Exit()
 {
 }
 
-void GPlayerFlinchState::OnTriggerEnter(GCollider2D* _Other)
+void GPlayerFlinchState::OnOverlapEnter(GCollider2D* _Other)
 {
 }
 
-void GPlayerFlinchState::OnTriggerStay(GCollider2D* _Other)
+void GPlayerFlinchState::OnOverlapStay(GCollider2D* _Other)
 {
 }
 
-void GPlayerFlinchState::OnTriggerExit(GCollider2D* _Other)
+void GPlayerFlinchState::OnOverlapExit(GCollider2D* _Other)
 {
 }
 

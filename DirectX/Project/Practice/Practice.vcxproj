@@ -176,6 +176,7 @@ call CodeGen.exe</Command>
     <ClInclude Include="GObjectBasic.h" />
     <ClInclude Include="GPlayerFlinchState.h" />
     <ClInclude Include="GPlayerGetItemState.h" />
+    <ClInclude Include="GPlayerUseItemState.h" />
     <ClInclude Include="GScriptManager.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Scripts\GCameraMove.h" />
@@ -192,7 +193,6 @@ call CodeGen.exe</Command>
     <ClInclude Include="Scripts\GPlayerDefaultState.h" />
     <ClInclude Include="Scripts\GPlayerFallState.h" />
     <ClInclude Include="Scripts\GPlayerJumpState.h" />
-    <ClInclude Include="Scripts\GPlayerUseItemState.h" />
     <ClInclude Include="Scripts\GPlayerWalkState.h" />
     <ClInclude Include="Scripts\GPrincess.h" />
     <ClInclude Include="States\GState.h" />
@@ -205,6 +205,7 @@ call CodeGen.exe</Command>
     <ClCompile Include="GObjectBasic.cpp" />
     <ClCompile Include="GPlayerFlinchState.cpp" />
     <ClCompile Include="GPlayerGetItemState.cpp" />
+    <ClCompile Include="GPlayerUseItemState.cpp" />
     <ClCompile Include="GScriptManager.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -226,7 +227,6 @@ call CodeGen.exe</Command>
     <ClCompile Include="Scripts\GPlayerDefaultState.cpp" />
     <ClCompile Include="Scripts\GPlayerFallState.cpp" />
     <ClCompile Include="Scripts\GPlayerJumpState.cpp" />
-    <ClCompile Include="Scripts\GPlayerUseItemState.cpp" />
     <ClCompile Include="Scripts\GPlayerWalkState.cpp" />
     <ClCompile Include="Scripts\GPrincess.cpp" />
     <ClCompile Include="States\GState.cpp" />

@@ -12,6 +12,5 @@ GPlayer
 GPlayerDefaultState
 GPlayerFallState
 GPlayerJumpState
-GPlayerUseItemState
 GPlayerWalkState
 GPrincess

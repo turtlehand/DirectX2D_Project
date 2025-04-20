@@ -114,9 +114,6 @@
     <ClInclude Include="Scripts\GPlayerWalkState.h">
       <Filter>02. Scripts\Object\1. Player\1. State\2. Walk</Filter>
     </ClInclude>
-    <ClInclude Include="Scripts\GPlayerUseItemState.h">
-      <Filter>02. Scripts\Object\1. Player\1. State\3. UseItem</Filter>
-    </ClInclude>
     <ClInclude Include="enum.h">
       <Filter>Default</Filter>
     </ClInclude>
@@ -128,12 +125,6 @@
     </ClInclude>
     <ClInclude Include="Scripts\GPlayerFallState.h">
       <Filter>02. Scripts\Object\1. Player\1. State\5. Fall</Filter>
-    </ClInclude>
-    <ClInclude Include="Scripts\GGroundChecker.h">
-      <Filter>02. Scripts\4. Platform</Filter>
-    </ClInclude>
-    <ClInclude Include="Scripts\GCeilingChecker.h">
-      <Filter>02. Scripts\4. Platform</Filter>
     </ClInclude>
     <ClInclude Include="Scripts\GMinion.h">
       <Filter>02. Scripts\Object\2. Monster\Minion</Filter>
@@ -174,6 +165,15 @@
     <ClInclude Include="Scripts\GEndingScene.h">
       <Filter>02. Scripts\GameManager</Filter>
     </ClInclude>
+    <ClInclude Include="GPlayerUseItemState.h">
+      <Filter>02. Scripts\Object\1. Player\1. State\3. UseItem</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\GGroundChecker.h">
+      <Filter>02. Scripts\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\GCeilingChecker.h">
+      <Filter>02. Scripts\Object</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -200,9 +200,6 @@
     <ClCompile Include="Scripts\GPlayerWalkState.cpp">
       <Filter>02. Scripts\Object\1. Player\1. State\2. Walk</Filter>
     </ClCompile>
-    <ClCompile Include="Scripts\GPlayerUseItemState.cpp">
-      <Filter>02. Scripts\Object\1. Player\1. State\3. UseItem</Filter>
-    </ClCompile>
     <ClCompile Include="Scripts\GPlayerJumpState.cpp">
       <Filter>02. Scripts\Object\1. Player\1. State\4. Jump</Filter>
     </ClCompile>
@@ -211,12 +208,6 @@
     </ClCompile>
     <ClCompile Include="Scripts\GPlayerFallState.cpp">
       <Filter>02. Scripts\Object\1. Player\1. State\5. Fall</Filter>
-    </ClCompile>
-    <ClCompile Include="Scripts\GGroundChecker.cpp">
-      <Filter>02. Scripts\4. Platform</Filter>
-    </ClCompile>
-    <ClCompile Include="Scripts\GCeilingChecker.cpp">
-      <Filter>02. Scripts\4. Platform</Filter>
     </ClCompile>
     <ClCompile Include="Scripts\GMinion.cpp">
       <Filter>02. Scripts\Object\2. Monster\Minion</Filter>
@@ -256,6 +247,15 @@
     </ClCompile>
     <ClCompile Include="Scripts\GEndingScene.cpp">
       <Filter>02. Scripts\GameManager</Filter>
+    </ClCompile>
+    <ClCompile Include="GPlayerUseItemState.cpp">
+      <Filter>02. Scripts\Object\1. Player\1. State\3. UseItem</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\GCeilingChecker.cpp">
+      <Filter>02. Scripts\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\GGroundChecker.cpp">
+      <Filter>02. Scripts\Object</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

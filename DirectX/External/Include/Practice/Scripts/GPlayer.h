@@ -126,7 +126,7 @@ private:
 	bool Sword();
 	//bool ShotGun();
 	//bool Shield();
-	bool Chicken();
+	//bool Chicken();
 
 public:
 	CLONE(GPlayer);

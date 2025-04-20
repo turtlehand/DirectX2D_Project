@@ -30,7 +30,10 @@ void GMinionWalkState::Enter()
 
 	m_Minion->FlipbookRender()->Play((int)MINION_STATE::WALK);
 
+	// 이미지가 움직이는 방향을 바라보게 변경
 	m_Minion->SetMoveDirection(m_Minion->m_HorizontalMove);
+	
+	// 초기힘
 	m_Minion->RigidBody2D()->AddForce(Vector2(m_Minion->m_HorizontalMove, 0) * m_Minion->m_MoveInitForce);
 
 }

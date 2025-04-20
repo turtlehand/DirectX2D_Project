@@ -28,7 +28,10 @@ void RigidBody2DUI::Render_UI()
 	ImGui::Text("Velocity");
 	ImGui::SameLine(GetTab());
 	Vector2 vVelocity = pRigid->GetVelocity();
-	ImGui::DragFloat2("##Velocity", vVelocity, 1.0f, 0.0f, 0.0f, nullptr, ImGuiSliderFlags_NoInput);
+	if (ImGui::DragFloat2("##Velocity", vVelocity, 1.0f, 0.0f, 0.0f, nullptr))
+	{
+		pRigid->SetVelocity(vVelocity);
+	}
 	AddItemHeight();
 
 	ImGui::Text("Mass");

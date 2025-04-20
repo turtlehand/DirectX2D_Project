@@ -67,6 +67,8 @@ void CreateTestLevel()
 
 	SpawnGameObject(pLight);
 
+	GCollisionManager::GetInst()->CollisionLayerCheck(0, 0);
+
 	/*
 	pLight = new GGameObject;
 	pLight->SetName(L"Light");

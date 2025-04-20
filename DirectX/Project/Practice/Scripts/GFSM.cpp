@@ -83,21 +83,21 @@ void GFSM::OnOverlapEnter(GCollider2D* _Other)
 {
 	if (m_CurState == nullptr)
 		return;
-	m_CurState->OnTriggerEnter(_Other);
+	m_CurState->OnOverlapEnter(_Other);
 }
 
 void GFSM::OnOverlapStay(GCollider2D* _Other)
 {
 	if (m_CurState == nullptr)
 		return;
-	m_CurState->OnTriggerStay(_Other);
+	m_CurState->OnOverlapStay(_Other);
 }
 
 void GFSM::OnOverlapExit(GCollider2D* _Other)
 {
 	if (m_CurState == nullptr)
 		return;
-	m_CurState->OnTriggerExit(_Other);
+	m_CurState->OnOverlapExit(_Other);
 }
 
 void GFSM::SaveToFile(FILE* _File)

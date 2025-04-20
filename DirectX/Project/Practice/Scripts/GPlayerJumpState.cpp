@@ -26,7 +26,7 @@ void GPlayerJumpState::Awake()
 
 void GPlayerJumpState::Enter()
 {
-	GGameManager::GetInst()->GameEnding(ENDING_TYPE::Older_Man_Attack);
+	//GGameManager::GetInst()->GameEnding(ENDING_TYPE::Older_Man_Attack);
 
 	m_Player->m_PlayerState = PLAYER_STATE::JUMP;
 
@@ -35,12 +35,13 @@ void GPlayerJumpState::Enter()
 
 	m_Player->FlipbookRender()->Play((int)PLAYER_FLIPBOOK::JUMP);
 
+	// 방향 변경
 	m_Player->SetMoveDirection(m_Player->m_KeyInput.HorizontalMove);
+	
+	// 초기 힘
 	m_Player->RigidBody2D()->AddForce(
 		Vector2(m_Player->m_KeyInput.HorizontalMove * m_Player->m_MoveInitForce
 				, m_Player->m_JumpPower));
-
-	m_PlayerRigid->SetGravity(m_Player->m_GravityScale);
 
 	m_Player->m_JumpTimer = 0.f;
 }
@@ -56,12 +57,14 @@ void GPlayerJumpState::Tick()
 		}
 	}
 
+	// 천장에 닿으면 즉시 하강한다.
 	if (m_Player->m_IsCeiling > 0)
 	{
 		m_Player->GetFSM()->ChanageState(L"Fall");
 		return;
 	}
 
+	// 점프를 시작하고 점프는 최소 시간 이상 최대 시간 이하로 유지된다.
 	if (!m_Player->m_KeyInput.Jump) 
 	{
 		// 최소 시간은 점프한다.
@@ -104,6 +107,7 @@ void GPlayerJumpState::Tick()
 		PlayerSpeed.x = m_Player->m_MoveMaxSpeed * m_Player->m_KeyInput.HorizontalMove;
 	}
 
+	// 점프 속력 제한
 	if (m_Player->m_JumpMaxSpeed < m_PlayerRigid->GetVelocity().y)
 	{
 		PlayerSpeed.y = m_Player->m_JumpMaxSpeed;

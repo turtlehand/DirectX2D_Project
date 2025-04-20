@@ -43,11 +43,6 @@ void GCeilingChecker::OnOverlapEnter(GCollider2D* _Other)
 	++m_Owner->m_IsCeiling;
 
 	m_Owner->CeilingEnter();
-
-	Vector3 OtherPos = _Other->Transform()->GetWorldPos();
-	Vector3 OtherScale = _Other->Transform()->GetWorldScale();
-	Vector3 ThisPos = GameObject()->Transform()->GetWorldPos();
-	Vector3 ThisScale = GameObject()->Transform()->GetWorldScale();
 }
 
 void GCeilingChecker::OnOverlapStay(GCollider2D* _Other)

@@ -80,11 +80,6 @@ void GPlayerFallState::Tick()
 		PlayerSpeed.x = m_Player->m_MoveMaxSpeed * m_Player->m_KeyInput.HorizontalMove;
 	}
 
-	if ( -m_Player->m_JumpMaxSpeed > m_PlayerRigid->GetVelocity().y)
-	{
-		PlayerSpeed.y = -m_Player->m_JumpMaxSpeed;
-	}
-
 	m_PlayerRigid->SetVelocity(PlayerSpeed);
 }
 

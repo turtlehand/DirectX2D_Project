@@ -46,10 +46,6 @@ void GGroundChecker::OnOverlapEnter(GCollider2D* _Other)
 
 	m_Owner->GroundEnter();
 
-	Vector3 OtherPos = _Other->Transform()->GetWorldPos();
-	Vector3 OtherScale = _Other->Transform()->GetWorldScale();
-	Vector3 ThisPos = GameObject()->Transform()->GetWorldPos();
-	Vector3 ThisScale = GameObject()->Transform()->GetWorldScale();
 }
 
 void GGroundChecker::OnOverlapStay(GCollider2D* _Other)

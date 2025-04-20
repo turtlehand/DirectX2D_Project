@@ -32,18 +32,23 @@ void GPlayerWalkState::Enter()
 
 	m_Player->FlipbookRender()->Play((int)PLAYER_FLIPBOOK::WALK);
 
+	// 캐릭터의 바라보고 있는 방향을 바꾼다.
 	m_Player->SetMoveDirection(m_Player->m_KeyInput.HorizontalMove);
+	
+	// 처음에만 큰 힘을 줘서 빠르게 최대 속도에 도달하게 한다.
 	m_Player->RigidBody2D()->AddForce(Vector2(m_Player->m_KeyInput.HorizontalMove, 0) * m_Player->m_MoveInitForce);
 }
 
 void GPlayerWalkState::Tick()
 {
+	// 땅에서 떨어졌다면
 	if (!m_Player->m_IsGround)
 	{
 		m_Player->GetFSM()->ChanageState(L"Fall");
 		return;
 	}
 
+	// 아이템 사용이 가능하다면
 	if (m_Player->m_KeyInput.Interaction)
 	{
 		if (m_Player->Interaction())
@@ -53,12 +58,14 @@ void GPlayerWalkState::Tick()
 		}
 	}
 
+	// 이동을 멈추었다면
 	if (m_Player->m_KeyInput.HorizontalMove == 0)
 	{
 		m_Player->GetFSM()->ChanageState(L"Default");
 		return;
 	}
 	
+	// 점프를 하기 시작했다면
 	if (m_Player->m_KeyInput.Jump)
 	{
 		m_Player->GetFSM()->ChanageState(L"Jump");
