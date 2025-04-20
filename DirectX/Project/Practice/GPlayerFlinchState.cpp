@@ -17,6 +17,13 @@ void GPlayerFlinchState::Enter()
 	m_Player->m_PlayerState = PLAYER_STATE::FLINCH;
 	m_Player->FlipbookRender()->Play((int)PLAYER_FLIPBOOK::FLINCH);
 	m_Timer = 0.f;
+	m_Player->m_HP -= 1;
+	if (m_Player->m_HP <= 0)
+	{
+		GGameManager::GetInst()->GameEnding(ENDING_TYPE::Mighty_Minion);
+	}
+
+
 	//m_Player
 }
 

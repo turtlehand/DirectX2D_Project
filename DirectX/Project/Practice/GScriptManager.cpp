@@ -6,6 +6,7 @@
 #include "GEndingCamera.h"
 #include "GEndingScene.h"
 #include "GFSM.h"
+#include "GGameManagerScript.h"
 #include "GGroundChecker.h"
 #include "GItem.h"
 #include "GLord.h"
@@ -25,6 +26,7 @@ void GScriptManager::GetScriptInfo(vector<wstring>& _vec)
 	_vec.push_back(L"GEndingCamera");
 	_vec.push_back(L"GEndingScene");
 	_vec.push_back(L"GFSM");
+	_vec.push_back(L"GGameManagerScript");
 	_vec.push_back(L"GGroundChecker");
 	_vec.push_back(L"GItem");
 	_vec.push_back(L"GLord");
@@ -50,6 +52,8 @@ GScript * GScriptManager::GetScript(const wstring& _strScriptName)
 		return new GEndingScene;
 	if (L"GFSM" == _strScriptName)
 		return new GFSM;
+	if (L"GGameManagerScript" == _strScriptName)
+		return new GGameManagerScript;
 	if (L"GGroundChecker" == _strScriptName)
 		return new GGroundChecker;
 	if (L"GItem" == _strScriptName)
@@ -93,6 +97,9 @@ GScript * GScriptManager::GetScript(UINT _iScriptType)
 		break;
 	case (UINT)SCRIPT_TYPE::FSM:
 		return new GFSM;
+		break;
+	case (UINT)SCRIPT_TYPE::GAMEMANAGERSCRIPT:
+		return new GGameManagerScript;
 		break;
 	case (UINT)SCRIPT_TYPE::GROUNDCHECKER:
 		return new GGroundChecker;
@@ -153,6 +160,10 @@ const wchar_t * GScriptManager::GetScriptName(GScript * _pScript)
 
 	case SCRIPT_TYPE::FSM:
 		return L"GFSM";
+		break;
+
+	case SCRIPT_TYPE::GAMEMANAGERSCRIPT:
+		return L"GGameManagerScript";
 		break;
 
 	case SCRIPT_TYPE::GROUNDCHECKER:

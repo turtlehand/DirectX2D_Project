@@ -4,6 +4,8 @@
 #include "GMinion.h"
 #include <Engine/components.h>
 
+#include "GGameManager.h"
+
 GMinionDeadState::GMinionDeadState()
 {
 }

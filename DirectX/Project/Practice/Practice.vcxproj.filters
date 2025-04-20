@@ -174,6 +174,9 @@
     <ClInclude Include="Scripts\GCeilingChecker.h">
       <Filter>02. Scripts\Object</Filter>
     </ClInclude>
+    <ClInclude Include="Scripts\GGameManagerScript.h">
+      <Filter>02. Scripts\GameManager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -256,6 +259,9 @@
     </ClCompile>
     <ClCompile Include="Scripts\GGroundChecker.cpp">
       <Filter>02. Scripts\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\GGameManagerScript.cpp">
+      <Filter>02. Scripts\GameManager</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -153,7 +153,8 @@ void GPlayer::Init()
 
 void GPlayer::Begin()
 {
-	GGameManager::GetInst()->Init();
+	m_MaxHP = 3;
+	m_HP = 3;
 
 	m_FSM = GameObject()->GetComponent<GFSM>();
 

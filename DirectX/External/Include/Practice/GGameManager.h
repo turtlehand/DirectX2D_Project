@@ -1,6 +1,6 @@
 #pragma once
 #include <Engine/GSingleton.h>
-#include <Engine/GTexture.h>
+#include <Engine/GSprite.h>
 
 class GEndingCamera;
 class GEndingScnene;
@@ -37,7 +37,7 @@ class GGameManager
 private:
 	SINGLE(GGameManager);
 	bool m_Ending[(int)ENDING_TYPE::END];
-	Ptr<GTexture> m_EndingScene[(int)ENDING_TYPE::END];
+	Ptr<GSprite> m_EndingScene[(int)ENDING_TYPE::END];
 
 private:
 	GPlayer* m_Player;
@@ -50,11 +50,12 @@ private:
 
 public:
 	void Init();
+	void Begin();
 	void Progress();
 
 public:
 	void SaveGameEnding();
-	void GameReset();		// 상태 초기화
+	void GameLoad();		// 상태 초기화
 	void GameEnding(ENDING_TYPE _Type);
 };
 

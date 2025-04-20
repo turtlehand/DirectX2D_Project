@@ -3,6 +3,7 @@ GCeilingChecker
 GEndingCamera
 GEndingScene
 GFSM
+GGameManagerScript
 GGroundChecker
 GItem
 GLord

@@ -9,6 +9,8 @@
 #include "GMinionAttackState.h"
 #include "GMinionDeadState.h"
 
+#include "GGameManager.h"
+
 GMinion::GMinion()
 	: GObjectBasic(MINION)
 	, m_MinionState()
@@ -63,6 +65,14 @@ void GMinion::OnOverlapEnter(GCollider2D* _Other)
 		int Dir = Transform()->GetWorldPos().x - _Other->Transform()->GetWorldPos().x;
 		Dir = Dir / abs(Dir);
 		RigidBody2D()->AddForce(Vector2(Dir * m_FlinchForce.x, m_FlinchForce.y));
+
+		m_HP -= 1;
+
+		if (m_HP < -5)
+		{
+			GGameManager::GetInst()->GameEnding(ENDING_TYPE::Cruel_Minion_Killer);
+		}
+
 		if (m_MinionState != MINION_STATE::DEAD)
 			m_FSM->ChanageState(L"Dead");
 	}
