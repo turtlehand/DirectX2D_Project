@@ -48,7 +48,8 @@ struct tParticleModule
     int     SpaceType; // 0 : Local, 2 : World
 
 	// Add Velocity  Module
-    uint    AddVelocityType;       // 0 : Random, 1 : FromCenter, 2 : ToCenter, 4 : Fixed 
+    float GravityScale;
+    uint    AddVelocityType;       // 0 : Random, 1 : FromCenter, 2 : ToCenter, 4 : Fixed
     float3  AddVelocityFixedDir;
     float   AddMinSpeed;
     float   AddMaxSpeed;
@@ -82,7 +83,7 @@ struct tParticleModule
 
     int     Module[7];
 
-    int    padding;
+    //int    padding;
 };
 
 struct tLight2DInfo

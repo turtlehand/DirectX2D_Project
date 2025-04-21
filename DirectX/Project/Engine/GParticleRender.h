@@ -71,6 +71,10 @@ public:
 	void SetAddVelocityType(int _Type) { m_Module.AddVelocityType = _Type; m_ModuleChanged = true; }
 	int GetAddVelocityType() { return m_Module.AddVelocityType; }
 
+	// 중력 크기
+	void SetGravityScale(float _GravityScale) { m_Module.GravityScale = _GravityScale; m_ModuleChanged = true; }
+	float GetGravityScale() { return m_Module.GravityScale; }
+
 	// 무작위 시 최소 속도
 	void SetMinSpeed(float _MinSpeed) { m_Module.AddMinSpeed = _MinSpeed; m_ModuleChanged = true; }
 	float GetMinSpeed() { return m_Module.AddMinSpeed; }

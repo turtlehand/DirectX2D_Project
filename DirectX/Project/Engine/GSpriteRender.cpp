@@ -74,6 +74,15 @@ void GSpriteRender::CreateSpriteMaterial()
 		GAssetManager::GetInst()->AddAsset(L"SpriteMtrl", pMtrl.Get());
 	}
 
+	if (GAssetManager::GetInst()->FindAsset<GMaterial>(L"SpriteMtrl_AlphaBland") == nullptr)
+	{
+		// SpriteMtrl
+		Ptr<GMaterial> pMtrl = new GMaterial;
+		pMtrl->SetShader(GAssetManager::GetInst()->FindAsset<GGraphicShader>(L"SpriteShader_AlphaBland"));
+
+		GAssetManager::GetInst()->AddAsset(L"SpriteMtrl_AlphaBland", pMtrl.Get());
+	}
+
 	SetMaterial(GAssetManager::GetInst()->FindAsset<GMaterial>(L"SpriteMtrl"));
 }
 

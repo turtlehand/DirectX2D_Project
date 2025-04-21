@@ -300,6 +300,17 @@ void ParticleRenderUI::Velocity()
 
 		ImGui::BeginDisabled(!bVelocityModule);
 
+		float fGravity = m_ParticleRender->GetGravityScale();
+
+		ImGui::Text("Gravity Scale");
+		ImGui::SameLine(GetTab());
+		if (ImGui::DragFloat("##Gravity Scale", &fGravity, 0.1f, 0, FLT_MAX))
+		{
+			m_ParticleRender->SetGravityScale(fGravity);
+		}
+		AddItemHeight();
+
+
 		const char* VelocityTypeItem[] = { "Random", "From Center","To Center", "Fixed"};
 		int iVelocityType = m_ParticleRender->GetAddVelocityType();
 		ImGui::Text("Add Velocity Type");

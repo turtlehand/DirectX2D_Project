@@ -61,13 +61,15 @@ void GGameManager::Begin()
 
 	m_Scene = pScene->GetComponent<GEndingScene>();
 	assert(m_Scene);
+
+	GameLoad();
 }
 
 void GGameManager::Progress()
 {
 	if (GLevelManager::GetInst()->GetCurrentLevelState() != LEVEL_STATE::PLAY)
 	{
-		GTimeManager::GetInst()->SetTimeScale(1.f);
+		
 		return;
 	}
 
@@ -113,6 +115,10 @@ void GGameManager::Progress()
 
 void GGameManager::GameLoad()
 {
+	GTimeManager::GetInst()->SetTimeScale(1.f);
+	GRenderManager::GetInst()->DeRegisterCamera(m_Camera->Camera());
+	m_IsEnd = false;
+	m_EndingTimer = 0.f;
 }
 
 void GGameManager::GameEnding(ENDING_TYPE _Type)
@@ -124,6 +130,6 @@ void GGameManager::GameEnding(ENDING_TYPE _Type)
 	m_EndingTimer = 0.f;
 
 	m_Scene->SpriteRender()->SetSprite(m_EndingScene[(UINT)_Type]);
-
+	m_Scene->SpriteRender()->SetColor(Vector4(1.f, 1.f, 1.f, 0.f));
 	GRenderManager::GetInst()->RegisterCamera(m_Camera->Camera(), 1);
 }

@@ -68,7 +68,10 @@ GPlayer::GPlayer()
 	, m_SwordPos()
 	, m_SwordTime(0.3f)
 {
-
+	for (int i = 0; i < (int)PLAYER_ITEM::END; ++i)
+	{
+		m_PlayerItems[i] = true;
+	}
 }
 
 GPlayer::GPlayer(const GPlayer& _Origin)
@@ -184,7 +187,7 @@ void GPlayer::OnOverlapEnter(GCollider2D* _Other)
 	{
 		m_FSM->ChanageState(L"Flinch");
 		int Dir = Transform()->GetWorldPos().x - _Other->Transform()->GetWorldPos().x;
-		Dir = Dir / abs(Dir);
+		Dir = Dir / (Dir == 0 ? 1 : abs(Dir));
 		RigidBody2D()->AddForce(Vector2(Dir * m_FlinchForce.x, m_FlinchForce.y));
 	}
 	

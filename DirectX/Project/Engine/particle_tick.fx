@@ -123,6 +123,7 @@ void CS_ParticleTick(int3 _ID : SV_DispatchThreadID)
 		
 		// 가속도에 따른 속도의 변화
 		Particle.Velocity.xyz += vAccel * g_EngineDT;
+		Particle.Velocity.y += g_Module[0].Module[2] ? - Module.GravityScale * g_EngineDT : 0;
 		
 		// 로컬
 		if (0 == Module.SpaceType)

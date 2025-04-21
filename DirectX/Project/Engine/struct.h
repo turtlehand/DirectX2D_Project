@@ -93,6 +93,7 @@ struct tParticleModule
 	int			SpaceType;				// 0 : Local, 2 : World
 
 	// Add Velocity
+	float		GravityScale;
 	UINT		AddVelocityType;		// 0 : Random, 1 : FromCenter, 2 : ToCenter, 4 : Fixed 
 	Vector3		AddVelocityFixedDir;
 	float		AddMinSpeed;
@@ -127,7 +128,7 @@ struct tParticleModule
 
 	int			Module[(UINT)PARTICLE_MODULE::END];
 
-	int			padding;
+	//int			padding;
 };
 
 // ===================

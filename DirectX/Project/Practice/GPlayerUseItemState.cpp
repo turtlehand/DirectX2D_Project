@@ -17,6 +17,10 @@
 #include "GPlatform.h"
 #include "GObjectBasic.h"
 
+#include "GOlderMan.h"
+#include "GMinion.h"
+#include "GPrincess.h"
+
 GPlayerUseItemState::GPlayerUseItemState()
 	: m_Player(nullptr)
 	, m_PlayerRigid(nullptr)
@@ -154,6 +158,17 @@ void GPlayerUseItemState::Enter_Hug()
 	if (FrontOB)
 	{
 		m_Player->FlipbookRender()->Play((int)PLAYER_FLIPBOOK::HUG);
+		m_PlayerRigid->AddForce(Vector2(m_Player->GetDirection() * 60, 40));
+
+		if (dynamic_cast<GOlderMan*>(FrontOB))
+		{
+			GGameManager::GetInst()->GameEnding(ENDING_TYPE::Bear_Hug);
+		}
+		else if (dynamic_cast<GMinion*>(FrontOB))
+		{
+			GGameManager::GetInst()->GameEnding(ENDING_TYPE::Minon_Allergy);
+		}
+
 	}
 
 	// 없다면 허그 포즈만 취한다.
