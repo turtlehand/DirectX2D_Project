@@ -1,6 +1,7 @@
 #pragma once
 #include <Engine/GScript.h>
 #include "GPlatform.h"
+#include <Engine/GTransform.h>
 
 
 class GObjectBasic :
@@ -18,6 +19,8 @@ protected:
     int m_HP;
 
 public:
+    // 해당 방향을 바라보게 한다.
+    int GetDirection() { return 0 < Transform()->GetRelativeScale().x ? 1 : -1; }
     void SetMoveDirection(int _Direction);
 
     virtual void GroundEnter();

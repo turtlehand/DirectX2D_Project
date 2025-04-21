@@ -105,9 +105,7 @@ public:
 	virtual void SaveToFile(FILE* _File);
 	virtual void LoadFromFile(FILE* _File);
 
-public:
-	// 해당 방향을 바라보게 한다.
-	int GetDirection() { return 0 < Transform()->GetRelativeScale().x ? 1 : -1; }
+
 
 private:
 	void KeyInput();

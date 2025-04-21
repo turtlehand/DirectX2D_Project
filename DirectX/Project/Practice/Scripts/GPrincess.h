@@ -5,7 +5,8 @@ class GPrincess :
     public GObjectBasic
 {
 private:
-	class GFSM* m_FSM;
+	bool m_IsDead;
+	float m_Timer;
 
 public:
 	virtual void Init() override;
@@ -25,4 +26,3 @@ public:
 	GPrincess();
 	~GPrincess();
 };
-

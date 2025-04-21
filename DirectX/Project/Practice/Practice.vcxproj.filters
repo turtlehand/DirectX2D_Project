@@ -85,6 +85,9 @@
     <Filter Include="02. Scripts\6. GameManager">
       <UniqueIdentifier>{39ef8cc9-42dd-4752-8708-c8315789093d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. Scripts\3. Object\3. NPC\Princess">
+      <UniqueIdentifier>{ee252574-890b-4528-b7ea-6b8a2cb747b5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -147,9 +150,6 @@
     <ClInclude Include="Scripts\GLord.h">
       <Filter>02. Scripts\3. Object\2. Monster\Lord</Filter>
     </ClInclude>
-    <ClInclude Include="Scripts\GPrincess.h">
-      <Filter>02. Scripts\3. Object\3. NPC</Filter>
-    </ClInclude>
     <ClInclude Include="GObjectBasic.h">
       <Filter>02. Scripts\3. Object</Filter>
     </ClInclude>
@@ -182,6 +182,9 @@
     </ClInclude>
     <ClInclude Include="Scripts\GOlderMan.h">
       <Filter>02. Scripts\3. Object\3. NPC\OlderMan</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\GPrincess.h">
+      <Filter>02. Scripts\3. Object\3. NPC\Princess</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -236,9 +239,6 @@
     <ClCompile Include="Scripts\GLord.cpp">
       <Filter>02. Scripts\3. Object\2. Monster\Lord</Filter>
     </ClCompile>
-    <ClCompile Include="Scripts\GPrincess.cpp">
-      <Filter>02. Scripts\3. Object\3. NPC</Filter>
-    </ClCompile>
     <ClCompile Include="GObjectBasic.cpp">
       <Filter>02. Scripts\3. Object</Filter>
     </ClCompile>
@@ -271,6 +271,9 @@
     </ClCompile>
     <ClCompile Include="Scripts\GOlderMan.cpp">
       <Filter>02. Scripts\3. Object\3. NPC\OlderMan</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\GPrincess.cpp">
+      <Filter>02. Scripts\3. Object\3. NPC\Princess</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

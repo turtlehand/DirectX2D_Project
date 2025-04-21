@@ -44,7 +44,7 @@ void SpriteUI::Render_UI()
 
 	ImGui::Text("LeftTop");
 	ImGui::SameLine(GetTab());
-	if (ImGui::DragFloat2("##LeftTop", LeftTop, 1.f, 0.f, FLT_MAX))
+	if (ImGui::DragFloat2("##LeftTop", LeftTop, 1.f))
 	{
 		m_Sprite->SetLeftTop(LeftTop);
 	}

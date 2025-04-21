@@ -20,6 +20,7 @@
 #include "GOlderMan.h"
 #include "GMinion.h"
 #include "GPrincess.h"
+#include "GLord.h"
 
 GPlayerUseItemState::GPlayerUseItemState()
 	: m_Player(nullptr)
@@ -116,7 +117,7 @@ void GPlayerUseItemState::Enter_Hug()
 			// 또는 오브젝트와 거리가 너무 멀다면 넘어간다.
 			if (m_Player->GetDirection() == 1)
 			{
-				if (OBPos.x < ThisPos.x || m_Player->Transform()->GetWorldPos().x + ThisPos.x < OBPos.x)
+				if (OBPos.x < ThisPos.x || m_Player->m_HugDetectScale.x + ThisPos.x < OBPos.x)
 					continue;
 			}
 			else
@@ -158,7 +159,7 @@ void GPlayerUseItemState::Enter_Hug()
 	if (FrontOB)
 	{
 		m_Player->FlipbookRender()->Play((int)PLAYER_FLIPBOOK::HUG);
-		m_PlayerRigid->AddForce(Vector2(m_Player->GetDirection() * 60, 40));
+		m_PlayerRigid->AddForce(Vector2(m_Player->GetDirection() * 80, 40));
 
 		if (dynamic_cast<GOlderMan*>(FrontOB))
 		{
@@ -168,6 +169,15 @@ void GPlayerUseItemState::Enter_Hug()
 		{
 			GGameManager::GetInst()->GameEnding(ENDING_TYPE::Minon_Allergy);
 		}
+		else if (dynamic_cast<GPrincess*>(FrontOB))
+		{
+			GGameManager::GetInst()->GameEnding(ENDING_TYPE::Rejection);
+		}
+		else if (dynamic_cast<GLord*>(FrontOB))
+		{
+			GGameManager::GetInst()->GameEnding(ENDING_TYPE::LovePower);
+		}
+
 
 	}
 
