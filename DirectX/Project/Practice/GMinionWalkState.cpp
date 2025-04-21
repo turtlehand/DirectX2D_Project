@@ -44,11 +44,11 @@ void GMinionWalkState::Tick()
 	Vector3 Scale = m_Minion->Transform()->GetWorldScale();
 
 	// 플레이어 탐지
-	DrawDebugLine(Vector4(1.f, 0.f, 0.f, 1.f), Vector3(Pos.x + Scale.x / 4, Pos.y, 0.f), Vector3(1.f, 0.f, 0.f), Scale.x / 4);
+	DrawDebugLine(Vector4(1.f, 0.f, 0.f, 1.f), Vector3(Pos.x , Pos.y, 0.f), Vector3(1.f, 0.f, 0.f), Scale.x / 2);
 
-	if (GCollisionManager::GetInst()->Line_Casting(Vector3(Pos.x + Scale.x / 4, Pos.y, Pos.z)
+	if (GCollisionManager::GetInst()->Line_Casting(Vector3(Pos.x , Pos.y, Pos.z)
 		, Vector3(1.f, 0.f, 0.f)
-		, Scale.x / 4
+		, Scale.x / 2
 		, (1 << (int)LAYER_TYPE::PLAYER)))
 	{
 		m_Minion->m_FSM->ChanageState(L"Attack");

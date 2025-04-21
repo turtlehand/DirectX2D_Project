@@ -282,7 +282,7 @@ void GLevelSaveLoad::SaveProjectSetting(FILE* _File)
 	GCollisionManager::GetInst()->CollisionLayerCheck(2, 6);	// 플랫폼 기타
 	GCollisionManager::GetInst()->CollisionLayerCheck(2, 7);	// 플랫폼 아이템
 	 
-	GCollisionManager::GetInst()->CollisionLayerCheck(3, 4);	// 플레이어 몬스터
+	//GCollisionManager::GetInst()->CollisionLayerCheck(3, 4);	// 플레이어 몬스터
 	GCollisionManager::GetInst()->CollisionLayerCheck(3, 7);	// 플레이어 아이템
 	GCollisionManager::GetInst()->CollisionLayerCheck(3, 10);	// 플레이어 몬공
 	

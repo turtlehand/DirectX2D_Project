@@ -11,6 +11,7 @@
 #include "GItem.h"
 #include "GLord.h"
 #include "GMinion.h"
+#include "GOlderMan.h"
 #include "GPlatform.h"
 #include "GPlayer.h"
 #include "GPlayerDefaultState.h"
@@ -31,6 +32,7 @@ void GScriptManager::GetScriptInfo(vector<wstring>& _vec)
 	_vec.push_back(L"GItem");
 	_vec.push_back(L"GLord");
 	_vec.push_back(L"GMinion");
+	_vec.push_back(L"GOlderMan");
 	_vec.push_back(L"GPlatform");
 	_vec.push_back(L"GPlayer");
 	_vec.push_back(L"GPlayerDefaultState");
@@ -62,6 +64,8 @@ GScript * GScriptManager::GetScript(const wstring& _strScriptName)
 		return new GLord;
 	if (L"GMinion" == _strScriptName)
 		return new GMinion;
+	if (L"GOlderMan" == _strScriptName)
+		return new GOlderMan;
 	if (L"GPlatform" == _strScriptName)
 		return new GPlatform;
 	if (L"GPlayer" == _strScriptName)
@@ -112,6 +116,9 @@ GScript * GScriptManager::GetScript(UINT _iScriptType)
 		break;
 	case (UINT)SCRIPT_TYPE::MINION:
 		return new GMinion;
+		break;
+	case (UINT)SCRIPT_TYPE::OLDERMAN:
+		return new GOlderMan;
 		break;
 	case (UINT)SCRIPT_TYPE::PLATFORM:
 		return new GPlatform;
@@ -180,6 +187,10 @@ const wchar_t * GScriptManager::GetScriptName(GScript * _pScript)
 
 	case SCRIPT_TYPE::MINION:
 		return L"GMinion";
+		break;
+
+	case SCRIPT_TYPE::OLDERMAN:
+		return L"GOlderMan";
 		break;
 
 	case SCRIPT_TYPE::PLATFORM:

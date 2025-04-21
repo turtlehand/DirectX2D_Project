@@ -9,7 +9,7 @@
 
 EditorCameraScript::EditorCameraScript()
 	: GScript(-1)
-	, m_CamSpeed(500.f)
+	, m_CamSpeed(100.f)
 	, m_Cam(nullptr)
 {
 }

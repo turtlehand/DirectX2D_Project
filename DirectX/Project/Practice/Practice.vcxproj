@@ -189,6 +189,7 @@ call CodeGen.exe</Command>
     <ClInclude Include="Scripts\GItem.h" />
     <ClInclude Include="Scripts\GLord.h" />
     <ClInclude Include="Scripts\GMinion.h" />
+    <ClInclude Include="Scripts\GOlderMan.h" />
     <ClInclude Include="Scripts\GPlatform.h" />
     <ClInclude Include="Scripts\GPlayer.h" />
     <ClInclude Include="Scripts\GPlayerDefaultState.h" />
@@ -224,6 +225,7 @@ call CodeGen.exe</Command>
     <ClCompile Include="Scripts\GItem.cpp" />
     <ClCompile Include="Scripts\GLord.cpp" />
     <ClCompile Include="Scripts\GMinion.cpp" />
+    <ClCompile Include="Scripts\GOlderMan.cpp" />
     <ClCompile Include="Scripts\GPlatform.cpp" />
     <ClCompile Include="Scripts\GPlayer.cpp" />
     <ClCompile Include="Scripts\GPlayerDefaultState.cpp" />

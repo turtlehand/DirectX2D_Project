@@ -66,7 +66,10 @@ void GGameManager::Begin()
 void GGameManager::Progress()
 {
 	if (GLevelManager::GetInst()->GetCurrentLevelState() != LEVEL_STATE::PLAY)
+	{
+		GTimeManager::GetInst()->SetTimeScale(1.f);
 		return;
+	}
 
 	if (m_IsEnd)
 	{
@@ -88,12 +91,12 @@ void GGameManager::Progress()
 				GTimeManager::GetInst()->SetTimeScale(ratio);
 				m_Scene->SpriteRender()->SetColor(Vector4(1.f, 1.f, 1.f, 0.f));
 			}
-			else if (3.f < m_EndingTimer && m_EndingTimer < 8.f)
+			else if (3.f < m_EndingTimer && m_EndingTimer < 6.f)
 			{
 				GTimeManager::GetInst()->SetTimeScale(0);
 				// ¼öÄ¡	0 ~ 1
 				// ÃÊ	3 ~ 10
-				float ratio = (8 - m_EndingTimer) / 5;
+				float ratio = (6 - m_EndingTimer) / 3;
 				//GTimeManager::GetInst()->SetTimeScale(ratio);
 				m_Scene->SpriteRender()->SetColor(Vector4(1.f, 1.f, 1.f, 1 - ratio));
 			}

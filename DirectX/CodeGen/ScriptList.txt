@@ -8,6 +8,7 @@ GGroundChecker
 GItem
 GLord
 GMinion
+GOlderMan
 GPlatform
 GPlayer
 GPlayerDefaultState

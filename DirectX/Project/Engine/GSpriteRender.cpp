@@ -27,14 +27,12 @@ void GSpriteRender::CreateSpriteMaterial()
 		Ptr<GGraphicShader> pShader = new GGraphicShader;
 		pShader->CreateVertexShader(L"HLSL\\sprite.fx", "VS_SPRITE");
 		pShader->CreatePixelShader(L"HLSL\\sprite.fx", "PS_SPRITE");
-		//pShader->SetDomain(SHADER_DOMAIN::DOMAIN_MASKED);
-		//pShader->SetRSType(RS_TYPE::CULL_NONE);
-		pShader->SetDomain(SHADER_DOMAIN::DOMAIN_TRANSPARENT);
+		pShader->SetDomain(SHADER_DOMAIN::DOMAIN_MASKED);
 		pShader->SetRSType(RS_TYPE::CULL_NONE);
-		pShader->SetDSType(DS_TYPE::NO_WRITE);
-		pShader->SetBSType(BS_TYPE::ALPHABLEND);
-
-
+		//pShader->SetDomain(SHADER_DOMAIN::DOMAIN_TRANSPARENT);
+		//pShader->SetRSType(RS_TYPE::CULL_NONE);
+		//pShader->SetDSType(DS_TYPE::NO_WRITE);
+		//pShader->SetBSType(BS_TYPE::ALPHABLEND);
 
 		// 에디터
 		pShader->AddTexParam(TEX_PARAM::TEX_0, L"Atlas");
@@ -43,6 +41,28 @@ void GSpriteRender::CreateSpriteMaterial()
 		pShader->AddScalarParam(SCALAR_PARAM::VEC4_0, L"Color");
 
 		GAssetManager::GetInst()->AddAsset(L"SpriteShader", pShader.Get());
+	}
+
+	if (GAssetManager::GetInst()->FindAsset<GGraphicShader>(L"SpriteShader_AlphaBland") == nullptr)
+	{
+		// SpriteShader
+		Ptr<GGraphicShader> pShader = new GGraphicShader;
+		pShader->CreateVertexShader(L"HLSL\\sprite.fx", "VS_SPRITE");
+		pShader->CreatePixelShader(L"HLSL\\sprite.fx", "PS_SPRITE");
+		//pShader->SetDomain(SHADER_DOMAIN::DOMAIN_MASKED);
+		//pShader->SetRSType(RS_TYPE::CULL_NONE);
+		pShader->SetDomain(SHADER_DOMAIN::DOMAIN_TRANSPARENT);
+		pShader->SetRSType(RS_TYPE::CULL_NONE);
+		pShader->SetDSType(DS_TYPE::NO_WRITE);
+		pShader->SetBSType(BS_TYPE::ALPHABLEND);
+
+		// 에디터
+		pShader->AddTexParam(TEX_PARAM::TEX_0, L"Atlas");
+		pShader->AddScalarParam(SCALAR_PARAM::VEC2_0, L"LeftTop");
+		pShader->AddScalarParam(SCALAR_PARAM::VEC2_1, L"Slice");
+		pShader->AddScalarParam(SCALAR_PARAM::VEC4_0, L"Color");
+
+		GAssetManager::GetInst()->AddAsset(L"SpriteShader_AlphaBland", pShader.Get());
 	}
 
 	if (GAssetManager::GetInst()->FindAsset<GMaterial>(L"SpriteMtrl") == nullptr)
