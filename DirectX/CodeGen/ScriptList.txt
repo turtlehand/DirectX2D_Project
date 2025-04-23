@@ -2,6 +2,7 @@ GCameraMove
 GCeilingChecker
 GEndingCamera
 GEndingScene
+GEndingTrigger
 GFSM
 GGameManagerScript
 GGroundChecker

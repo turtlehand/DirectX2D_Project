@@ -15,9 +15,32 @@
 #include "GEndingCamera.h"
 #include "GEndingScene.h"
 
+extern const vector<string> EndingName = {
+	"Older_Man_Attack",			// 노인 공격
+	"Mighty_Minion",			// 미니언에게 사망
+	"Cruel_Minion_Killer",		// 미니언 여러번 찌르기
+	"Mundane_Pouch",			// 아이템 많이 들어서 다리 부러지기
+	"Disappointing_Hero",		// 돌부리에 넘어짐
+	"Delicious_Strawberry",		// 산 꼭대기 딸기
+	"Battleground",				// 갑분배틀그라운드
+	"Yahoo",					// 마리오 토관
+	"Lava",						// 용암
+	"Taking_Day_Off",			// 집돌이
+	"Stress_Relief",			// 공주에게 분풀이
+	"Execution",				// 마왕에게 처형
+	"Cowardly_Hero",			// 마왕 뒤치
+	"Bear_Hug",					// 허리가 부러진 노인
+	"Minon_Allergy",			// 미니언 알레르기
+	"Rejection",				// 퇴짜
+	"LovePower",				// 사랑의 힘
+	"Leap_of_Faith",			// 신뢰의 도약
+	
+	"END"
+};
+
 GGameManager::GGameManager()
 	: m_EndingTime(30.f)
-	, m_IsEnd(false)
+	, m_PlayType(PLAY_TYPE::END)
 {
 
 }
@@ -53,6 +76,7 @@ void GGameManager::Init()
 
 void GGameManager::Begin()
 {
+	m_PlayType = PLAY_TYPE::PLAY;
 	GGameObject* pCamera = GLevelManager::GetInst()->GetCurrentLevel()->GetLayer(31)->FindObject(L"EndingCamera");
 	GGameObject* pScene = GLevelManager::GetInst()->GetCurrentLevel()->GetLayer(31)->FindObject(L"EndingScene");
 
@@ -73,7 +97,7 @@ void GGameManager::Progress()
 		return;
 	}
 
-	if (m_IsEnd)
+	if (m_PlayType == PLAY_TYPE::END)
 	{
 		if (m_EndingTime < m_EndingTimer)
 		{
@@ -81,7 +105,7 @@ void GGameManager::Progress()
 
 			GRenderManager::GetInst()->DeRegisterCamera(m_Camera->Camera());
 
-			m_IsEnd = false;
+			//m_IsEnd = false;
 		}
 		else
 		{
@@ -117,16 +141,16 @@ void GGameManager::GameLoad()
 {
 	GTimeManager::GetInst()->SetTimeScale(1.f);
 	GRenderManager::GetInst()->DeRegisterCamera(m_Camera->Camera());
-	m_IsEnd = false;
+	m_PlayType = PLAY_TYPE::PLAY;
 	m_EndingTimer = 0.f;
 }
 
 void GGameManager::GameEnding(ENDING_TYPE _Type)
 {
-	if (m_IsEnd)
+	if (m_PlayType == PLAY_TYPE::END)
 		return;
 
-	m_IsEnd = true;
+	m_PlayType = PLAY_TYPE::END;
 	m_EndingTimer = 0.f;
 
 	m_Scene->SpriteRender()->SetSprite(m_EndingScene[(UINT)_Type]);

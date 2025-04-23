@@ -29,24 +29,39 @@ enum class ENDING_TYPE
 	END
 };
 
+enum class PLAY_TYPE
+{
+	PLAY,
+	PAUSE,
+	ENDING,
+	END,
+};
+
+extern const vector<string> EndingName;
+
 class GPlayer;
 
 class GGameManager
 	: public GSingleton<GGameManager>
 {
-private:
+
 	SINGLE(GGameManager);
+
+private:
 	bool m_Ending[(int)ENDING_TYPE::END];
 	Ptr<GSprite> m_EndingScene[(int)ENDING_TYPE::END];
 
 private:
 	GPlayer* m_Player;
-	bool m_IsEnd;
+	PLAY_TYPE m_PlayType;
 	float m_EndingTime;
 	float m_EndingTimer;
 
 	class GEndingCamera* m_Camera;
 	class GEndingScene* m_Scene;
+
+public:
+	bool IsEnd() { return PLAY_TYPE::ENDING == m_PlayType; }
 
 public:
 	void Init();

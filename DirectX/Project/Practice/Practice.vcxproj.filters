@@ -88,6 +88,9 @@
     <Filter Include="02. Scripts\3. Object\3. NPC\Princess">
       <UniqueIdentifier>{ee252574-890b-4528-b7ea-6b8a2cb747b5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. Scripts\6. GameManager\EndingTrigger">
+      <UniqueIdentifier>{1abab6aa-0f6e-4818-a36e-25c66dfc9a87}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -186,6 +189,9 @@
     <ClInclude Include="Scripts\GPrincess.h">
       <Filter>02. Scripts\3. Object\3. NPC\Princess</Filter>
     </ClInclude>
+    <ClInclude Include="Scripts\GEndingTrigger.h">
+      <Filter>02. Scripts\6. GameManager\EndingTrigger</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -274,6 +280,9 @@
     </ClCompile>
     <ClCompile Include="Scripts\GPrincess.cpp">
       <Filter>02. Scripts\3. Object\3. NPC\Princess</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\GEndingTrigger.cpp">
+      <Filter>02. Scripts\6. GameManager\EndingTrigger</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

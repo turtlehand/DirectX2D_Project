@@ -5,6 +5,7 @@
 #include "GCeilingChecker.h"
 #include "GEndingCamera.h"
 #include "GEndingScene.h"
+#include "GEndingTrigger.h"
 #include "GFSM.h"
 #include "GGameManagerScript.h"
 #include "GGroundChecker.h"
@@ -26,6 +27,7 @@ void GScriptManager::GetScriptInfo(vector<wstring>& _vec)
 	_vec.push_back(L"GCeilingChecker");
 	_vec.push_back(L"GEndingCamera");
 	_vec.push_back(L"GEndingScene");
+	_vec.push_back(L"GEndingTrigger");
 	_vec.push_back(L"GFSM");
 	_vec.push_back(L"GGameManagerScript");
 	_vec.push_back(L"GGroundChecker");
@@ -52,6 +54,8 @@ GScript * GScriptManager::GetScript(const wstring& _strScriptName)
 		return new GEndingCamera;
 	if (L"GEndingScene" == _strScriptName)
 		return new GEndingScene;
+	if (L"GEndingTrigger" == _strScriptName)
+		return new GEndingTrigger;
 	if (L"GFSM" == _strScriptName)
 		return new GFSM;
 	if (L"GGameManagerScript" == _strScriptName)
@@ -98,6 +102,9 @@ GScript * GScriptManager::GetScript(UINT _iScriptType)
 		break;
 	case (UINT)SCRIPT_TYPE::ENDINGSCENE:
 		return new GEndingScene;
+		break;
+	case (UINT)SCRIPT_TYPE::ENDINGTRIGGER:
+		return new GEndingTrigger;
 		break;
 	case (UINT)SCRIPT_TYPE::FSM:
 		return new GFSM;
@@ -163,6 +170,10 @@ const wchar_t * GScriptManager::GetScriptName(GScript * _pScript)
 
 	case SCRIPT_TYPE::ENDINGSCENE:
 		return L"GEndingScene";
+		break;
+
+	case SCRIPT_TYPE::ENDINGTRIGGER:
+		return L"GEndingTrigger";
 		break;
 
 	case SCRIPT_TYPE::FSM:

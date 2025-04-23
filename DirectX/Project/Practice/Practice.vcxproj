@@ -183,6 +183,7 @@ call CodeGen.exe</Command>
     <ClInclude Include="Scripts\GCeilingChecker.h" />
     <ClInclude Include="Scripts\GEndingCamera.h" />
     <ClInclude Include="Scripts\GEndingScene.h" />
+    <ClInclude Include="Scripts\GEndingTrigger.h" />
     <ClInclude Include="Scripts\GFSM.h" />
     <ClInclude Include="Scripts\GGameManagerScript.h" />
     <ClInclude Include="Scripts\GGroundChecker.h" />
@@ -219,6 +220,7 @@ call CodeGen.exe</Command>
     <ClCompile Include="Scripts\GCeilingChecker.cpp" />
     <ClCompile Include="Scripts\GEndingCamera.cpp" />
     <ClCompile Include="Scripts\GEndingScene.cpp" />
+    <ClCompile Include="Scripts\GEndingTrigger.cpp" />
     <ClCompile Include="Scripts\GFSM.cpp" />
     <ClCompile Include="Scripts\GGameManagerScript.cpp" />
     <ClCompile Include="Scripts\GGroundChecker.cpp" />
