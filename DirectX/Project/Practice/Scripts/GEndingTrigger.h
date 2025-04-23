@@ -9,6 +9,7 @@ private:
     ENDING_TYPE m_EndingType;
 
 public:
+    virtual void Init() override;
     virtual void Update() override;
 
     virtual void OnOverlapEnter(class GCollider2D* _Other) override;

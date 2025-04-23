@@ -36,14 +36,15 @@ GPlayer::GPlayer()
 	, m_MoveInitForce(100.f)
 	, m_MoveMaxSpeed(20.f)
 
-	, m_JumpTimeLimit(0.6f)
-	, m_JumpTimeMin(0.2f)
+	, m_JumpTimeLimit(0.4f)
+	, m_JumpTimeMin(0.1f)
 	, m_JumpTimer(0.0f)
 	, m_JumpPower(400.f)
-	, m_JumpMaxSpeed(30.f)
+	, m_JumpMaxSpeed(60.f)
 
 	, m_PlayerItems{ false }	// 현재 가지고 있는 아이템
 	, m_PlayerUseItem(PLAYER_ITEM::END)				// 현재 사용중인 아이템 END라면 사용 중 X
+	, m_ItemMaxCount(5)
 
 	, m_ItemTimer(0.f)
 
@@ -70,7 +71,7 @@ GPlayer::GPlayer()
 {
 	for (int i = 0; i < (int)PLAYER_ITEM::END; ++i)
 	{
-		m_PlayerItems[i] = true;
+		m_PlayerItems[i] = false;
 	}
 }
 
@@ -92,6 +93,7 @@ GPlayer::GPlayer(const GPlayer& _Origin)
 
 	, m_PlayerItems{false}	// 현재 가지고 있는 아이템
 	, m_PlayerUseItem(PLAYER_ITEM::END)				// 현재 사용중인 아이템 END라면 사용 중 X
+	, m_ItemMaxCount(5)
 
 	, m_ItemTimer(0.f)
 
@@ -152,6 +154,8 @@ void GPlayer::Init()
 	ADD_VECTOR2("HugDetectScale", &m_HugDetectScale);
 	ADD_FLOAT("HugTime", &m_HugTime);
 
+	ADD_BOOL("PRINCESS", &m_PlayerItems[(INT)PLAYER_ITEM::PRINCESS]);
+
 }
 
 void GPlayer::Begin()
@@ -193,10 +197,10 @@ void GPlayer::OnOverlapEnter(GCollider2D* _Other)
 	
 	if (_Other->GameObject()->GetLayer() == (int)LAYER_TYPE::ITEM && (m_PlayerState == PLAYER_STATE::DEFAULT || m_PlayerState == PLAYER_STATE::WALK))
 	{
-		GItem* Item = _Other->GameObject()->GetComponent<GItem>();
-		assert(Item);
+		GGameObject* Object = _Other->GameObject();
+		assert(Object);
 
-		m_FSM->ChanageState(L"GetItem",(DWORD_PTR)Item);
+		m_FSM->ChanageState(L"GetItem",(DWORD_PTR)Object);
 	}
 
 	//if (_Other->GameObject()->GetLayer() != (int)LAYER_TYPE::PLATFORM)
@@ -216,11 +220,15 @@ void GPlayer::OnOverlapEnter(GCollider2D* _Other)
 
 void GPlayer::OnOverlapStay(GCollider2D* _Other)
 {
+	if (_Other->GameObject()->GetLayer() == (int)LAYER_TYPE::ETC_OBJCET)
+	{
+		m_NearObject = _Other->GameObject();
+	}
 }
 
 void GPlayer::OnOverlapExit(GCollider2D* _Other)
 {
-
+	m_NearObject = nullptr;
 }
 
 void GPlayer::SaveToFile(FILE* _File)
@@ -242,7 +250,8 @@ void GPlayer::KeyInput()
 	m_KeyInput.HorizontalMove -= KEY_PRESSED(KEY::LEFT) ? 1 : 0;
 	m_KeyInput.HorizontalMove += KEY_PRESSED(KEY::RIGHT) ? 1 : 0;
 
-	m_KeyInput.Jump = KEY_PRESSED(KEY::Z);
+	m_KeyInput.Jump = KEY_DOWN(KEY::Z);
+	m_KeyInput.JumpHold = KEY_PRESSED(KEY::Z);
 	m_KeyInput.Interaction = KEY_DOWN(KEY::X);
 
 }
@@ -273,6 +282,10 @@ bool GPlayer::Interaction()
 		//m_FSM->ChanageState(L"OpenBox");
 		return true;
 	}
+	else if (BedCheck())
+	{
+		return true;
+	}
 
 	// 현재 아이템을 쓸만한 상황인지 확인한다.
 	// ItemCheck
@@ -287,6 +300,14 @@ bool GPlayer::Interaction()
 // 상자가 근처에 있다면 BoxCheck는 true를 반환한다.
 bool GPlayer::BoxCheck()
 {
+	return false;
+}
+
+bool GPlayer::BedCheck()
+{
+	if (m_NearObject->GetComponent<GBed>())
+		return true;
+
 	return false;
 }
 
@@ -381,6 +402,7 @@ bool GPlayer::Hook()
 	return true;
 }
 
+/*
 bool GPlayer::Bomb()
 {
 	// 해당 아이템을 갖고 있지 않다면 false를 반환
@@ -424,7 +446,7 @@ bool GPlayer::Bomb()
 
 	return true;
 }
-
+*/
 bool GPlayer::Shovel()
 {
 	if (!m_PlayerItems[(int)PLAYER_ITEM::SHOVEL])

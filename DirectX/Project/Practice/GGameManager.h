@@ -61,12 +61,15 @@ private:
 	class GEndingScene* m_Scene;
 
 public:
+	PLAY_TYPE GetPlayType() { return m_PlayType; }
 	bool IsEnd() { return PLAY_TYPE::ENDING == m_PlayType; }
+	bool IsPause() {return PLAY_TYPE::PAUSE == m_PlayType; }
 
 public:
 	void Init();
 	void Begin();
 	void Progress();
+	void End();
 
 public:
 	void SaveGameEnding();

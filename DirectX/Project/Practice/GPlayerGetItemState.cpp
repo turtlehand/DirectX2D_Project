@@ -5,6 +5,7 @@
 
 #include "GPlayer.h"
 #include "GItem.h"
+#include "GPrincess.h"
 #include <Engine/components.h>
 
 GPlayerGetItemState::GPlayerGetItemState()
@@ -26,12 +27,27 @@ void GPlayerGetItemState::Awake()
 
 void GPlayerGetItemState::Enter(DWORD_PTR _Item)
 {
-	m_Item = (GItem*)_Item;
+	m_Item = (GGameObject*)_Item;
 
-	m_Item->GameObject()->SetParent(m_Player->GameObject());
+	m_Item->SetParent(m_Player->GameObject());
+	
+	// 쓸모없는 컴포넌트 삭제
 	m_Item->Collider2D()->Destroy();
 	m_Item->RigidBody2D()->Destroy();
 	m_Item->Transform()->SetRelativeScale(m_Item->Transform()->GetRelativeScale() / m_Player->Transform()->GetRelativeScale());
+	
+	// GroundChecker 삭게
+	const vector<GGameObject*>& ItemChilds = m_Item->GetChild();
+	for (int i = 0; i < ItemChilds.size(); ++i)
+	{
+		if (ItemChilds[i]->GetName() == L"GroundChecker")
+		{
+			ItemChilds[i]->Destroy();
+			break;
+		}
+
+	}
+
 
 	m_Player->m_PlayerState = PLAYER_STATE::GETITEM;
 	m_Player->FlipbookRender()->Play((int)PLAYER_FLIPBOOK::GETITEM);
@@ -60,10 +76,34 @@ void GPlayerGetItemState::Tick()
 
 void GPlayerGetItemState::Exit()
 {
-	int Index = (int)m_Item->GetItemType();
+	int Index = (int)PLAYER_ITEM::END;
+	GItem* ItemScript = m_Item->GetComponent<GItem>();
+	GPrincess* PrincessScript = m_Item->GetComponent<GPrincess>();
+	assert(ItemScript == nullptr || PrincessScript == nullptr);
+
+	if (ItemScript)
+	{
+		Index = (int)ItemScript->GetItemType();
+	}
+	else if (PrincessScript)
+	{
+		Index = (int)PrincessScript->GetItemType();
+	}
+
+	assert(Index != (int)PLAYER_ITEM::END);
+	
 	m_Player->m_PlayerItems[Index] = true;
 	m_Item->Transform()->SetRelativePos(Vector3(-0.25f, 0.f, 0.5f));
 	//m_Item->Transform()->SetRelativeScale(Vector3(1.f, 1.f, 1.f));
+
+	int ItemCount = 0;
+	for (int i = 0; i < (int)PLAYER_ITEM::END; ++i)
+	{
+		ItemCount += m_Player->m_PlayerItems[i] ? 1 : 0;
+	}
+
+	if (ItemCount >= m_Player->m_ItemMaxCount)
+		GGameManager::GetInst()->GameEnding(ENDING_TYPE::Mundane_Pouch);
 
 }
 

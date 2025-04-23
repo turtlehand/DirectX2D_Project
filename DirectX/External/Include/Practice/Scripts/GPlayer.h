@@ -39,7 +39,8 @@ enum class PLAYER_FLIPBOOK
 struct tKeyInput
 {
 	int HorizontalMove;
-	bool Jump;
+	bool Jump;			// 점프 키 Down
+	bool JumpHold;		// 점프 키 홀드
 	bool Interaction;
 };
 
@@ -65,6 +66,7 @@ private:
 
 	bool            m_PlayerItems[(UINT)PLAYER_ITEM::END];	// 현재 가지고 있는 아이템
 	PLAYER_ITEM		m_PlayerUseItem;						// 현재 사용중인 아이템 END라면 사용 중 X
+	int				m_ItemMaxCount;
 
 	float			m_ItemTimer;
 

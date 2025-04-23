@@ -31,6 +31,7 @@ void CreateTestLevel()
 	pCurLevel->GetLayer(8)->SetName(L"Attack");
 	pCurLevel->GetLayer(9)->SetName(L"Player_Attack");
 	pCurLevel->GetLayer(10)->SetName(L"Enemy_Attack");
+	pCurLevel->GetLayer(11)->SetName(L"Ending_Trigger");
 
 	pCurLevel->GetLayer(31)->SetName(L"UI");
 

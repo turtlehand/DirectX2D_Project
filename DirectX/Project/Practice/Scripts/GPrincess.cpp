@@ -10,6 +10,7 @@
 
 GPrincess::GPrincess()
 	: GObjectBasic(PRINCESS)
+	, m_ItemType(PLAYER_ITEM::PRINCESS)
 {
 }
 

@@ -266,6 +266,21 @@ GGameObject* GLevelSaveLoad::LoadGameObject(FILE* _File)
 
 void GLevelSaveLoad::SaveProjectSetting(FILE* _File)
 {
+
+	GLevelManager::GetInst()->GetCurrentLevel()->GetLayer(0)->SetName(L"Default");
+	GLevelManager::GetInst()->GetCurrentLevel()->GetLayer(1)->SetName(L"Background");
+	GLevelManager::GetInst()->GetCurrentLevel()->GetLayer(2)->SetName(L"Platform");
+	GLevelManager::GetInst()->GetCurrentLevel()->GetLayer(3)->SetName(L"Player");
+	GLevelManager::GetInst()->GetCurrentLevel()->GetLayer(4)->SetName(L"Monster");
+	GLevelManager::GetInst()->GetCurrentLevel()->GetLayer(5)->SetName(L"NPC");
+	GLevelManager::GetInst()->GetCurrentLevel()->GetLayer(6)->SetName(L"Object");
+	GLevelManager::GetInst()->GetCurrentLevel()->GetLayer(7)->SetName(L"Item");
+	GLevelManager::GetInst()->GetCurrentLevel()->GetLayer(8)->SetName(L"Attack");
+	GLevelManager::GetInst()->GetCurrentLevel()->GetLayer(9)->SetName(L"Player_Attack");
+	GLevelManager::GetInst()->GetCurrentLevel()->GetLayer(10)->SetName(L"Enemy_Attack");
+	GLevelManager::GetInst()->GetCurrentLevel()->GetLayer(11)->SetName(L"Ending_Trigger");
+	GLevelManager::GetInst()->GetCurrentLevel()->GetLayer(12)->SetName(L"Platfrom_Checker");
+
 	// ==============
 	// 레이어
 	for (UINT i = 0; i < MAX_LAYER; ++i)
@@ -281,10 +296,12 @@ void GLevelSaveLoad::SaveProjectSetting(FILE* _File)
 	GCollisionManager::GetInst()->CollisionLayerCheck(2, 5);	// 플랫폼 NPC
 	GCollisionManager::GetInst()->CollisionLayerCheck(2, 6);	// 플랫폼 기타
 	GCollisionManager::GetInst()->CollisionLayerCheck(2, 7);	// 플랫폼 아이템
+	GCollisionManager::GetInst()->CollisionLayerCheck(2, 12);	// 플랫폼 아이템
 	 
 	//GCollisionManager::GetInst()->CollisionLayerCheck(3, 4);	// 플레이어 몬스터
 	GCollisionManager::GetInst()->CollisionLayerCheck(3, 7);	// 플레이어 아이템
 	GCollisionManager::GetInst()->CollisionLayerCheck(3, 10);	// 플레이어 몬공
+	GCollisionManager::GetInst()->CollisionLayerCheck(3, 11);	// 플레이어 엔딩 트리거
 	
 	GCollisionManager::GetInst()->CollisionLayerCheck(4, 9);	// 몬 플공
 	 

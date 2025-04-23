@@ -70,8 +70,6 @@ void GGameManager::Init()
 	m_EndingScene[15] = GAssetManager::GetInst()->FindAsset<GSprite>(L"Sprite\\Ending\\Rejection.sprite");				// ÅðÂ¥
 	m_EndingScene[16] = GAssetManager::GetInst()->FindAsset<GSprite>(L"Sprite\\Ending\\LovePower.sprite");				// »ç¶ûÀÇ Èû
 	m_EndingScene[17] = GAssetManager::GetInst()->FindAsset<GSprite>(L"Sprite\\Ending\\Leap_of_Faith.sprite");			// ½Å·ÚÀÇ µµ¾à	
-
-
 }
 
 void GGameManager::Begin()
@@ -93,17 +91,19 @@ void GGameManager::Progress()
 {
 	if (GLevelManager::GetInst()->GetCurrentLevelState() != LEVEL_STATE::PLAY)
 	{
-		
 		return;
 	}
 
 	if (m_PlayType == PLAY_TYPE::END)
+		return;
+
+	if (m_PlayType == PLAY_TYPE::ENDING)
 	{
 		if (m_EndingTime < m_EndingTimer)
 		{
-			GTimeManager::GetInst()->SetTimeScale(1.f);
+			//GTimeManager::GetInst()->SetTimeScale(1.f);
 
-			GRenderManager::GetInst()->DeRegisterCamera(m_Camera->Camera());
+			//GRenderManager::GetInst()->DeRegisterCamera(m_Camera->Camera());
 
 			//m_IsEnd = false;
 		}
@@ -137,6 +137,11 @@ void GGameManager::Progress()
 
 }
 
+void GGameManager::End()
+{
+	m_PlayType = PLAY_TYPE::END;
+}
+
 void GGameManager::GameLoad()
 {
 	GTimeManager::GetInst()->SetTimeScale(1.f);
@@ -147,12 +152,12 @@ void GGameManager::GameLoad()
 
 void GGameManager::GameEnding(ENDING_TYPE _Type)
 {
-	if (m_PlayType == PLAY_TYPE::END)
+	if (m_PlayType == PLAY_TYPE::ENDING || m_PlayType == PLAY_TYPE::END || _Type == ENDING_TYPE::END)
 		return;
 
-	m_PlayType = PLAY_TYPE::END;
+	m_PlayType = PLAY_TYPE::ENDING;
 	m_EndingTimer = 0.f;
-
+	
 	m_Scene->SpriteRender()->SetSprite(m_EndingScene[(UINT)_Type]);
 	m_Scene->SpriteRender()->SetColor(Vector4(1.f, 1.f, 1.f, 0.f));
 	GRenderManager::GetInst()->RegisterCamera(m_Camera->Camera(), 1);

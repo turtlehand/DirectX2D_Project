@@ -65,7 +65,7 @@ void GPlayerJumpState::Tick()
 	}
 
 	// 점프를 시작하고 점프는 최소 시간 이상 최대 시간 이하로 유지된다.
-	if (!m_Player->m_KeyInput.Jump) 
+	if (!m_Player->m_KeyInput.JumpHold) 
 	{
 		// 최소 시간은 점프한다.
 		if (m_Player->m_JumpTimer >= m_Player->m_JumpTimeMin)
@@ -108,9 +108,25 @@ void GPlayerJumpState::Tick()
 	}
 
 	// 점프 속력 제한
-	if (m_Player->m_JumpMaxSpeed < m_PlayerRigid->GetVelocity().y)
+	// 아이템 한개 당 25% 속력이 감소
+	float JumpMaxSpeed = m_Player->m_JumpMaxSpeed;
+	for (int i = 0; i < (int)PLAYER_ITEM::END; ++i)
 	{
-		PlayerSpeed.y = m_Player->m_JumpMaxSpeed;
+		// 점프 속도가 0이하라면 종료
+		if (JumpMaxSpeed <= 0.f)
+		{
+			JumpMaxSpeed = 0;
+			break;
+		}
+		if (!m_Player->m_PlayerItems[i])
+			continue;
+
+		JumpMaxSpeed -= m_Player->m_JumpMaxSpeed / m_Player->m_ItemMaxCount;
+	}
+	
+	if (JumpMaxSpeed < m_PlayerRigid->GetVelocity().y)
+	{
+		PlayerSpeed.y = JumpMaxSpeed;
 	}
 
 	m_PlayerRigid->SetVelocity(PlayerSpeed);

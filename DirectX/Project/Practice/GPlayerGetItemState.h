@@ -13,7 +13,8 @@ private:
     GRigidBody2D* m_PlayerRigid;
     float m_Timer;
 
-    GItem* m_Item;
+    GGameObject* m_Item;
+    PLAYER_ITEM m_ItemType;
 
 public:
     virtual void Awake();

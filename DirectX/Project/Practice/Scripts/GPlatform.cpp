@@ -20,6 +20,8 @@ void GPlatform::Update()
 {
 }
 
+
+
 void GPlatform::SaveToFile(FILE* _File)
 {
 }

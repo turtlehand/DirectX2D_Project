@@ -1,9 +1,9 @@
 #pragma once
-#include <Engine/GScript.h>
+#include "GObjectBasic.h"
 #include <Engine/GSprite.h>
 
 class GItem :
-    public GScript
+    public GObjectBasic
 {
 private:
     PLAYER_ITEM m_ItemType;

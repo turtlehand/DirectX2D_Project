@@ -27,6 +27,11 @@ void GGameManagerScript::Update()
 	GGameManager::GetInst()->Progress();
 }
 
+void GGameManagerScript::End()
+{
+	GGameManager::GetInst()->End();
+}
+
 void GGameManagerScript::SaveToFile(FILE* _File)
 {
 }

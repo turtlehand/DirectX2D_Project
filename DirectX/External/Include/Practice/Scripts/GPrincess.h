@@ -5,8 +5,12 @@ class GPrincess :
     public GObjectBasic
 {
 private:
+	const PLAYER_ITEM m_ItemType;
 	bool m_IsDead;
 	float m_Timer;
+
+public:
+	PLAYER_ITEM const GetItemType() { return m_ItemType; }
 
 public:
 	virtual void Init() override;

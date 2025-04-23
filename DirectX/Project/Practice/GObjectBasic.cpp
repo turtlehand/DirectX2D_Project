@@ -44,17 +44,23 @@ void GObjectBasic::SetMoveDirection(int _Direction)
 
 void GObjectBasic::GroundEnter()
 {
+	if (!RigidBody2D())
+		return;
 	RigidBody2D()->SetGravity(0);
 	RigidBody2D()->SetVelocityY(0);
 }
 
 void GObjectBasic::GroundExit()
 {
+	if (!RigidBody2D())
+		return;
 	RigidBody2D()->SetGravity(m_GravityScale);
 }
 
 void GObjectBasic::CeilingEnter()
 {
+	if (!RigidBody2D())
+		return;
 	// 천장에 닿았을 때 만약 속도가 양수라면 0으로 바꾼다.
 	if (RigidBody2D()->GetVelocityY() > 0)
 		RigidBody2D()->SetVelocityY(0);
