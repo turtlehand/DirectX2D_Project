@@ -73,6 +73,16 @@ void TileRenderUI::Render_UI()
 	}
 
 	PreviewTiles();
+
+	// Å©±â
+	ImGui::Text("IsCollider");
+	ImGui::SameLine(GetTab());
+	bool bCollider = m_TileRender->IsCollider();
+	if (ImGui::Checkbox("##Collider", &bCollider))
+	{
+		m_TileRender->SetCollider(bCollider);
+	}
+	AddItemHeight();
 }
 
 void TileRenderUI::Update_UI()

@@ -34,7 +34,7 @@ class GTileRender :
 	public GRenderComponent
 {
 private:
-	bool					m_Collider;				// ture 시 모양에 맞는 콜라이더 추가
+	
 	UINT                    m_Col;                  // 열
 	UINT                    m_Row;                  // 행
 	Vector2                 m_TileSize;             // 타일 1개의 사이즈
@@ -42,6 +42,10 @@ private:
 	GStructuredBuffer*      m_GpuBuffer;			// 타일 정보를 텍스쳐 레지스터로 바인하기 위함
 
 	Ptr<GTilePalette>		m_TilePalette[(UINT)TILE_PALETTE_PARAM::END];		// 해당 타일 컴포넌트는 이 팔레트를 사용한다는 뜻
+
+	// Collider 기능
+	bool					m_Collider;				// ture 시 모양에 맞는 콜라이더 추가
+	vector<GGameObject*>	m_ColliderObject;		// 오브젝트 리스트
 
 public:
 	void SetRowCol(UINT _Row, UINT _Col);
@@ -55,9 +59,13 @@ public:
 	Vector2 GetTileSize() { return m_TileSize; }
 	Ptr<GTilePalette> GetTilePalette(TILE_PALETTE_PARAM _Param) { return m_TilePalette[(int)_Param]; }
 
+	bool IsCollider() { return m_Collider; }
+	void SetCollider(bool _Collider) { m_Collider = _Collider; }
+
 
 public:
-	virtual void Init();
+	virtual void Init() override;
+	virtual void Begin() override;
 	virtual void FinalUpdate() override;
 	virtual void Render() override;
 
@@ -68,6 +76,7 @@ public:
 private:
 	void CreateTileRenderMtrl();
 	void UpdateBuffer();
+	void AddCollider();
 
 public:
 	CLONE(GTileRender);

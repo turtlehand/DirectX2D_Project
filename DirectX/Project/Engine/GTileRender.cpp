@@ -2,6 +2,7 @@
 #include "GTileRender.h"
 
 #include "GTransform.h"
+#include "GCollider2D.h"
 
 #include "GAssetManager.h"
 #include "GStructuredBuffer.h"
@@ -119,6 +120,11 @@ void GTileRender::Init()
 
 	// 타일 데이터를 버퍼로 전송
 	UpdateBuffer();
+}
+
+void GTileRender::Begin()
+{
+	AddCollider();
 }
 
 void GTileRender::FinalUpdate()
@@ -253,6 +259,179 @@ void GTileRender::UpdateBuffer()
 	{
 		m_GpuBuffer->SetData(vecInfo.data(), sizeof(SpriteInfo), vecInfo.size());
 	}
+}
+
+void GTileRender::AddCollider()
+{
+	if (!m_Collider)
+		return;
+
+	// 왼쪽 위부터 아래로
+	vector<int> DArray(m_Row * m_Col, 0);
+	int num = 1;
+
+	for (int Row = 0; Row < m_Row; ++Row)
+	{
+		for (int Col = 0; Col < m_Col; ++Col)
+		{
+			if (DArray[Row * m_Col + Col] != 0)
+				continue;
+
+			if (m_vecTileInfo[Row * m_Col + Col].Draw)
+			{
+				Vector3 LeftTop = Vector3(Col, Row, 0.f);
+				Vector3 RightDown = Vector3(Col, Row, 0.f);
+
+				while (true)
+				{
+					int rd = (RightDown.y + 1) * m_Col + RightDown.x + 1;
+					int r = RightDown.y * m_Col + RightDown.x + 1;
+					int d = (RightDown.y + 1) * m_Col + RightDown.x;
+
+					// 오른쪽 아래 벽이 존재 한다면 
+					if (RightDown.x + 1 < m_Col && RightDown.y + 1 < m_Row && m_vecTileInfo[rd].Draw && DArray[rd] == 0)
+					{
+						// 오른쪽, 아래 벽 모두 확인
+						// 오른쪽 벽 모두 확인
+						bool ROK = true;
+						// 오른쪽 벽에 위를 모두 존재하는 지 확인한다.
+						for (int down = LeftTop.y; down < RightDown.y + 1; ++down)
+						{
+							// 오른쪽 타일을 그리지 않는다면 빠져나간다.
+							int test = RightDown.x + 1 + down * m_Col;
+							if (!m_vecTileInfo[test].Draw)
+							{
+								ROK = false;
+								break;
+							}
+						}
+
+						bool DOK = true;
+
+						// 아래쪽 벽에 아래를 모두 존재하는 지 확인한다.
+						for (int right = LeftTop.x; right < RightDown.x + 1; ++right)
+						{
+							// 아래쪽 타일을 그리지 않는다면 빠져나간다.
+							int test = right + (RightDown.y + 1) * m_Col;
+							if (!m_vecTileInfo[test].Draw)
+							{
+								DOK = false;
+								break;
+							}
+						}
+
+
+						if (DOK && ROK)
+						{
+							//오른쪽 위로 갈 수 있다.
+							++RightDown.x;
+							++RightDown.y;
+						}
+						//else if (DOK)
+						//{
+						//	++RightDown.y;
+						//}
+						//else if (ROK)
+						//{
+						//	++RightDown.x;;
+						//}
+						else
+						{
+							break;
+						}
+
+					}
+					else
+					{
+						// 오른쪽 벽이 존재한다면 
+						if (RightDown.x + 1 < m_Col && m_vecTileInfo[r].Draw && DArray[r] == 0)
+						{
+							// 오른쪽 벽 모두 확인
+							bool OK = true;
+							// 오른쪽 벽에 위를 모두 존재하는 지 확인한다.
+							for (int down = LeftTop.y; down < RightDown.y + 1; ++down)
+							{
+								// 오른쪽이 벽이 아니면 빠져나간다.
+								int test = RightDown.x + 1 + down * m_Col;
+								if (!m_vecTileInfo[test].Draw)
+								{
+									OK = false;
+									break;
+								}
+							}
+
+							// 모두 벽이라면 1 RightTop을 1 증가시킨다.
+							if (OK)
+								++RightDown.x;
+							else
+								break;
+						}
+						// 위 벽이 존재 한다면
+						else if (RightDown.y + 1 < m_Row && m_vecTileInfo[d].Draw && DArray[d] == 0)
+						{
+							// 위 벽 모두 확인
+							bool OK = true;
+							// 위쪽 벽에 아래를 모두 존재하는 지 확인한다.
+							for (int right = LeftTop.x; right < RightDown.x + 1; ++right)
+							{
+								// 위쪽 벽이 아니면 빠져나간다.
+								int test = right + (RightDown.y + 1) * m_Col;
+								if (!m_vecTileInfo[test].Draw)
+								{
+									OK = false;
+									break;
+								}
+							}
+
+							// 모두 벽이라면 1 RightTop을 1 증가시킨다.
+							if (OK)
+								++RightDown.y;
+							else
+								break;
+						}
+						else
+							break;
+					}
+
+				}
+
+				GGameObject* pWall = new GGameObject(GameObject()->GetLayer());
+				wstring Name = L"TileCollider_" + to_wstring(num);
+				pWall->SetName(Name);
+				pWall->AddComponent<GTransform>();
+				pWall->AddComponent<GCollider2D>();
+				Vector3 Scale = (RightDown - LeftTop) + Vector3(1.f, 1.f, 0.f);
+
+				//Scale.x = Scale.x / m_TileSize.x;
+				//Scale.y = Scale.y / m_TileSize.y;
+				Scale.x = Scale.x / (float)m_Col;
+				Scale.y = Scale.y / (float)m_Row;
+				pWall->Collider2D()->SetScale(Scale);
+
+				//Scale = Scale / 2;
+				Vector3 Pos = (RightDown + LeftTop) / 2;
+				Pos = Vector3((Pos.x - m_Col / 2) / m_Col, (m_Row / 2 - Pos.y) / m_Row, 0);
+				Pos.x += (m_Col % 2 == 0) ? (1 / (float)m_Col / 2) : 0;
+				Pos.y -= (m_Row % 2 == 0) ? (1 / (float)m_Row / 2) : 0;
+				pWall->Transform()->SetRelativePos(Pos);
+
+				SpawnGameObject(pWall);
+				GameObject()->SetChild(pWall);
+				m_ColliderObject.push_back(pWall);
+
+				for (int col = LeftTop.x; col < RightDown.x + 1; ++col)
+				{
+					for (int row = LeftTop.y; row < RightDown.y + 1; ++row)
+					{
+						DArray[row * m_Col + col] = num;
+					}
+				}
+				++num;
+			}
+		}
+	}
+
+	DArray;
 }
 
 void GTileRender::SaveToFile(FILE* _File)
