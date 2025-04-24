@@ -169,9 +169,13 @@ void MenuUI::Level()
 
 		if (ImGui::MenuItem("Play", nullptr, &IsPlay, IsPause || IsStop))
 		{
-			// 현재 레벨을 복사해둠
-			GLevel* pCurLevel = GLevelManager::GetInst()->GetCurrentLevel();
-			m_CloneLevel = pCurLevel->Clone();
+			if (IsStop)
+			{
+				// 현재 레벨을 복사해둠
+				GLevel* pCurLevel = GLevelManager::GetInst()->GetCurrentLevel();
+				m_CloneLevel = pCurLevel->Clone();
+			}
+
 
 			task.Param0 = (DWORD_PTR)LEVEL_STATE::PLAY;
 			GTaskManager::GetInst()->AddTask(task);
