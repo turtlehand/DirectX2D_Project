@@ -42,21 +42,6 @@ void GObjectBasic::SetMoveDirection(int _Direction)
 	Transform()->SetRelativeScale(DefaultScale);
 }
 
-void GObjectBasic::GroundEnter()
-{
-	if (!RigidBody2D())
-		return;
-	RigidBody2D()->SetGravity(0);
-	RigidBody2D()->SetVelocityY(0);
-}
-
-void GObjectBasic::GroundExit()
-{
-	if (!RigidBody2D())
-		return;
-	RigidBody2D()->SetGravity(m_GravityScale);
-}
-
 void GObjectBasic::CeilingEnter()
 {
 	if (!RigidBody2D())
@@ -69,4 +54,21 @@ void GObjectBasic::CeilingEnter()
 void GObjectBasic::CeilingExit()
 {
 
+}
+
+void GObjectBasic::Update()
+{
+	if (!RigidBody2D())
+		return;
+
+	// 땅에 있을 때는 중력 적용 X
+	if (m_IsGround)
+	{
+		RigidBody2D()->SetGravity(0);
+		RigidBody2D()->SetVelocityY(0);
+	}
+	else
+	{
+		RigidBody2D()->SetGravity(m_GravityScale);
+	}
 }

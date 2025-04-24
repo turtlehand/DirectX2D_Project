@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "GScriptManager.h"
 
+#include "GBackGroundFollow.h"
 #include "GCameraMove.h"
 #include "GCeilingChecker.h"
 #include "GEndingCamera.h"
@@ -23,6 +24,7 @@
 
 void GScriptManager::GetScriptInfo(vector<wstring>& _vec)
 {
+	_vec.push_back(L"GBackGroundFollow");
 	_vec.push_back(L"GCameraMove");
 	_vec.push_back(L"GCeilingChecker");
 	_vec.push_back(L"GEndingCamera");
@@ -46,6 +48,8 @@ void GScriptManager::GetScriptInfo(vector<wstring>& _vec)
 
 GScript * GScriptManager::GetScript(const wstring& _strScriptName)
 {
+	if (L"GBackGroundFollow" == _strScriptName)
+		return new GBackGroundFollow;
 	if (L"GCameraMove" == _strScriptName)
 		return new GCameraMove;
 	if (L"GCeilingChecker" == _strScriptName)
@@ -91,6 +95,9 @@ GScript * GScriptManager::GetScript(UINT _iScriptType)
 {
 	switch (_iScriptType)
 	{
+	case (UINT)SCRIPT_TYPE::BACKGROUNDFOLLOW:
+		return new GBackGroundFollow;
+		break;
 	case (UINT)SCRIPT_TYPE::CAMERAMOVE:
 		return new GCameraMove;
 		break;
@@ -156,6 +163,10 @@ const wchar_t * GScriptManager::GetScriptName(GScript * _pScript)
 {
 	switch ((SCRIPT_TYPE)_pScript->GetScriptType())
 	{
+	case SCRIPT_TYPE::BACKGROUNDFOLLOW:
+		return L"GBackGroundFollow";
+		break;
+
 	case SCRIPT_TYPE::CAMERAMOVE:
 		return L"GCameraMove";
 		break;

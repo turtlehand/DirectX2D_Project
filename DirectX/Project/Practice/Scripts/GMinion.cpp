@@ -55,7 +55,7 @@ void GMinion::Begin()
 
 void GMinion::Update()
 {
-
+	GObjectBasic::Update();
 }
 
 void GMinion::OnOverlapEnter(GCollider2D* _Other)

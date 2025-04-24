@@ -181,6 +181,7 @@ void GPlayer::Begin()
 
 void GPlayer::Update()
 {
+	GObjectBasic::Update();
 	KeyInput();
 	UseItem();
 }
@@ -305,8 +306,8 @@ bool GPlayer::BoxCheck()
 
 bool GPlayer::BedCheck()
 {
-	if (m_NearObject->GetComponent<GBed>())
-		return true;
+	//if (m_NearObject->GetComponent<GBed>())
+		//return true;
 
 	return false;
 }

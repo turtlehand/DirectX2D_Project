@@ -34,6 +34,7 @@ void GItem::Init()
 
 void GItem::Update()
 {
+	GObjectBasic::Update();
 }
 
 void GItem::SaveToFile(FILE* _File)

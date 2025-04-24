@@ -192,6 +192,9 @@
     <ClInclude Include="Scripts\GEndingTrigger.h">
       <Filter>02. Scripts\6. GameManager\EndingTrigger</Filter>
     </ClInclude>
+    <ClInclude Include="Scripts\GBackGroundFollow.h">
+      <Filter>02. Scripts\1. ETC</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -283,6 +286,9 @@
     </ClCompile>
     <ClCompile Include="Scripts\GEndingTrigger.cpp">
       <Filter>02. Scripts\6. GameManager\EndingTrigger</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\GBackGroundFollow.cpp">
+      <Filter>02. Scripts\1. ETC</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

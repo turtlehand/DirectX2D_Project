@@ -62,8 +62,6 @@ private:
 	float			m_JumpPower;
 	float			m_JumpMaxSpeed;
 
-
-
 	bool            m_PlayerItems[(UINT)PLAYER_ITEM::END];	// 현재 가지고 있는 아이템
 	PLAYER_ITEM		m_PlayerUseItem;						// 현재 사용중인 아이템 END라면 사용 중 X
 	int				m_ItemMaxCount;
@@ -91,6 +89,8 @@ private:
 	Vector3			m_SwordPos;
 	float			m_SwordTime;
 
+	GGameObject*	m_NearObject;
+
 public:
 	GFSM* GetFSM() { return m_FSM; }
 
@@ -117,6 +117,7 @@ private:
 	bool Interaction();
 
 	bool BoxCheck();
+	bool BedCheck();
 
 	bool ItemCheck();
 	bool Hook();

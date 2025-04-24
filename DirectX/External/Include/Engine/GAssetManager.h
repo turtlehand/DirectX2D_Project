@@ -101,11 +101,6 @@ inline Ptr<T> GAssetManager::FindAsset(const wstring& _Key)
 template<typename T>
 inline Ptr<T> GAssetManager::Load(const wstring& _Key, const wstring& _RelativePath)
 {
-	if (_Key == L"Link")
-	{
-		int a = 0;
-	}
-
 	Ptr<T> pAsset = FindAsset<T>(_Key);
 
 	// 컴퓨터 셰이더는 로드하지 않는다.
@@ -115,11 +110,12 @@ inline Ptr<T> GAssetManager::Load(const wstring& _Key, const wstring& _RelativeP
 			return pAsset;
 
 		wstring ContentPath = GPathManager::GetContentPath();
-
+		
 		pAsset = new T;
 		if (FAILED(pAsset->Load(ContentPath + _RelativePath)))
 		{
-			MessageBox(nullptr, L"에셋 로딩 실패", L"에셋 로딩 에러", MB_OK);
+			wstring Fail = L"에셋 로딩 실패\n" + _Key;
+			MessageBox(nullptr, Fail.c_str(), L"에셋 로딩 에러", MB_OK);
 			return nullptr;
 		}
 		pAsset->m_RelativePath = _RelativePath;

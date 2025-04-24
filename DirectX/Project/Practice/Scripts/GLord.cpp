@@ -47,6 +47,7 @@ void GLord::Begin()
 
 void GLord::Update()
 {
+	GObjectBasic::Update();
 	FindPlayer();
 	Dead();
 }

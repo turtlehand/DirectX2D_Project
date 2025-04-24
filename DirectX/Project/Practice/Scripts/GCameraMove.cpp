@@ -3,10 +3,16 @@
 #include <Engine/GTimeManager.h>
 #include <Engine/GKeyManager.h>
 #include <Engine/GTransform.h>
+#include <Engine/GCamera.h>
+
+#include <Engine/GLevelManager.h>
+#include <Engine/GLayer.h>
+#include <Engine/GLevel.h>
 
 GCameraMove::GCameraMove()
 	: GScript(CAMERAMOVE)
 	, m_CamSpeed(500.f)
+	, m_Offset(Vector3(0.f,0.f,-100.f))
 {
 }
 
@@ -14,35 +20,42 @@ GCameraMove::~GCameraMove()
 {
 }
 
+void GCameraMove::Begin()
+{
+	m_Target = GLevelManager::GetInst()->GetCurrentLevel()->GetLayer((int)LAYER_TYPE::PLAYER)->FindObject(L"Player");
+}
+
 void GCameraMove::Update()
 {
-	// 이동
-	Vector3 vPos = Transform()->GetRelativePos();
 
-	if (KEY_PRESSED(KEY::W))
-		vPos += Transform()->GetRelativeDirection(DIRECTION_TYPE::FRONT) * DT * m_CamSpeed;
-	if (KEY_PRESSED(KEY::S))
-		vPos -= Transform()->GetRelativeDirection(DIRECTION_TYPE::FRONT) * DT * m_CamSpeed;
-	if (KEY_PRESSED(KEY::D))
-		vPos += Transform()->GetRelativeDirection(DIRECTION_TYPE::RIGHT) * DT * m_CamSpeed;
-	if (KEY_PRESSED(KEY::A))
-		vPos -= Transform()->GetRelativeDirection(DIRECTION_TYPE::RIGHT) * DT * m_CamSpeed;
-	if (KEY_PRESSED(KEY::SPACE))
-		vPos += Transform()->GetRelativeDirection(DIRECTION_TYPE::UP) * DT * m_CamSpeed;
-	if (KEY_PRESSED(KEY::CTRL))
-		vPos -= Transform()->GetRelativeDirection(DIRECTION_TYPE::UP) * DT * m_CamSpeed;
-
-	GameObject()->Transform()->SetRelativePos(vPos);
-
-	// 회전
-	if (!KEY_PRESSED(KEY::RBTN))
+	if (!m_Target)
 		return;
 
-	Vector3 vRot = Transform()->GetRelativeRotation();
+	// 이동
+	if (KEY_PRESSED(KEY::D))
+		m_Offset += Transform()->GetRelativeDirection(DIRECTION_TYPE::RIGHT) * DT * m_CamSpeed;
+	if (KEY_PRESSED(KEY::A))
+		m_Offset -= Transform()->GetRelativeDirection(DIRECTION_TYPE::RIGHT) * DT * m_CamSpeed;
+	if (KEY_PRESSED(KEY::W))
+		m_Offset += Transform()->GetRelativeDirection(DIRECTION_TYPE::UP) * DT * m_CamSpeed;
+	if (KEY_PRESSED(KEY::S))
+		m_Offset -= Transform()->GetRelativeDirection(DIRECTION_TYPE::UP) * DT * m_CamSpeed;
 
-	vRot += 180.f * DT * Vector3(GKeyManager::GetInst()->GetMouseDir().y, GKeyManager::GetInst()->GetMouseDir().x, 0.f);
+	float ScaleX = Camera()->GetOrthoScaleX();
 
-	Transform()->SetRelativeRotation(vRot);
+	if (KEY_PRESSED(KEY::PLUS))
+		Camera()->SetOrthoScaleX(ScaleX - 1);
+	if (KEY_PRESSED(KEY::MINUS))
+		Camera()->SetOrthoScaleX(ScaleX + 1);
+
+
+
+	// 초기화
+	if (KEY_DOWN(KEY::R))
+		m_Offset = Vector3(0,0,-100.f);
+
+	Vector3 vPos = m_Target->Transform()->GetWorldPos() + m_Offset;
+	Transform()->SetRelativePos(vPos);
 
 }
 

@@ -28,6 +28,7 @@ void GPrincess::Begin()
 
 void GPrincess::Update()
 {
+	GObjectBasic::Update();
 	if (m_IsDead)
 	{
 		if (0 < m_Timer && m_Timer < 0.1f)
