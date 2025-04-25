@@ -58,9 +58,24 @@ void GMinionWalkState::Tick()
 	// 방향 전환 
 	DrawDebugLine(Vector4(0.f, 1.f, 0.f, 1.f), Vector3(Pos.x + Scale.x / 4, Pos.y, 0.f), Vector3(0.f, -1.f, 0.f), Scale.y);
 
+	// 아래에 없다면
 	if (!GCollisionManager::GetInst()->Line_Casting(Vector3(Pos.x + Scale.x / 4, Pos.y, Pos.z)
 		, Vector3(0.f, -1.f, 0.f)
 		, Scale.y
+		, (1 << (int)LAYER_TYPE::PLATFORM)))
+	{
+		m_Minion->m_HorizontalMove = m_Minion->m_HorizontalMove * -1;
+		m_MinionRigid->SetVelocityX(0.f);
+		m_Minion->SetMoveDirection(m_Minion->m_HorizontalMove);
+		m_Minion->RigidBody2D()->AddForce(Vector2(m_Minion->m_HorizontalMove, 0) * m_Minion->m_MoveInitForce);
+	}
+
+	// 아래에 없다면
+	DrawDebugLine(Vector4(0.f, 1.f, 0.f, 1.f), Vector3(Pos.x + Scale.x / 4, Pos.y, 0.f), Vector3(1.f, 0.f, 0.f), Scale.x / 4);
+
+	if (GCollisionManager::GetInst()->Line_Casting(Vector3(Pos.x + Scale.x / 4, Pos.y, Pos.z)
+		, Vector3(1.f, 0.f, 0.f)
+		, Scale.x / 4
 		, (1 << (int)LAYER_TYPE::PLATFORM)))
 	{
 		m_Minion->m_HorizontalMove = m_Minion->m_HorizontalMove * -1;

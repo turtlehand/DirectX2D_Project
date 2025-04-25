@@ -36,7 +36,7 @@ void GPlayerWalkState::Enter()
 	m_Player->SetMoveDirection(m_Player->m_KeyInput.HorizontalMove);
 	
 	// 처음에만 큰 힘을 줘서 빠르게 최대 속도에 도달하게 한다.
-	m_Player->RigidBody2D()->AddForce(Vector2(m_Player->m_KeyInput.HorizontalMove, 0) * m_Player->m_MoveInitForce);
+	m_Player->RigidBody2D()->SetVelocityX(m_Player->m_MoveMaxSpeed* m_Player->m_KeyInput.HorizontalMove);
 }
 
 void GPlayerWalkState::Tick()

@@ -26,7 +26,7 @@ GRigidBody2D::~GRigidBody2D()
 void GRigidBody2D::FinalUpdate()
 {
 
-	Vector3 vPos = Transform()->GetWorldPos();
+	//Vector3 vPos = Transform()->GetWorldPos();
 	Vector2 vAccel = m_Force / m_Mass;
 
 	CalFriction();
@@ -36,9 +36,9 @@ void GRigidBody2D::FinalUpdate()
 
 	m_Velocity += vAccel;
 	
-	vPos += Vector3(m_Velocity.x, m_Velocity.y, 0) * DT;
+	//vPos += Vector3(m_Velocity.x, m_Velocity.y, 0) * DT;
 
-	Transform()->SetRelativePos(vPos);
+	Transform()->AddRelativePos(Vector3(m_Velocity.x, m_Velocity.y, 0) * DT);
 
 	m_Force = Vector2(0.f, 0.f);
 }

@@ -23,6 +23,8 @@
 
 #include <Practice/GScriptManager.h>
 
+#include <Engine/GRenderManager.h>
+
 
 #include <commdlg.h>
 
@@ -222,6 +224,11 @@ void MenuUI::Editor()
 		if (ImGui::MenuItem("Camera"))
 		{
 			ImGuiManager::GetInst()->FindUI<InspectorUI>("InspectorUI")->SetTargetObject((GGameObject*)(EditorManager::GetInst()->GetEditorCamera()));
+		}
+
+		if (ImGui::MenuItem("Draw Debug"))
+		{
+			GRenderManager::GetInst()->SetDrawDebug(!GRenderManager::GetInst()->IsDrawDebug());
 		}
 
 		ImGui::EndMenu();

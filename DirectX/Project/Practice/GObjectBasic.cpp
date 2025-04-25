@@ -10,7 +10,7 @@ GObjectBasic::GObjectBasic(SCRIPT_TYPE _Type)
 	, m_IsGround(false)
 	, m_IsCeiling(false)
 	, m_GravityScale(200.f)
-	, m_FlinchForce(60, 40)
+	, m_FlinchForce(80, 60)
 	, m_MaxHP(1)
 	, m_HP(1)
 {
@@ -65,7 +65,8 @@ void GObjectBasic::Update()
 	if (m_IsGround)
 	{
 		RigidBody2D()->SetGravity(0);
-		RigidBody2D()->SetVelocityY(0);
+		if (RigidBody2D()->GetVelocityY() < 0)
+			RigidBody2D()->SetVelocityY(0);
 	}
 	else
 	{

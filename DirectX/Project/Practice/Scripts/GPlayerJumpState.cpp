@@ -27,6 +27,7 @@ void GPlayerJumpState::Awake()
 void GPlayerJumpState::Enter()
 {
 	//GGameManager::GetInst()->GameEnding(ENDING_TYPE::Older_Man_Attack);
+	//GTimeManager::GetInst()->SetTimeScale(0.1f);
 
 	m_Player->m_PlayerState = PLAYER_STATE::JUMP;
 
@@ -39,9 +40,7 @@ void GPlayerJumpState::Enter()
 	m_Player->SetMoveDirection(m_Player->m_KeyInput.HorizontalMove);
 	
 	// ÃÊ±â Èû
-	m_Player->RigidBody2D()->AddForce(
-		Vector2(0.f
-				, m_Player->m_JumpPower));
+	m_Player->RigidBody2D()->SetVelocityY(m_Player->m_JumpMaxSpeed);
 
 	m_Player->m_JumpTimer = 0.f;
 }
@@ -134,7 +133,7 @@ void GPlayerJumpState::Tick()
 
 void GPlayerJumpState::Exit()
 {
-	
+	//GTimeManager::GetInst()->SetTimeScale(1.f);
 }
 
 void GPlayerJumpState::ChangeState()

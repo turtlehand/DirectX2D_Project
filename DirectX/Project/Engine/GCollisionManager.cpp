@@ -322,17 +322,17 @@ bool GCollisionManager::IsOverlap(GCollider2D* _LeftCol, GCollider2D* _RightCol)
 		{
 			// 질량은 계산하지 않고 그냥 반반씩 밀어냄
 			MTV = MTV / 2;
-			_LeftCol->Transform()->SetRelativePos(lPos - MTV);
-			_RightCol->Transform()->SetRelativePos(rPos + MTV);
+			_LeftCol->Transform()->AddRelativePos(-MTV);
+			_RightCol->Transform()->AddRelativePos(MTV);
 		}
 		// 한 대상만 RigidBody2D를 가지지 않는다면 가진 대상만 온전히 밀려남
 		else if (_RightCol->RigidBody2D() != nullptr)
 		{
-			_RightCol->Transform()->SetRelativePos(rPos + MTV);
+			_RightCol->Transform()->AddRelativePos(MTV);
 		}
 		else if (_LeftCol->RigidBody2D() != nullptr)
 		{
-			_LeftCol->Transform()->SetRelativePos(lPos - MTV);
+			_LeftCol->Transform()->AddRelativePos(-MTV);
 		}
 	}
 

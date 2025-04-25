@@ -16,6 +16,7 @@ private:
 public:
 	void SetRelativePos(Vector3 _Pos) { m_RelativePosition = _Pos; }
 	void SetRelativePos(float _x, float _y, float _z) { m_RelativePosition = Vector3(_x, _y, _z); }
+	void AddRelativePos(Vector3 _Pos) { m_RelativePosition += _Pos; }
 
 	void SetRelativeScale(Vector3 _Scale) { m_RelativeScale = _Scale; }
 	void SetRelativeScale(float _x, float _y, float _z) { m_RelativeScale = Vector3(_x, _y, _z); }
@@ -24,7 +25,7 @@ public:
 	void SetRelativeRotation(float _x, float _y, float _z);		// Degree(도) 단위로 입력해야한다.
 
 	Vector3 GetRelativePos() const { return m_RelativePosition; }
-	Vector3 GetWorldPos() const;
+	Vector3 GetWorldPos() const { return m_matWorld.Translation(); }	// 이전 틱 WorldPos가 반환된다.
 
 	Vector3 GetRelativeScale() const { return m_RelativeScale; }
 	Vector3 GetWorldScale() const;

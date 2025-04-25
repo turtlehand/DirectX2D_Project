@@ -44,7 +44,7 @@ GPlayer::GPlayer()
 
 	, m_PlayerItems{ false }	// 현재 가지고 있는 아이템
 	, m_PlayerUseItem(PLAYER_ITEM::END)				// 현재 사용중인 아이템 END라면 사용 중 X
-	, m_ItemMaxCount(5)
+	, m_ItemMaxCount(4)
 
 	, m_ItemTimer(0.f)
 
@@ -93,7 +93,7 @@ GPlayer::GPlayer(const GPlayer& _Origin)
 
 	, m_PlayerItems{false}	// 현재 가지고 있는 아이템
 	, m_PlayerUseItem(PLAYER_ITEM::END)				// 현재 사용중인 아이템 END라면 사용 중 X
-	, m_ItemMaxCount(5)
+	, m_ItemMaxCount(4)
 
 	, m_ItemTimer(0.f)
 
@@ -393,13 +393,15 @@ bool GPlayer::Hook()
 		if ((Transform()->GetWorldPos().x < PFPos.x - PFScale.x / 2) || (PFPos.x + PFScale.x / 2 <  Transform()->GetWorldPos().x))
 			continue;
 
-
+		if (AbovePF)
+		{
+			Vector3 AbovePos = AbovePF->Transform()->GetWorldPos();
+			Vector3 AboveScale = AbovePF->Transform()->GetWorldScale();
+		}
 		
 		if (AbovePF == nullptr || PFPos.y < AbovePF->Transform()->GetWorldPos().y)
 		{
 			AbovePF = pPlatform;
-			Vector3 AbovePos = AbovePF->Transform()->GetWorldPos();
-			Vector3 AboveScale = AbovePF->Transform()->GetWorldScale();
 			int a = 0;
 
 		}

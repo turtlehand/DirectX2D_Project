@@ -18,7 +18,7 @@ private:
 	GStructuredBuffer*			m_Light2DBuffer;
 
 	GGameObject*				m_DebugObject;
-
+	bool						m_DrawDebug;
 	vector<tDebugShapeInfo>		m_vecDebugInfo;
 
 	Ptr<GTexture>				m_PostProcessTex;
@@ -45,6 +45,9 @@ public:
 		else
 			m_RenderFunc = &GRenderManager::Render_Editor;
 	}
+
+	bool IsDrawDebug() { return m_DrawDebug; }
+	void SetDrawDebug(bool _DrawDebug) { m_DrawDebug = _DrawDebug; }
 
 public:
 	void Init();

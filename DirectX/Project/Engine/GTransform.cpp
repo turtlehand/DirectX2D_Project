@@ -21,6 +21,7 @@ GTransform::~GTransform()
 
 }
 
+/*
 Vector3 GTransform::GetWorldPos() const
 {
 	GGameObject* pParent = GameObject()->GetParent();
@@ -29,6 +30,7 @@ Vector3 GTransform::GetWorldPos() const
 
 	return pParent->Transform()->GetWorldPos() + m_RelativePosition;
 }
+*/
 
 void GTransform::SetRelativeRotation(Vector3 _Rotation)
 {
