@@ -4,6 +4,8 @@
 #include "GPlayer.h"
 #include <Engine/GFlipbookRender.h>
 
+#include <Engine/GTimeManager.h>
+
 GPlayerDefaultState::GPlayerDefaultState()
 	:GScript(PLAYERDEFAULTSTATE)
 	, m_Player(nullptr)

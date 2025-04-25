@@ -382,14 +382,26 @@ bool GPlayer::Hook()
 		// 해당 플랫폼이 플레이어 위에 없다면 넘어간다.
 		if (PFPos.y <= Transform()->GetWorldPos().y)
 			continue;
+
+		if (pPlatform->GetPlatformType() == PLATFORM_TYPE::WOOD)
+		{
+			int a = 0;
+		}
 		
 		// 플레이어가 해당 플렛폼 안에 없다면 넘어간다.
-		if (Transform()->GetWorldPos().x < PFPos.x - PFScale.x / 2 || PFPos.x + PFScale.x / 2 <  Transform()->GetWorldPos().x)
+		Vector3 ThisPos = Transform()->GetWorldPos();
+		if ((Transform()->GetWorldPos().x < PFPos.x - PFScale.x / 2) || (PFPos.x + PFScale.x / 2 <  Transform()->GetWorldPos().x))
 			continue;
 
+
+		
 		if (AbovePF == nullptr || PFPos.y < AbovePF->Transform()->GetWorldPos().y)
 		{
 			AbovePF = pPlatform;
+			Vector3 AbovePos = AbovePF->Transform()->GetWorldPos();
+			Vector3 AboveScale = AbovePF->Transform()->GetWorldScale();
+			int a = 0;
+
 		}
 	}
 

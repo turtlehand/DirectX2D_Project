@@ -139,7 +139,7 @@ void GTileRender::FinalUpdate()
 
 	for (int i = 0; i < m_Row + 1; ++i)
 	{
-		DrawDebugLine(Vector4(0.f, 1.f, 0.f, 1.f),
+		DrawDebugLine(Vector4(0.5f, 0.5f, 0.5f, 1.f),
 			vPos - vScale + Vector3(0, m_TileSize.y * i, 0),
 			Vector3(1.f, 0.f, 0.f),
 			Transform()->GetWorldScale().x);
@@ -147,7 +147,7 @@ void GTileRender::FinalUpdate()
 
 	for (int i = 0; i < m_Col + 1; ++i)
 	{
-		DrawDebugLine(Vector4(0.f, 1.f, 0.f, 1.f),
+		DrawDebugLine(Vector4(0.5f, 0.5f, 0.5f, 1.f),
 			vPos - vScale + Vector3(m_TileSize.x * i, 0, 0),
 			Vector3(0.f, 1.f, 0.f),
 			Transform()->GetWorldScale().y);
@@ -436,7 +436,7 @@ void GTileRender::AddCollider()
 				//Scale.y = Scale.y / m_TileSize.y;
 				Scale.x = Scale.x / (float)m_Col;
 				Scale.y = Scale.y / (float)m_Row;
-				pWall->Collider2D()->SetScale(Scale);
+				pWall->Transform()->SetRelativeScale(Scale);
 
 				//Scale = Scale / 2;
 				Vector3 Pos = (RightDown + LeftTop) / 2;

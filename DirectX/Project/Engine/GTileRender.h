@@ -61,6 +61,7 @@ public:
 
 	bool IsCollider() { return m_Collider; }
 	void SetCollider(bool _Collider) { m_Collider = _Collider; }
+	const vector<GGameObject*> GetColliders() { return m_ColliderObject; }
 
 
 public:

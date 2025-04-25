@@ -40,7 +40,7 @@ void GPlayerJumpState::Enter()
 	
 	// ÃÊ±â Èû
 	m_Player->RigidBody2D()->AddForce(
-		Vector2(m_Player->m_KeyInput.HorizontalMove * m_Player->m_MoveInitForce
+		Vector2(0.f
 				, m_Player->m_JumpPower));
 
 	m_Player->m_JumpTimer = 0.f;

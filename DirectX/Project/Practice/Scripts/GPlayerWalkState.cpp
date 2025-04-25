@@ -44,9 +44,16 @@ void GPlayerWalkState::Tick()
 	// 땅에서 떨어졌다면
 	if (!m_Player->m_IsGround)
 	{
-		m_Player->GetFSM()->ChanageState(L"Fall");
-		return;
+		m_JumpBonusTimer += DT;
+		if (0.2f < m_JumpBonusTimer)
+		{
+			m_Player->GetFSM()->ChanageState(L"Fall");
+			return;
+		}
+
 	}
+	else
+		m_JumpBonusTimer = 0.f;
 
 	// 아이템 사용이 가능하다면
 	if (m_Player->m_KeyInput.Interaction)

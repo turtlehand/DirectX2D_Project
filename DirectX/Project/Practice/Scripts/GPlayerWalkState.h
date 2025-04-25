@@ -12,6 +12,8 @@ private:
     GPlayer* m_Player;
     GRigidBody2D* m_PlayerRigid;
 
+    float m_JumpBonusTimer;
+
 public:
     virtual void Update() {};
 
