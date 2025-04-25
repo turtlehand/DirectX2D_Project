@@ -282,8 +282,38 @@ void GTileRender::AddCollider()
 				Vector3 LeftTop = Vector3(Col, Row, 0.f);
 				Vector3 RightDown = Vector3(Col, Row, 0.f);
 
+				
+
 				while (true)
 				{
+					// 확장 가능 여부 검사
+					bool ExpandRight = ExpandCheckRight(LeftTop, RightDown, DArray);
+					bool ExpandDown = ExpandCheckDown(LeftTop, RightDown, DArray);
+
+					// 오른쪽 아래 타일 인덱스
+					int rd = (RightDown.y + 1) * m_Col + RightDown.x + 1;
+
+					// 오른쪽 아래 확장 가능
+					bool ExpandRD = rd < m_vecTileInfo.size() && m_vecTileInfo[rd].Draw;
+
+					// 오른쪽 아래 타일까지 Draw일 때만 행렬 한칸씩 확장이 가능하다.
+					if (ExpandRD && ExpandRight && ExpandDown)
+					{
+						++RightDown.x;
+						++RightDown.y;
+					}
+					else if (ExpandRight)
+					{
+						++RightDown.x;
+					}
+					else if (ExpandDown)
+					{
+						++RightDown.y;
+					}
+					else
+						break;
+
+					/*
 					int rd = (RightDown.y + 1) * m_Col + RightDown.x + 1;
 					int r = RightDown.y * m_Col + RightDown.x + 1;
 					int d = (RightDown.y + 1) * m_Col + RightDown.x;
@@ -392,7 +422,7 @@ void GTileRender::AddCollider()
 						else
 							break;
 					}
-
+					*/
 				}
 
 				GGameObject* pWall = new GGameObject(GameObject()->GetLayer());
@@ -432,6 +462,46 @@ void GTileRender::AddCollider()
 	}
 
 	DArray;
+}
+
+bool GTileRender::ExpandCheckRight(const Vector3& _leftTop, const Vector3& _rightDown, const vector<int>& _DArray)
+{
+	if (_rightDown.x + 1 >= m_Col)
+		return false;
+
+	// 한 타일 오른쪽 열에서
+	// LeftTop의 Top 위치에서 부터
+	// RightDown의 Down 위치까지
+	// 모두 타일인지 확인한다.
+	for (int y = _leftTop.y; y <= _rightDown.y; ++y)
+	{
+		int idx = y * m_Col + (_rightDown.x + 1);
+
+		// 만약 하나라도 Draw가 아니거나, 이미 다른 콜라이더 영역으로 채웠었다면 확장이 불가능하다.
+		if (!m_vecTileInfo[idx].Draw || _DArray[idx] != 0)
+			return false;
+	}
+	return true;
+}
+
+bool GTileRender::ExpandCheckDown(const Vector3& _leftTop, const Vector3& _rightDown, const vector<int>& _DArray)
+{
+	if (_rightDown.y + 1 >= m_Row)
+		return false;
+
+	// 한 타일 아래 행에서
+	// LeftTop의 Left 위치에서 부터
+	// RightDown의 Right 위치까지
+	// 모두 타일인지 확인한다.
+	for (int x = _leftTop.x; x <= _rightDown.x; ++x)
+	{
+		int idx = (_rightDown.y + 1) * m_Col + x;
+
+		// 만약 하나라도 Draw가 아니거나, 이미 다른 콜라이더 영역으로 채웠었다면 확장이 불가능하다.
+		if (!m_vecTileInfo[idx].Draw || _DArray[idx] != 0)
+			return false;
+	}
+	return true;
 }
 
 void GTileRender::SaveToFile(FILE* _File)

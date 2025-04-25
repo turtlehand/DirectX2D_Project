@@ -77,6 +77,8 @@ private:
 	void CreateTileRenderMtrl();
 	void UpdateBuffer();
 	void AddCollider();
+	bool ExpandCheckRight(const Vector3& _leftTop, const Vector3& _rightDown, const vector<int>& _DArray);
+	bool ExpandCheckDown(const Vector3& _leftTop, const Vector3& _rightDown, const vector<int>& _DArray);
 
 public:
 	CLONE(GTileRender);
