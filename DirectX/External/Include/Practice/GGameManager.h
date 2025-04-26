@@ -25,6 +25,7 @@ enum class ENDING_TYPE
 	Rejection,				// ÅğÂ¥
 	LovePower,				// »ç¶ûÀÇ Èû
 	Leap_of_Faith,			// ½Å·ÚÀÇ µµ¾à
+	Abyss,
 
 	END
 };

@@ -33,7 +33,7 @@ void GPlayerGetItemState::Enter(DWORD_PTR _Item)
 	
 	// 쓸모없는 컴포넌트 삭제
 	m_Item->Collider2D()->Destroy();
-	m_Item->RigidBody2D()->Destroy();
+	//m_Item->RigidBody2D()->Destroy();
 	m_Item->Transform()->SetRelativeScale(m_Item->Transform()->GetRelativeScale() / m_Player->Transform()->GetRelativeScale());
 	
 	// GroundChecker 삭게

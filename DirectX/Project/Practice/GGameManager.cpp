@@ -34,6 +34,7 @@ extern const vector<string> EndingName = {
 	"Rejection",				// ÅðÂ¥
 	"LovePower",				// »ç¶ûÀÇ Èû
 	"Leap_of_Faith",			// ½Å·ÚÀÇ µµ¾à
+	"Abyss",
 	
 	"END"
 };
@@ -70,6 +71,7 @@ void GGameManager::Init()
 	m_EndingScene[15] = GAssetManager::GetInst()->FindAsset<GSprite>(L"Sprite\\Ending\\Rejection.sprite");				// ÅðÂ¥
 	m_EndingScene[16] = GAssetManager::GetInst()->FindAsset<GSprite>(L"Sprite\\Ending\\LovePower.sprite");				// »ç¶ûÀÇ Èû
 	m_EndingScene[17] = GAssetManager::GetInst()->FindAsset<GSprite>(L"Sprite\\Ending\\Leap_of_Faith.sprite");			// ½Å·ÚÀÇ µµ¾à	
+	m_EndingScene[18] = GAssetManager::GetInst()->FindAsset<GSprite>(L"Sprite\\Ending\\Abyss.sprite");
 }
 
 void GGameManager::Begin()
