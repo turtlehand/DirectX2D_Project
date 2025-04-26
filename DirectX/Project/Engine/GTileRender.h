@@ -34,7 +34,8 @@ class GTileRender :
 	public GRenderComponent
 {
 private:
-	
+	Vector4					m_Color;
+
 	UINT                    m_Col;                  // 열
 	UINT                    m_Row;                  // 행
 	Vector2                 m_TileSize;             // 타일 1개의 사이즈
@@ -48,6 +49,10 @@ private:
 	vector<GGameObject*>	m_ColliderObject;		// 오브젝트 리스트
 
 public:
+
+	void SetColor(Vector4 _Color) { m_Color = _Color; }
+	Vector4 GetColor() { return m_Color; }
+
 	void SetRowCol(UINT _Row, UINT _Col);
 	void SetTileSize(Vector2 _TileSize);
 	void SetTile(UINT _Row, UINT _Col, const tTileInfo& _Info = tTileInfo());

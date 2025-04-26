@@ -170,6 +170,7 @@ call CodeGen.exe</Command>
     <ClInclude Include="enum.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="GGameManager.h" />
+    <ClInclude Include="GInteractable.h" />
     <ClInclude Include="GMinionAttackState.h" />
     <ClInclude Include="GMinionDeadState.h" />
     <ClInclude Include="GMinionWalkState.h" />
@@ -182,6 +183,7 @@ call CodeGen.exe</Command>
     <ClInclude Include="Scripts\GBackGroundFollow.h" />
     <ClInclude Include="Scripts\GCameraMove.h" />
     <ClInclude Include="Scripts\GCeilingChecker.h" />
+    <ClInclude Include="Scripts\GDoor.h" />
     <ClInclude Include="Scripts\GEndingCamera.h" />
     <ClInclude Include="Scripts\GEndingScene.h" />
     <ClInclude Include="Scripts\GEndingTrigger.h" />
@@ -199,10 +201,12 @@ call CodeGen.exe</Command>
     <ClInclude Include="Scripts\GPlayerJumpState.h" />
     <ClInclude Include="Scripts\GPlayerWalkState.h" />
     <ClInclude Include="Scripts\GPrincess.h" />
+    <ClInclude Include="Scripts\GSwitch.h" />
     <ClInclude Include="States\GState.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GGameManager.cpp" />
+    <ClCompile Include="GInteractable.cpp" />
     <ClCompile Include="GMinionAttackState.cpp" />
     <ClCompile Include="GMinionDeadState.cpp" />
     <ClCompile Include="GMinionWalkState.cpp" />
@@ -220,6 +224,7 @@ call CodeGen.exe</Command>
     <ClCompile Include="Scripts\GBackGroundFollow.cpp" />
     <ClCompile Include="Scripts\GCameraMove.cpp" />
     <ClCompile Include="Scripts\GCeilingChecker.cpp" />
+    <ClCompile Include="Scripts\GDoor.cpp" />
     <ClCompile Include="Scripts\GEndingCamera.cpp" />
     <ClCompile Include="Scripts\GEndingScene.cpp" />
     <ClCompile Include="Scripts\GEndingTrigger.cpp" />
@@ -237,6 +242,7 @@ call CodeGen.exe</Command>
     <ClCompile Include="Scripts\GPlayerJumpState.cpp" />
     <ClCompile Include="Scripts\GPlayerWalkState.cpp" />
     <ClCompile Include="Scripts\GPrincess.cpp" />
+    <ClCompile Include="Scripts\GSwitch.cpp" />
     <ClCompile Include="States\GState.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

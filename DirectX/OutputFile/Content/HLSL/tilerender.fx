@@ -22,6 +22,8 @@ StructuredBuffer<TileInfo> g_TileInfo : register(t20);
 #define MAX_COL			g_int_1
 #define MAX_ROW			g_int_2
 
+#define ACOLOR			g_vec4_0;
+
 // VertexShader
 struct VS_IN
 {
@@ -83,7 +85,8 @@ float4 PS_TileRender(VS_OUT _in) : SV_Target
             vColor = ATLAS_TEX_3.Sample(g_sam_1, (g_TileInfo[idx].vSlice * frac(_in.vUV)) + g_TileInfo[idx].vLeftTop);
         }
     }
-		
+	
+	vColor = vColor * ACOLOR;
 	
 	if (0.f == vColor.a)
 		discard;

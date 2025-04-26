@@ -4,6 +4,7 @@
 #include "GBackGroundFollow.h"
 #include "GCameraMove.h"
 #include "GCeilingChecker.h"
+#include "GDoor.h"
 #include "GEndingCamera.h"
 #include "GEndingScene.h"
 #include "GEndingTrigger.h"
@@ -21,12 +22,14 @@
 #include "GPlayerJumpState.h"
 #include "GPlayerWalkState.h"
 #include "GPrincess.h"
+#include "GSwitch.h"
 
 void GScriptManager::GetScriptInfo(vector<wstring>& _vec)
 {
 	_vec.push_back(L"GBackGroundFollow");
 	_vec.push_back(L"GCameraMove");
 	_vec.push_back(L"GCeilingChecker");
+	_vec.push_back(L"GDoor");
 	_vec.push_back(L"GEndingCamera");
 	_vec.push_back(L"GEndingScene");
 	_vec.push_back(L"GEndingTrigger");
@@ -44,6 +47,7 @@ void GScriptManager::GetScriptInfo(vector<wstring>& _vec)
 	_vec.push_back(L"GPlayerJumpState");
 	_vec.push_back(L"GPlayerWalkState");
 	_vec.push_back(L"GPrincess");
+	_vec.push_back(L"GSwitch");
 }
 
 GScript * GScriptManager::GetScript(const wstring& _strScriptName)
@@ -54,6 +58,8 @@ GScript * GScriptManager::GetScript(const wstring& _strScriptName)
 		return new GCameraMove;
 	if (L"GCeilingChecker" == _strScriptName)
 		return new GCeilingChecker;
+	if (L"GDoor" == _strScriptName)
+		return new GDoor;
 	if (L"GEndingCamera" == _strScriptName)
 		return new GEndingCamera;
 	if (L"GEndingScene" == _strScriptName)
@@ -88,6 +94,8 @@ GScript * GScriptManager::GetScript(const wstring& _strScriptName)
 		return new GPlayerWalkState;
 	if (L"GPrincess" == _strScriptName)
 		return new GPrincess;
+	if (L"GSwitch" == _strScriptName)
+		return new GSwitch;
 	return nullptr;
 }
 
@@ -103,6 +111,9 @@ GScript * GScriptManager::GetScript(UINT _iScriptType)
 		break;
 	case (UINT)SCRIPT_TYPE::CEILINGCHECKER:
 		return new GCeilingChecker;
+		break;
+	case (UINT)SCRIPT_TYPE::DOOR:
+		return new GDoor;
 		break;
 	case (UINT)SCRIPT_TYPE::ENDINGCAMERA:
 		return new GEndingCamera;
@@ -155,6 +166,9 @@ GScript * GScriptManager::GetScript(UINT _iScriptType)
 	case (UINT)SCRIPT_TYPE::PRINCESS:
 		return new GPrincess;
 		break;
+	case (UINT)SCRIPT_TYPE::SWITCH:
+		return new GSwitch;
+		break;
 	}
 	return nullptr;
 }
@@ -173,6 +187,10 @@ const wchar_t * GScriptManager::GetScriptName(GScript * _pScript)
 
 	case SCRIPT_TYPE::CEILINGCHECKER:
 		return L"GCeilingChecker";
+		break;
+
+	case SCRIPT_TYPE::DOOR:
+		return L"GDoor";
 		break;
 
 	case SCRIPT_TYPE::ENDINGCAMERA:
@@ -241,6 +259,10 @@ const wchar_t * GScriptManager::GetScriptName(GScript * _pScript)
 
 	case SCRIPT_TYPE::PRINCESS:
 		return L"GPrincess";
+		break;
+
+	case SCRIPT_TYPE::SWITCH:
+		return L"GSwitch";
 		break;
 
 	}

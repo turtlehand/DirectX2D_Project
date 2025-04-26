@@ -29,24 +29,24 @@ VS_OUT VS_PostProcess(VS_IN _in)
 
 float4 PS_PostProcess(VS_OUT _in) : SV_Target
 {
-    if (!g_bool_tex_0)
-        discard;
+    //if (!g_bool_tex_0)
+        //discard;
     
     float2 vUV = _in.vUV;
     
-    if(g_bool_tex_1)
-    {
-        float4 vNoise = g_tex_1.Sample(g_sam_0, vUV + float2(g_EnginAccTime * 0.1f, 0.f)) - 0.5f;
-        vUV += vNoise.xy * 0.1f;
+    //if(g_bool_tex_1)
+    //{
+    //    float4 vNoise = g_tex_1.Sample(g_sam_0, vUV + float2(g_EnginAccTime * 0.1f, 0.f)) - 0.5f;
+    //    vUV += vNoise.xy * 0.1f;
         
-        if (vUV.x < 0.f || 1.f < vUV.x || vUV.y < 0.f || 1.f < vUV.y)
-        {
-            vUV = _in.vUV;
-        }
-
-    }
+    //    if (vUV.x < 0.f || 1.f < vUV.x || vUV.y < 0.f || 1.f < vUV.y)
+    //    {
+    //        vUV = _in.vUV;
+    //    }
+    //
+    //}
     
-    float4 vColor = g_tex_0.Sample(g_sam_1, vUV);
+    float4 vColor = PostProcessTarget.Sample(g_sam_1, vUV);
     
     return vColor;
 

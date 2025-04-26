@@ -39,6 +39,26 @@ void TileRenderUI::Render_UI()
 	OutputTitle("Tile Render");
 	RenderComponentUI::Render_UI();
 
+	// Color
+	Vector4 vColor = m_TileRender->GetColor();
+	ImGui::Text("Color");
+	ImGui::SameLine(GetTab());
+	if (ImGui::ColorEdit4("##vColor", vColor))
+	{
+		m_TileRender->SetColor(vColor);
+	}
+	AddItemHeight();
+
+	// 콜라이더
+	ImGui::Text("IsCollider");
+	ImGui::SameLine(GetTab());
+	bool bCollider = m_TileRender->IsCollider();
+	if (ImGui::Checkbox("##Collider", &bCollider))
+	{
+		m_TileRender->SetCollider(bCollider);
+	}
+	AddItemHeight();
+
 	int RowCol[2] = { m_TileRender->GetRow(),m_TileRender->GetCol() };
 	ImGui::Text("RowCol");
 	ImGui::SameLine(GetTab());
@@ -74,15 +94,7 @@ void TileRenderUI::Render_UI()
 
 	PreviewTiles();
 
-	// 크기
-	ImGui::Text("IsCollider");
-	ImGui::SameLine(GetTab());
-	bool bCollider = m_TileRender->IsCollider();
-	if (ImGui::Checkbox("##Collider", &bCollider))
-	{
-		m_TileRender->SetCollider(bCollider);
-	}
-	AddItemHeight();
+
 }
 
 void TileRenderUI::Update_UI()

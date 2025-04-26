@@ -12,6 +12,7 @@
 
 GTileRender::GTileRender()
 	: GRenderComponent(COMPONENT_TYPE::TILE_RENDER)
+	, m_Color(1.f, 1.f, 1.f, 1.f)
 	, m_Collider(false)
 	, m_Col(0)
 	, m_Row(0)
@@ -26,6 +27,7 @@ GTileRender::GTileRender()
 
 GTileRender::GTileRender(const GTileRender& _Origin)
 	:GRenderComponent(_Origin)
+	, m_Color(_Origin.m_Color)
 	, m_Collider(_Origin.m_Collider)
 	, m_Col(_Origin.m_Col)
 	, m_Row(_Origin.m_Row)
@@ -159,6 +161,8 @@ void GTileRender::Render()
 	Ptr<GMaterial> Mtrl = GetMaterial();
 	// 위치 정보 업데이트
 	Transform()->Binding();
+
+	GetMaterial()->SetScalarParam(SCALAR_PARAM::VEC4_0, m_Color);
 
 	// 행렬 크기를 정한다.
 	GetMaterial()->SetScalarParam(SCALAR_PARAM::INT_1, m_Col);

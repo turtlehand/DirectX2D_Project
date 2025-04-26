@@ -3,7 +3,7 @@
 
 #include <Engine/GScript.h>
 #include <Engine/GAsset.h>
-#include <Engine/GPrefab.h>
+#include <Engine/assets.h>
 
 #include <Practice/GScriptManager.h>
 
@@ -145,7 +145,12 @@ void ScriptUI::Render_UI()
 			ImGui::Text(ScriptParam[i].Desc.c_str());
 			ImGui::SameLine(GetTab());
 			string* str = (string*)ScriptParam[i].pData;
-			ImGui::Text(str->c_str(), str->size());
+			char buffer[255];
+			sprintf_s(buffer, 255, str->c_str());
+			if (ImGui::InputText(szID, buffer, 255))
+			{
+				(*str) = buffer;
+			}
 			AddItemHeight();
 		}
 		break;
@@ -154,6 +159,46 @@ void ScriptUI::Render_UI()
 			AddItemHeight();
 		}
 			break;
+		case SCRIPT_PARAM::SPRITE:
+		{
+			ImGui::Text(ScriptParam[i].Desc.c_str());
+			ImGui::SameLine(GetTab());
+			Ptr<GSprite> pSprite = *((Ptr<GSprite>*)ScriptParam[i].pData);
+
+			string AssetName;
+			if (nullptr != pSprite)
+				AssetName = ToString(pSprite->GetKey());
+
+			ImGui::InputText(szID, (char*)AssetName.c_str(), AssetName.length() + 1, ImGuiInputTextFlags_ReadOnly);
+
+			// Drop Check
+			if (ImGui::BeginDragDropTarget())
+			{
+				// ContentUI 에서 드래그된 데이터만 받는다.
+				const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("ContentTree");
+
+				if (nullptr != payload)
+				{
+					// 전달된 데이터에 들어있는 Asset 의 주소값을 꺼내온다.
+					GAsset* pAsset = *((GAsset**)payload->Data);
+
+					// 꺼내온 에셋이 Mesh 타입인 경우에만 작업을 이어간다.
+					if (ASSET_TYPE::SPRITE == pAsset->GetType())
+					{
+						pSprite = dynamic_cast<GSprite*>(pAsset);
+						assert(pSprite.Get());
+					}
+				}
+
+				ImGui::EndDragDropTarget();
+			}
+
+			// 목적지에 넣어준다.
+			*((Ptr<GSprite>*)ScriptParam[i].pData) = pSprite;
+
+			AddItemHeight();
+		}
+		break;
 		case SCRIPT_PARAM::PREFAB:
 		{
 			ImGui::Text(ScriptParam[i].Desc.c_str());

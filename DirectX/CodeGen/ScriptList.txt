@@ -1,6 +1,7 @@
 GBackGroundFollow
 GCameraMove
 GCeilingChecker
+GDoor
 GEndingCamera
 GEndingScene
 GEndingTrigger
@@ -18,3 +19,4 @@ GPlayerFallState
 GPlayerJumpState
 GPlayerWalkState
 GPrincess
+GSwitch

@@ -91,6 +91,15 @@
     <Filter Include="02. Scripts\3. Object\5. Item">
       <UniqueIdentifier>{7d5ff709-cd2b-47c8-8b7b-d587f17d3f1a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. Scripts\5. Interactable">
+      <UniqueIdentifier>{9fb379a2-3884-41e3-9d9f-3e829166a02d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Scripts\5. Interactable\Switch">
+      <UniqueIdentifier>{11772163-563b-4b33-b431-105a7d8651ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Scripts\5. Interactable\Door">
+      <UniqueIdentifier>{9875fac1-64b3-4573-b42d-63d3a3aee241}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -195,6 +204,15 @@
     <ClInclude Include="Scripts\GBackGroundFollow.h">
       <Filter>02. Scripts\1. ETC</Filter>
     </ClInclude>
+    <ClInclude Include="Scripts\GSwitch.h">
+      <Filter>02. Scripts\5. Interactable\Switch</Filter>
+    </ClInclude>
+    <ClInclude Include="GInteractable.h">
+      <Filter>02. Scripts\5. Interactable</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\GDoor.h">
+      <Filter>02. Scripts\5. Interactable\Door</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -289,6 +307,15 @@
     </ClCompile>
     <ClCompile Include="Scripts\GBackGroundFollow.cpp">
       <Filter>02. Scripts\1. ETC</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\GSwitch.cpp">
+      <Filter>02. Scripts\5. Interactable\Switch</Filter>
+    </ClCompile>
+    <ClCompile Include="GInteractable.cpp">
+      <Filter>02. Scripts\5. Interactable</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\GDoor.cpp">
+      <Filter>02. Scripts\5. Interactable\Door</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
