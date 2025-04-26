@@ -116,7 +116,7 @@ void GSwitch::OnOverlapExit(GCollider2D* _Other)
 				continue;
 
 			GInteractable* Interactable = m_Object[i]->GetComponent<GInteractable>();
-			Interactable->InteractEnter();
+			Interactable->InteractExit();
 		}
 	}
 }

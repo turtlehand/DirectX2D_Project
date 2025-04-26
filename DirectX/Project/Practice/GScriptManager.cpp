@@ -5,6 +5,7 @@
 #include "GCameraMove.h"
 #include "GCeilingChecker.h"
 #include "GDoor.h"
+#include "GElevator.h"
 #include "GEndingCamera.h"
 #include "GEndingScene.h"
 #include "GEndingTrigger.h"
@@ -30,6 +31,7 @@ void GScriptManager::GetScriptInfo(vector<wstring>& _vec)
 	_vec.push_back(L"GCameraMove");
 	_vec.push_back(L"GCeilingChecker");
 	_vec.push_back(L"GDoor");
+	_vec.push_back(L"GElevator");
 	_vec.push_back(L"GEndingCamera");
 	_vec.push_back(L"GEndingScene");
 	_vec.push_back(L"GEndingTrigger");
@@ -60,6 +62,8 @@ GScript * GScriptManager::GetScript(const wstring& _strScriptName)
 		return new GCeilingChecker;
 	if (L"GDoor" == _strScriptName)
 		return new GDoor;
+	if (L"GElevator" == _strScriptName)
+		return new GElevator;
 	if (L"GEndingCamera" == _strScriptName)
 		return new GEndingCamera;
 	if (L"GEndingScene" == _strScriptName)
@@ -114,6 +118,9 @@ GScript * GScriptManager::GetScript(UINT _iScriptType)
 		break;
 	case (UINT)SCRIPT_TYPE::DOOR:
 		return new GDoor;
+		break;
+	case (UINT)SCRIPT_TYPE::ELEVATOR:
+		return new GElevator;
 		break;
 	case (UINT)SCRIPT_TYPE::ENDINGCAMERA:
 		return new GEndingCamera;
@@ -191,6 +198,10 @@ const wchar_t * GScriptManager::GetScriptName(GScript * _pScript)
 
 	case SCRIPT_TYPE::DOOR:
 		return L"GDoor";
+		break;
+
+	case SCRIPT_TYPE::ELEVATOR:
+		return L"GElevator";
 		break;
 
 	case SCRIPT_TYPE::ENDINGCAMERA:

@@ -28,6 +28,7 @@ public:
 
 public:
     GDoor();
+    GDoor(const GDoor& _Origin);
     ~GDoor();
 };
 

@@ -100,6 +100,9 @@
     <Filter Include="02. Scripts\5. Interactable\Door">
       <UniqueIdentifier>{9875fac1-64b3-4573-b42d-63d3a3aee241}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. Scripts\5. Interactable\Elevator">
+      <UniqueIdentifier>{abc6218d-795b-474e-a995-5ffcd06ff111}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -213,6 +216,9 @@
     <ClInclude Include="Scripts\GDoor.h">
       <Filter>02. Scripts\5. Interactable\Door</Filter>
     </ClInclude>
+    <ClInclude Include="Scripts\GElevator.h">
+      <Filter>02. Scripts\5. Interactable\Elevator</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -316,6 +322,9 @@
     </ClCompile>
     <ClCompile Include="Scripts\GDoor.cpp">
       <Filter>02. Scripts\5. Interactable\Door</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\GElevator.cpp">
+      <Filter>02. Scripts\5. Interactable\Elevator</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -2,6 +2,7 @@ GBackGroundFollow
 GCameraMove
 GCeilingChecker
 GDoor
+GElevator
 GEndingCamera
 GEndingScene
 GEndingTrigger
