@@ -33,3 +33,5 @@ enum class PLAYER_ITEM
 	END
 };
 
+extern const vector<string> ItemName;
+

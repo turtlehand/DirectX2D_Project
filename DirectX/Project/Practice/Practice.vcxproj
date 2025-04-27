@@ -186,6 +186,8 @@ call CodeGen.exe</Command>
     <ClInclude Include="Scripts\GDoor.h" />
     <ClInclude Include="Scripts\GElevator.h" />
     <ClInclude Include="Scripts\GEndingCamera.h" />
+    <ClInclude Include="Scripts\GEndingNeedItem.h" />
+    <ClInclude Include="Scripts\GEndingRandom.h" />
     <ClInclude Include="Scripts\GEndingScene.h" />
     <ClInclude Include="Scripts\GEndingTimer.h" />
     <ClInclude Include="Scripts\GEndingTrigger.h" />
@@ -207,6 +209,7 @@ call CodeGen.exe</Command>
     <ClInclude Include="States\GState.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="extern.cpp" />
     <ClCompile Include="GGameManager.cpp" />
     <ClCompile Include="GInteractable.cpp" />
     <ClCompile Include="GMinionAttackState.cpp" />
@@ -229,6 +232,8 @@ call CodeGen.exe</Command>
     <ClCompile Include="Scripts\GDoor.cpp" />
     <ClCompile Include="Scripts\GElevator.cpp" />
     <ClCompile Include="Scripts\GEndingCamera.cpp" />
+    <ClCompile Include="Scripts\GEndingNeedItem.cpp" />
+    <ClCompile Include="Scripts\GEndingRandom.cpp" />
     <ClCompile Include="Scripts\GEndingScene.cpp" />
     <ClCompile Include="Scripts\GEndingTimer.cpp" />
     <ClCompile Include="Scripts\GEndingTrigger.cpp" />

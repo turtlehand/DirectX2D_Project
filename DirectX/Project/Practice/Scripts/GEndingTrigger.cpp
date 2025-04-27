@@ -9,6 +9,12 @@ GEndingTrigger::GEndingTrigger(SCRIPT_TYPE _Type)
 {
 }
 
+GEndingTrigger::GEndingTrigger(const GEndingTrigger& _Origin, SCRIPT_TYPE _Type)
+	: GScript(_Type)
+	, m_EndingType(_Origin.m_EndingType)
+{
+}
+
 GEndingTrigger::~GEndingTrigger()
 {
 }

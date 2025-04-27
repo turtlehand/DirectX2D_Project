@@ -26,6 +26,7 @@ enum class ENDING_TYPE
 	LovePower,				// 사랑의 힘
 	Leap_of_Faith,			// 신뢰의 도약
 	Abyss,
+	Home,					// 공주와 집
 
 	END
 };

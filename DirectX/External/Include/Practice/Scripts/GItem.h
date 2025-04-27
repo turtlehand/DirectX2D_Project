@@ -7,7 +7,6 @@ class GItem :
 {
 private:
     PLAYER_ITEM m_ItemType;
-    static vector<string> ItemName;
 
 public:
     PLAYER_ITEM GetItemType() { return  m_ItemType; }

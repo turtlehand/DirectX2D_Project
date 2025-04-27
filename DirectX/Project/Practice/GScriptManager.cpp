@@ -7,6 +7,8 @@
 #include "GDoor.h"
 #include "GElevator.h"
 #include "GEndingCamera.h"
+#include "GEndingNeedItem.h"
+#include "GEndingRandom.h"
 #include "GEndingScene.h"
 #include "GEndingTimer.h"
 #include "GEndingTrigger.h"
@@ -34,6 +36,8 @@ void GScriptManager::GetScriptInfo(vector<wstring>& _vec)
 	_vec.push_back(L"GDoor");
 	_vec.push_back(L"GElevator");
 	_vec.push_back(L"GEndingCamera");
+	_vec.push_back(L"GEndingNeedItem");
+	_vec.push_back(L"GEndingRandom");
 	_vec.push_back(L"GEndingScene");
 	_vec.push_back(L"GEndingTimer");
 	_vec.push_back(L"GEndingTrigger");
@@ -68,6 +72,10 @@ GScript * GScriptManager::GetScript(const wstring& _strScriptName)
 		return new GElevator;
 	if (L"GEndingCamera" == _strScriptName)
 		return new GEndingCamera;
+	if (L"GEndingNeedItem" == _strScriptName)
+		return new GEndingNeedItem;
+	if (L"GEndingRandom" == _strScriptName)
+		return new GEndingRandom;
 	if (L"GEndingScene" == _strScriptName)
 		return new GEndingScene;
 	if (L"GEndingTimer" == _strScriptName)
@@ -128,6 +136,12 @@ GScript * GScriptManager::GetScript(UINT _iScriptType)
 		break;
 	case (UINT)SCRIPT_TYPE::ENDINGCAMERA:
 		return new GEndingCamera;
+		break;
+	case (UINT)SCRIPT_TYPE::ENDINGNEEDITEM:
+		return new GEndingNeedItem;
+		break;
+	case (UINT)SCRIPT_TYPE::ENDINGRANDOM:
+		return new GEndingRandom;
 		break;
 	case (UINT)SCRIPT_TYPE::ENDINGSCENE:
 		return new GEndingScene;
@@ -213,6 +227,14 @@ const wchar_t * GScriptManager::GetScriptName(GScript * _pScript)
 
 	case SCRIPT_TYPE::ENDINGCAMERA:
 		return L"GEndingCamera";
+		break;
+
+	case SCRIPT_TYPE::ENDINGNEEDITEM:
+		return L"GEndingNeedItem";
+		break;
+
+	case SCRIPT_TYPE::ENDINGRANDOM:
+		return L"GEndingRandom";
 		break;
 
 	case SCRIPT_TYPE::ENDINGSCENE:

@@ -4,6 +4,8 @@ GCeilingChecker
 GDoor
 GElevator
 GEndingCamera
+GEndingNeedItem
+GEndingRandom
 GEndingScene
 GEndingTimer
 GEndingTrigger

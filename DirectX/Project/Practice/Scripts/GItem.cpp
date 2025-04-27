@@ -4,19 +4,6 @@
 #include <Engine/GCollider2D.h>
 #include <Engine/GRigidBody2D.h>
 
-vector<string> GItem::ItemName = {
-	"HOOK",
-	"BOMB",
-	"SHOVEL",
-	"HUG",
-	"SHOT_GUN",
-	"SWORD",
-	"SHIELD",
-	"CHICKEN",
-	"PRINCESS",
-	"END"
-};
-
 GItem::GItem()
 	:GObjectBasic(ITEM)
 	, m_ItemType(PLAYER_ITEM::END)

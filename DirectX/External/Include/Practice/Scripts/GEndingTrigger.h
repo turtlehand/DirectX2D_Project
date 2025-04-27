@@ -24,6 +24,7 @@ public:
 
 public:
     GEndingTrigger(SCRIPT_TYPE _Type = ENDINGTRIGGER);
+    GEndingTrigger(const GEndingTrigger& _Origin, SCRIPT_TYPE _Type = ENDINGTRIGGER);
     ~GEndingTrigger();
 };
 

@@ -93,6 +93,7 @@ private:
 
 public:
 	GFSM* GetFSM() { return m_FSM; }
+	bool GetItem(PLAYER_ITEM _Item) { return m_PlayerItems[(int)_Item]; }
 
 public:
 	virtual void Init() override;

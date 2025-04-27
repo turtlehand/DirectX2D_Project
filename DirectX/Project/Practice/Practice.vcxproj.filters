@@ -234,6 +234,12 @@
     <ClInclude Include="Scripts\GEndingTimer.h">
       <Filter>02. Scripts\6. GameManager\EndingTrigger\GEnding_Timer</Filter>
     </ClInclude>
+    <ClInclude Include="Scripts\GEndingNeedItem.h">
+      <Filter>02. Scripts\6. GameManager\EndingTrigger\GEnding_NeedItem</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\GEndingRandom.h">
+      <Filter>02. Scripts\6. GameManager\EndingTrigger\GEnding_Random</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -343,6 +349,15 @@
     </ClCompile>
     <ClCompile Include="Scripts\GEndingTimer.cpp">
       <Filter>02. Scripts\6. GameManager\EndingTrigger\GEnding_Timer</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\GEndingNeedItem.cpp">
+      <Filter>02. Scripts\6. GameManager\EndingTrigger\GEnding_NeedItem</Filter>
+    </ClCompile>
+    <ClCompile Include="extern.cpp">
+      <Filter>0. Default</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\GEndingRandom.cpp">
+      <Filter>02. Scripts\6. GameManager\EndingTrigger\GEnding_Random</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

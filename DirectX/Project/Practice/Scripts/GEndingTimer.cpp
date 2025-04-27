@@ -17,7 +17,7 @@ GEndingTimer::GEndingTimer()
 }
 
 GEndingTimer::GEndingTimer(const GEndingTimer& _Origin)
-	: GEndingTrigger(ENDINGTIMER)
+	: GEndingTrigger(_Origin, ENDINGTIMER)
 	, m_Player(nullptr)
 	, m_Duration(30.f)
 	, m_Timer(0.f)
@@ -32,7 +32,8 @@ GEndingTimer::~GEndingTimer()
 void GEndingTimer::Init()
 {
 	GEndingTrigger::Init();
-
+	ADD_FLOAT("Duration",&m_Duration);
+	ADD_FLOAT("Timer", &m_Timer);
 }
 
 void GEndingTimer::Update()
@@ -79,10 +80,12 @@ void GEndingTimer::OnOverlapExit(GCollider2D* _Other)
 
 void GEndingTimer::SaveToFile(FILE* _File)
 {
+	GEndingTrigger::SaveToFile(_File);
 }
 
 void GEndingTimer::LoadFromFile(FILE* _File)
 {
+	GEndingTrigger::LoadFromFile(_File);
 }
 
 
