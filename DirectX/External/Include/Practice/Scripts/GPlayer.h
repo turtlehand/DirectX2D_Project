@@ -18,7 +18,7 @@ enum class PLAYER_STATE
 	GETITEM,
 	OPENBOX,
 	FLINCH,
-	ENDING,
+	NONE,
 	END
 };
 
@@ -144,5 +144,6 @@ public:
 	friend class GPlayerFallState;
 	friend class GPlayerFlinchState;
 	friend class GPlayerGetItemState;
+	friend class GPlayerNoneState;
 };
 

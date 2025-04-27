@@ -81,6 +81,7 @@ void GPlayerWalkState::Tick()
 
 	assert(m_PlayerRigid);
 
+	m_Player->SetMoveDirection(m_Player->m_KeyInput.HorizontalMove);
 	m_PlayerRigid->AddForce(Vector2(m_Player->m_KeyInput.HorizontalMove, 0) * m_PlayerRigid->GetFriction() * 2 * DT);
 
 	// 속력이 m_MaxMoveSpeed보다 커지면 감속

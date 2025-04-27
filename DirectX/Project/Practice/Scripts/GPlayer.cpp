@@ -24,6 +24,8 @@
 #include "GPlayerFlinchState.h"
 #include "GPlayerGetItemState.h"
 
+#include "GPlayerNoneState.h"
+
 #include "GPlatform.h"
 
 GPlayer::GPlayer()
@@ -172,6 +174,8 @@ void GPlayer::Begin()
 	m_FSM->AddState(L"Fall", new GPlayerFallState);
 	m_FSM->AddState(L"Flinch", new GPlayerFlinchState);
 	m_FSM->AddState(L"GetItem", new GPlayerGetItemState);
+
+	m_FSM->AddState(L"None", new GPlayerNoneState);
 
 	m_FSM->ChanageState(L"Default");
 

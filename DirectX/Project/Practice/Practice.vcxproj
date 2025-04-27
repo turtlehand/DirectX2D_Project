@@ -177,6 +177,7 @@ call CodeGen.exe</Command>
     <ClInclude Include="GObjectBasic.h" />
     <ClInclude Include="GPlayerFlinchState.h" />
     <ClInclude Include="GPlayerGetItemState.h" />
+    <ClInclude Include="GPlayerNoneState.h" />
     <ClInclude Include="GPlayerUseItemState.h" />
     <ClInclude Include="GScriptManager.h" />
     <ClInclude Include="pch.h" />
@@ -209,6 +210,7 @@ call CodeGen.exe</Command>
     <ClInclude Include="States\GState.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\GPlayerNoneState.cpp" />
     <ClCompile Include="extern.cpp" />
     <ClCompile Include="GGameManager.cpp" />
     <ClCompile Include="GInteractable.cpp" />

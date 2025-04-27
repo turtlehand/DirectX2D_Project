@@ -3,6 +3,9 @@
 
 #include <Engine/components.h>
 
+#include "GPlayer.h"
+#include "GFSM.h"
+
 GEndingRandom::GEndingRandom()
 	: GEndingTrigger(ENDINGRANDOM)
 	, m_Prob(0.1f)
@@ -38,8 +41,15 @@ void GEndingRandom::OnOverlapEnter(GCollider2D* _Other)
 
 	if (_Other->GameObject()->GetLayer() == (int)LAYER_TYPE::PLAYER)
 	{
+		
+
 		if (m_Prob * 100 > rand() % 100)
 		{
+			GPlayer* Player = _Other->GameObject()->GetComponent<GPlayer>();
+			assert(Player);
+
+			Player->GetFSM()->ChanageState(L"None", (DWORD_PTR)PLAYER_FLIPBOOK::HUG);
+			Player->RigidBody2D()->AddForce(Vector2(Player->GetDirection() * 10, 60));
 			GGameManager::GetInst()->GameEnding(m_EndingType);
 		}
 	}
