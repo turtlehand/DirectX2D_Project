@@ -103,6 +103,9 @@
     <Filter Include="02. Scripts\5. Interactable\Elevator">
       <UniqueIdentifier>{abc6218d-795b-474e-a995-5ffcd06ff111}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. Scripts\5. Interactable\Bridge">
+      <UniqueIdentifier>{9c5f2614-8b88-4928-97e0-fc1588db0061}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">

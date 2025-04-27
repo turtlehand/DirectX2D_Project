@@ -58,8 +58,11 @@ void GSwitch::Init()
 
 void GSwitch::Begin()
 {
-	m_PressedSprite = GAssetManager::GetInst()->FindAsset<GSprite>(L"Sprite\\ButtonPressed_0000.sprite");
-	m_ButtonSprite = GAssetManager::GetInst()->FindAsset<GSprite>(L"Sprite\\Button_0000.sprite");
+	if(m_PressedSprite == nullptr)
+		m_PressedSprite = GAssetManager::GetInst()->FindAsset<GSprite>(L"Sprite\\ButtonPressed_0000.sprite");
+	
+	if(m_ButtonSprite == nullptr)
+		m_ButtonSprite = GAssetManager::GetInst()->FindAsset<GSprite>(L"Sprite\\Button_0000.sprite");
 
 	for (int i = 0; i < 3; ++i)
 	{
@@ -123,6 +126,9 @@ void GSwitch::OnOverlapExit(GCollider2D* _Other)
 
 void GSwitch::SaveToFile(FILE* _File)
 {
+	SaveAssetRef(m_ButtonSprite, _File);
+	SaveAssetRef(m_PressedSprite, _File);
+
 	for (int i = 0; i < 3; ++i)
 	{
 		wstring temp = ToWString(m_ObjectName[i]);
@@ -133,6 +139,9 @@ void GSwitch::SaveToFile(FILE* _File)
 
 void GSwitch::LoadFromFile(FILE* _File)
 {
+	m_ButtonSprite = LoadAssetRef<GSprite>(_File);
+	m_PressedSprite = LoadAssetRef<GSprite>(_File);
+
 	for (int i = 0; i < 3; ++i)
 	{
 		wstring temp;
