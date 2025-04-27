@@ -42,6 +42,7 @@ enum class PLAY_TYPE
 extern const vector<string> EndingName;
 
 class GPlayer;
+class GPrefab;
 
 class GGameManager
 	: public GSingleton<GGameManager>
@@ -53,6 +54,7 @@ private:
 	bool m_Ending[(int)ENDING_TYPE::END];
 	Ptr<GSprite> m_EndingScene[(int)ENDING_TYPE::END];
 
+	Ptr<GPrefab>	m_DarkLord;
 private:
 	GPlayer* m_Player;
 	PLAY_TYPE m_PlayType;
@@ -67,6 +69,8 @@ public:
 	bool IsEnd() { return PLAY_TYPE::ENDING == m_PlayType; }
 	bool IsPause() {return PLAY_TYPE::PAUSE == m_PlayType; }
 
+	void CallDarkLord();
+
 public:
 	void Init();
 	void Begin();
@@ -77,5 +81,7 @@ public:
 	void SaveGameEnding();
 	void GameLoad();		// 상태 초기화
 	void GameEnding(ENDING_TYPE _Type);
+
+	friend class GGameManagerScript;
 };
 

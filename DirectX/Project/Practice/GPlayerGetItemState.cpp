@@ -88,6 +88,7 @@ void GPlayerGetItemState::Exit()
 	else if (PrincessScript)
 	{
 		Index = (int)PrincessScript->GetItemType();
+		GGameManager::GetInst()->CallDarkLord();
 	}
 
 	assert(Index != (int)PLAYER_ITEM::END);

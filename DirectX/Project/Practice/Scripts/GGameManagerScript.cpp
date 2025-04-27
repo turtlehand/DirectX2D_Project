@@ -15,6 +15,7 @@ GGameManagerScript::~GGameManagerScript()
 void GGameManagerScript::Init()
 {
 	GGameManager::GetInst()->Init();
+	ADD_PREFAB("DarkLord", &(GGameManager::GetInst()->m_DarkLord));
 }
 
 void GGameManagerScript::Begin()

@@ -57,6 +57,7 @@ GLevel* GLevelSaveLoad::LoadLevel(wstring _FilePath)
 
 	FILE* pFile = nullptr;
 	_wfopen_s(&pFile, _FilePath.c_str(), L"rb");
+	assert(pFile);
 
 	// 프로젝트 세팅
 	LoadProjectSetting(pFile);

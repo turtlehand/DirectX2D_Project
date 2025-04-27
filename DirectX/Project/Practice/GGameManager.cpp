@@ -3,12 +3,15 @@
 
 #include <Engine/GAssetManager.h>
 #include <Engine/GSprite.h>
+#include <Engine/GPrefab.h>
 
 #include <Engine/GTimeManager.h>
 #include <Engine/GRenderManager.h>
 #include <Engine/GLevelManager.h>
 #include <Engine/GLevel.h>
 #include <Engine/GLayer.h>
+
+#include <Engine/GKeyManager.h>
 
 #include <Engine/components.h>
 
@@ -49,6 +52,15 @@ GGameManager::GGameManager()
 GGameManager::~GGameManager()
 {
 
+}
+
+void GGameManager::CallDarkLord()
+{
+	if (m_DarkLord == nullptr)
+	{
+		return;
+	}
+	SpawnGameObject(m_DarkLord->Instantiate());
 }
 
 void GGameManager::Init()
@@ -94,14 +106,12 @@ void GGameManager::Begin()
 void GGameManager::Progress()
 {
 	if (GLevelManager::GetInst()->GetCurrentLevelState() != LEVEL_STATE::PLAY)
-	{
 		return;
-	}
 
 	if (m_PlayType == PLAY_TYPE::END)
 		return;
 
-	if (m_PlayType == PLAY_TYPE::ENDING)
+	if (m_PlayType == PLAY_TYPE::ENDING_SCENE)
 	{
 		if (m_EndingTime < m_EndingTimer)
 		{
@@ -109,7 +119,7 @@ void GGameManager::Progress()
 
 			//GRenderManager::GetInst()->DeRegisterCamera(m_Camera->Camera());
 
-			//m_IsEnd = false;
+			m_PlayType = PLAY_TYPE::RETRY;
 		}
 		else
 		{
@@ -138,7 +148,13 @@ void GGameManager::Progress()
 			m_EndingTimer += ENGINEDT;
 		}
 	}
+	else if (m_PlayType == PLAY_TYPE::RETRY)
+	{
+		if (KEY_DOWN(KEY::X))
+		{
 
+		}
+	}
 }
 
 void GGameManager::End()
@@ -156,10 +172,10 @@ void GGameManager::GameLoad()
 
 void GGameManager::GameEnding(ENDING_TYPE _Type)
 {
-	if (m_PlayType == PLAY_TYPE::ENDING || m_PlayType == PLAY_TYPE::END || _Type == ENDING_TYPE::END)
+	if (m_PlayType == PLAY_TYPE::ENDING_SCENE || m_PlayType == PLAY_TYPE::END || _Type == ENDING_TYPE::END)
 		return;
 
-	m_PlayType = PLAY_TYPE::ENDING;
+	m_PlayType = PLAY_TYPE::ENDING_SCENE;
 	m_EndingTimer = 0.f;
 	
 	m_Scene->SpriteRender()->SetSprite(m_EndingScene[(UINT)_Type]);
