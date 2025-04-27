@@ -7,6 +7,8 @@
 #include "GLevelSaveLoad.h"
 #include <Engine/GPrefab.h>
 
+#include <Engine/GLevelManager.h>
+
 void CreateTestLevel();
 
 // 전역 변수:
@@ -45,7 +47,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 	if (FAILED(GEngine::GetInst()->Init(g_hInst, 1280, 720,
 		(GAMEOBJECT_SAVE)GLevelSaveLoad::SaveGameObject,
-		(GAMEOBJECT_LOAD)GLevelSaveLoad::LoadGameObject)))
+		(GAMEOBJECT_LOAD)GLevelSaveLoad::LoadGameObject,
+		(LEVEL_LOAD)GLevelSaveLoad::LoadLevel)))
 	{
 		return 0;
 	}

@@ -27,6 +27,7 @@
 #include "GPlayerNoneState.h"
 
 #include "GPlatform.h"
+#include "GPrincess.h"
 
 GPlayer::GPlayer()
 	: GObjectBasic(PLAYER)
@@ -38,11 +39,11 @@ GPlayer::GPlayer()
 	, m_MoveInitForce(100.f)
 	, m_MoveMaxSpeed(20.f)
 
-	, m_JumpTimeLimit(0.4f)
-	, m_JumpTimeMin(0.1f)
+	, m_JumpTimeLimit(0.3f)
+	, m_JumpTimeMin(0.05f)
 	, m_JumpTimer(0.0f)
 	, m_JumpPower(400.f)
-	, m_JumpMaxSpeed(60.f)
+	, m_JumpMaxSpeed(50.f)
 
 	, m_PlayerItems{ false }	// 현재 가지고 있는 아이템
 	, m_PlayerUseItem(PLAYER_ITEM::END)				// 현재 사용중인 아이템 END라면 사용 중 X
@@ -206,6 +207,18 @@ void GPlayer::OnOverlapEnter(GCollider2D* _Other)
 		assert(Object);
 
 		m_FSM->ChanageState(L"GetItem",(DWORD_PTR)Object);
+	}
+
+	if (_Other->GameObject()->GetLayer() == (int)LAYER_TYPE::NPC && (m_PlayerState == PLAYER_STATE::DEFAULT || m_PlayerState == PLAYER_STATE::WALK))
+	{
+		GGameObject* Object = _Other->GameObject();
+		assert(Object);
+
+		if (_Other->GameObject()->GetComponent<GPrincess>())
+		{
+			m_FSM->ChanageState(L"GetItem", (DWORD_PTR)Object);
+		}
+		
 	}
 
 	//if (_Other->GameObject()->GetLayer() != (int)LAYER_TYPE::PLATFORM)

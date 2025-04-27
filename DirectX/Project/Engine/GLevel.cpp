@@ -83,7 +83,13 @@ void GLevel::ChangeState(LEVEL_STATE _NextState)
 	// pause -> Play
 	if (m_State == LEVEL_STATE::STOP && _NextState == LEVEL_STATE::PLAY)
 	{
+		// 현재 Layer의 오브젝트를 한번 초기화해주고
+		// 다시 등록한다.
+		Deregister();
+		FinalUpdate();
+
 		m_State = _NextState;
+
 		Begin();
 	}
 	else

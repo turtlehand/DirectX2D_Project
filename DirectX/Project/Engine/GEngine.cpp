@@ -12,6 +12,7 @@
 #include "GTaskManager.h"
 
 #include "GPrefab.h"
+#include "GLevel.h"
 
 GEngine::GEngine()
     : m_hInst(nullptr)
@@ -31,7 +32,7 @@ GEngine::~GEngine()
 }
 
 int GEngine::Init(HINSTANCE _Inst, UINT _Width, UINT _Height
-    , void(*_SAVE)(GGameObject*, FILE*), GGameObject* (_LOAD)(FILE*))
+    , void(*_SAVE)(GGameObject*, FILE*), GGameObject* (_LOAD)(FILE*), GLevel* (_LOAD_LEVEL)(wstring))
 {
     m_hInst = _Inst;
     m_vResolution = Vector2(_Width, _Height);
@@ -39,6 +40,7 @@ int GEngine::Init(HINSTANCE _Inst, UINT _Width, UINT _Height
     // 프리팹 세이브 로드 함수 주소 등록
     GPrefab::g_Save = (GAMEOBJECT_SAVE)_SAVE;
     GPrefab::g_Load = (GAMEOBJECT_LOAD)_LOAD;
+    GLevelManager::g_Load_Level = (LEVEL_LOAD)_LOAD_LEVEL;
 
     if (FAILED(CreateMainWindow()))
     {

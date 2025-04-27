@@ -39,11 +39,13 @@ extern const vector<string> EndingName = {
 	"Leap_of_Faith",			// ½Å·ÚÀÇ µµ¾à
 	"Abyss",
 	"Home",
+	"Hurt_From_a_Fall",
+	"Pressed",
 	"END"
 };
 
 GGameManager::GGameManager()
-	: m_EndingTime(30.f)
+	: m_EndingTime(10.f)
 	, m_PlayType(PLAY_TYPE::END)
 {
 
@@ -85,11 +87,14 @@ void GGameManager::Init()
 	m_EndingScene[17] = GAssetManager::GetInst()->FindAsset<GSprite>(L"Sprite\\Ending\\Leap_of_Faith.sprite");			// ½Å·ÚÀÇ µµ¾à	
 	m_EndingScene[18] = GAssetManager::GetInst()->FindAsset<GSprite>(L"Sprite\\Ending\\Abyss.sprite");
 	m_EndingScene[19] = GAssetManager::GetInst()->FindAsset<GSprite>(L"Sprite\\Ending\\Home.sprite");
-
+	m_EndingScene[20] = GAssetManager::GetInst()->FindAsset<GSprite>(L"Sprite\\Ending\\Hurt_From_a_Fall.sprite");
+	m_EndingScene[21] = GAssetManager::GetInst()->FindAsset<GSprite>(L"Sprite\\Ending\\Pressed.sprite");
 }
 
 void GGameManager::Begin()
 {
+	m_DarkLord = GAssetManager::GetInst()->FindAsset<GPrefab>(L"Prefab\\DarkLord.prefab");
+
 	m_PlayType = PLAY_TYPE::PLAY;
 	GGameObject* pCamera = GLevelManager::GetInst()->GetCurrentLevel()->GetLayer(31)->FindObject(L"EndingCamera");
 	GGameObject* pScene = GLevelManager::GetInst()->GetCurrentLevel()->GetLayer(31)->FindObject(L"EndingScene");
@@ -152,7 +157,7 @@ void GGameManager::Progress()
 	{
 		if (KEY_DOWN(KEY::X))
 		{
-
+			GLevelManager::GetInst()->LoadLevel(L"Level\\Map.lv");
 		}
 	}
 }

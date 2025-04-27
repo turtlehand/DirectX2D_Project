@@ -35,7 +35,8 @@ void GPlayerGetItemState::Enter(DWORD_PTR _Item)
 	m_Item->Collider2D()->Destroy();
 	//m_Item->RigidBody2D()->Destroy();
 	m_Item->Transform()->SetRelativeScale(m_Item->Transform()->GetRelativeScale() / m_Player->Transform()->GetRelativeScale());
-	
+	m_Item->Transform()->SetRelativeRotation(Vector3(0.f, 0.f, 0.f));
+
 	// GroundChecker »è°Ô
 	const vector<GGameObject*>& ItemChilds = m_Item->GetChild();
 	for (int i = 0; i < ItemChilds.size(); ++i)

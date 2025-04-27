@@ -27,6 +27,8 @@ enum class ENDING_TYPE
 	Leap_of_Faith,			// 신뢰의 도약
 	Abyss,
 	Home,					// 공주와 집
+	Hurt_From_a_Fall,
+	Pressed,
 
 	END
 };
@@ -35,7 +37,8 @@ enum class PLAY_TYPE
 {
 	PLAY,
 	PAUSE,
-	ENDING,
+	ENDING_SCENE,
+	RETRY,
 	END,
 };
 
@@ -66,7 +69,7 @@ private:
 
 public:
 	PLAY_TYPE GetPlayType() { return m_PlayType; }
-	bool IsEnd() { return PLAY_TYPE::ENDING == m_PlayType; }
+	bool IsEnd() { return PLAY_TYPE::ENDING_SCENE == m_PlayType; }
 	bool IsPause() {return PLAY_TYPE::PAUSE == m_PlayType; }
 
 	void CallDarkLord();

@@ -9,6 +9,9 @@
 #include "assets.h"
 
 #include "GRenderManager.h"
+#include "GTaskManager.h"
+
+LEVEL_LOAD  GLevelManager::g_Load_Level = nullptr;
 
 GLevelManager::GLevelManager()
 	: m_CurLevel(nullptr)
@@ -54,6 +57,27 @@ const char* GLevelManager::GetLayerName(int _Layer)
 	strcpy_s(m_LayerName[_Layer], 255, LayerText.c_str());
 
 	return const_cast<const char*>(m_LayerName[_Layer]);
+}
+
+void GLevelManager::LoadLevel(const wstring& _RelativePath)
+{
+	assert(m_CurLevel->GetState() == LEVEL_STATE::PLAY);
+
+	wstring FullPath = GPathManager::GetContentPath() + _RelativePath;
+
+	GLevel* pNextLevel = g_Load_Level(FullPath);
+
+	// 레벨 변경
+	tTask task = {};
+	task.Type = TASK_TYPE::CHANGE_LEVEL;
+	task.Param0 = (DWORD_PTR)pNextLevel;
+	GTaskManager::GetInst()->AddTask(task);
+
+	// 레벨 상태를 Play로 변경
+	task = {};
+	task.Type = TASK_TYPE::CHANGE_LEVEL_STATE;
+	task.Param0 = (DWORD_PTR)LEVEL_STATE::PLAY;
+	GTaskManager::GetInst()->AddTask(task);
 }
 
 void GLevelManager::ChangeLevel(GLevel* _NextLevel)

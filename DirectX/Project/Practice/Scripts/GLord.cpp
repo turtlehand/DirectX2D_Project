@@ -58,7 +58,7 @@ void GLord::OnOverlapEnter(GCollider2D* _Other)
 	{
 		// 피 파티클 생성
 		GGameObject* pBlood = GAssetManager::GetInst()->FindAsset<GPrefab>(L"Prefab\\Blood.prefab")->Instantiate();
-		pBlood->Transform()->SetRelativePos(Vector3(-5.f, 0.f, 0.f));
+		pBlood->Transform()->SetRelativePos(Vector3(-0.3f, 0.f, 0.f));
 		SpawnGameObject(pBlood);
 		GameObject()->SetChild(pBlood);
 

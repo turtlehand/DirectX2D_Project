@@ -27,6 +27,8 @@ enum class ENDING_TYPE
 	Leap_of_Faith,			// 신뢰의 도약
 	Abyss,
 	Home,					// 공주와 집
+	Hurt_From_a_Fall,
+	Pressed,
 
 	END
 };

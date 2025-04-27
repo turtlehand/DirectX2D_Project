@@ -120,7 +120,7 @@ void GPlayerJumpState::Tick()
 		if (!m_Player->m_PlayerItems[i])
 			continue;
 
-		JumpMaxSpeed -= m_Player->m_JumpMaxSpeed / m_Player->m_ItemMaxCount;
+		JumpMaxSpeed -= m_Player->m_JumpMaxSpeed / (m_Player->m_ItemMaxCount * 1.5f);
 	}
 	
 	if (JumpMaxSpeed < m_PlayerRigid->GetVelocity().y)

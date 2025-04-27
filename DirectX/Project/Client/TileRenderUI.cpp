@@ -34,6 +34,11 @@ void TileRenderUI::Render_UI()
 		SetActive(false);
 		return;
 	}
+	if (m_TileRender != GetTarget()->TileRender())
+	{
+		m_CurTP = TILE_PALETTE_PARAM::END;         // 현재 선택된 TP
+		m_DrawTile.Draw = false;              // 현재 선택된 TP에서 선택한 Tile
+	}
 
 	m_TileRender = GetTarget()->TileRender();
 	OutputTitle("Tile Render");

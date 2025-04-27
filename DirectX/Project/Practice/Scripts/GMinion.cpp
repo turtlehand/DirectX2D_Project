@@ -63,7 +63,7 @@ void GMinion::OnOverlapEnter(GCollider2D* _Other)
 	if (_Other->GameObject()->GetLayer() == (int)LAYER_TYPE::PLAYER_ATTACK)
 	{
 		int Dir = Transform()->GetWorldPos().x - _Other->Transform()->GetWorldPos().x;
-		Dir = Dir / abs(Dir);
+		Dir = Dir / (Dir == 0 ? 1 : abs(Dir));
 		RigidBody2D()->AddForce(Vector2(Dir * m_FlinchForce.x, m_FlinchForce.y));
 
 		m_HP -= 1;
