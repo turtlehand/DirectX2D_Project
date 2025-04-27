@@ -3,8 +3,8 @@
 
 #include <Engine/components.h>
 
-GEndingTrigger::GEndingTrigger()
-	: GScript(ENDINGTRIGGER)
+GEndingTrigger::GEndingTrigger(SCRIPT_TYPE _Type)
+	: GScript(_Type)
 	, m_EndingType(ENDING_TYPE::END)
 {
 }
@@ -35,10 +35,12 @@ void GEndingTrigger::OnOverlapEnter(GCollider2D* _Other)
 
 void GEndingTrigger::SaveToFile(FILE* _File)
 {
+	fwrite(&m_EndingType, sizeof(ENDING_TYPE), 1, _File);
 }
 
 void GEndingTrigger::LoadFromFile(FILE* _File)
 {
+	fread(&m_EndingType, sizeof(ENDING_TYPE), 1, _File);
 }
 
 

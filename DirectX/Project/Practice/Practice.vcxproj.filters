@@ -106,6 +106,15 @@
     <Filter Include="02. Scripts\5. Interactable\Bridge">
       <UniqueIdentifier>{9c5f2614-8b88-4928-97e0-fc1588db0061}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. Scripts\6. GameManager\EndingTrigger\GEnding_Timer">
+      <UniqueIdentifier>{752dcff3-a8aa-409b-a65f-a2e68ed077db}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Scripts\6. GameManager\EndingTrigger\GEnding_NeedItem">
+      <UniqueIdentifier>{b89758bd-3575-4583-9422-b08ab22da686}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Scripts\6. GameManager\EndingTrigger\GEnding_Random">
+      <UniqueIdentifier>{c5679fef-de4a-47c6-9252-cf3f8b127511}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -222,6 +231,9 @@
     <ClInclude Include="Scripts\GElevator.h">
       <Filter>02. Scripts\5. Interactable\Elevator</Filter>
     </ClInclude>
+    <ClInclude Include="Scripts\GEndingTimer.h">
+      <Filter>02. Scripts\6. GameManager\EndingTrigger\GEnding_Timer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -328,6 +340,9 @@
     </ClCompile>
     <ClCompile Include="Scripts\GElevator.cpp">
       <Filter>02. Scripts\5. Interactable\Elevator</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\GEndingTimer.cpp">
+      <Filter>02. Scripts\6. GameManager\EndingTrigger\GEnding_Timer</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

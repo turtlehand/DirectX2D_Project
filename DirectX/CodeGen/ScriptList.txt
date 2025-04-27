@@ -5,6 +5,7 @@ GDoor
 GElevator
 GEndingCamera
 GEndingScene
+GEndingTimer
 GEndingTrigger
 GFSM
 GGameManagerScript

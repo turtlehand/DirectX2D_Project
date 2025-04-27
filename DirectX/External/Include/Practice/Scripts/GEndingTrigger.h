@@ -5,7 +5,7 @@
 class GEndingTrigger :
     public GScript
 {
-private:
+protected:
     ENDING_TYPE m_EndingType;
 
 public:
@@ -23,7 +23,7 @@ public:
     CLONE(GEndingTrigger)
 
 public:
-    GEndingTrigger();
+    GEndingTrigger(SCRIPT_TYPE _Type = ENDINGTRIGGER);
     ~GEndingTrigger();
 };
 

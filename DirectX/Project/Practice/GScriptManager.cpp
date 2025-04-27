@@ -8,6 +8,7 @@
 #include "GElevator.h"
 #include "GEndingCamera.h"
 #include "GEndingScene.h"
+#include "GEndingTimer.h"
 #include "GEndingTrigger.h"
 #include "GFSM.h"
 #include "GGameManagerScript.h"
@@ -34,6 +35,7 @@ void GScriptManager::GetScriptInfo(vector<wstring>& _vec)
 	_vec.push_back(L"GElevator");
 	_vec.push_back(L"GEndingCamera");
 	_vec.push_back(L"GEndingScene");
+	_vec.push_back(L"GEndingTimer");
 	_vec.push_back(L"GEndingTrigger");
 	_vec.push_back(L"GFSM");
 	_vec.push_back(L"GGameManagerScript");
@@ -68,6 +70,8 @@ GScript * GScriptManager::GetScript(const wstring& _strScriptName)
 		return new GEndingCamera;
 	if (L"GEndingScene" == _strScriptName)
 		return new GEndingScene;
+	if (L"GEndingTimer" == _strScriptName)
+		return new GEndingTimer;
 	if (L"GEndingTrigger" == _strScriptName)
 		return new GEndingTrigger;
 	if (L"GFSM" == _strScriptName)
@@ -127,6 +131,9 @@ GScript * GScriptManager::GetScript(UINT _iScriptType)
 		break;
 	case (UINT)SCRIPT_TYPE::ENDINGSCENE:
 		return new GEndingScene;
+		break;
+	case (UINT)SCRIPT_TYPE::ENDINGTIMER:
+		return new GEndingTimer;
 		break;
 	case (UINT)SCRIPT_TYPE::ENDINGTRIGGER:
 		return new GEndingTrigger;
@@ -210,6 +217,10 @@ const wchar_t * GScriptManager::GetScriptName(GScript * _pScript)
 
 	case SCRIPT_TYPE::ENDINGSCENE:
 		return L"GEndingScene";
+		break;
+
+	case SCRIPT_TYPE::ENDINGTIMER:
+		return L"GEndingTimer";
 		break;
 
 	case SCRIPT_TYPE::ENDINGTRIGGER:
