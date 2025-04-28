@@ -1,6 +1,7 @@
 #pragma once
 #include <Engine/GSingleton.h>
 #include <Engine/GSprite.h>
+#include <Engine/GSound.h>
 
 class GEndingCamera;
 class GEndingScnene;
@@ -67,12 +68,17 @@ private:
 	class GEndingCamera* m_Camera;
 	class GEndingScene* m_Scene;
 
+
+	float			m_BGM_Volume;
+	Ptr<GSound>		m_BGM;
+
 public:
 	PLAY_TYPE GetPlayType() { return m_PlayType; }
 	bool IsEnd() { return PLAY_TYPE::ENDING_SCENE == m_PlayType; }
 	bool IsPause() {return PLAY_TYPE::PAUSE == m_PlayType; }
 
 	void CallDarkLord();
+	void PlayBGM(Ptr<GSound> _BGM, float _BGM_Volume = 0.5f);
 
 public:
 	void Init();

@@ -39,7 +39,7 @@ GPlayer::GPlayer()
 	, m_MoveInitForce(100.f)
 	, m_MoveMaxSpeed(20.f)
 
-	, m_JumpTimeLimit(0.3f)
+	, m_JumpTimeLimit(0.4f)
 	, m_JumpTimeMin(0.05f)
 	, m_JumpTimer(0.0f)
 	, m_JumpPower(400.f)

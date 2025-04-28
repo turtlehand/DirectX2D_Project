@@ -15,6 +15,7 @@
 
 #include <Engine/components.h>
 
+
 #include "GEndingCamera.h"
 #include "GEndingScene.h"
 
@@ -65,6 +66,23 @@ void GGameManager::CallDarkLord()
 	SpawnGameObject(m_DarkLord->Instantiate());
 }
 
+void GGameManager::PlayBGM(Ptr<GSound> _BGM, float _BGM_Volume)
+{
+	if (m_PlayType != PLAY_TYPE::PLAY)
+		return;
+
+	if (m_BGM != nullptr && m_BGM != _BGM)
+		m_BGM->Stop();
+	else if (m_BGM == _BGM)
+		return;
+
+	m_BGM_Volume = _BGM_Volume;
+	m_BGM = _BGM;
+
+	if (m_BGM.Get())
+		m_BGM->Play(0, m_BGM_Volume, false);
+}
+
 void GGameManager::Init()
 {
 	m_EndingScene[0] = GAssetManager::GetInst()->FindAsset<GSprite>(L"Sprite\\Ending\\Older_Man_Attack.sprite");		// 노인 공격
@@ -110,11 +128,20 @@ void GGameManager::Begin()
 
 void GGameManager::Progress()
 {
-	if (GLevelManager::GetInst()->GetCurrentLevelState() != LEVEL_STATE::PLAY)
-		return;
+	if (GLevelManager::GetInst()->GetCurrentLevelState() == LEVEL_STATE::STOP)
+	{
+		m_PlayType = PLAY_TYPE::END;
+	}
+	else if (GLevelManager::GetInst()->GetCurrentLevelState() == LEVEL_STATE::PAUSE)
+	{
+		m_PlayType = PLAY_TYPE::PAUSE;
+	}
 
 	if (m_PlayType == PLAY_TYPE::END)
-		return;
+	{
+		if (m_BGM.Get())
+			m_BGM->Stop();
+	}
 
 	// 엔딩 씬을 보여준다.
 	if (m_PlayType == PLAY_TYPE::ENDING_SCENE)
@@ -181,12 +208,27 @@ void GGameManager::GameManagerReset()
 	GRenderManager::GetInst()->DeRegisterCamera(m_Camera->Camera());
 	m_PlayType = PLAY_TYPE::PLAY;
 	m_EndingTimer = 0.f;
+
+	if (m_BGM.Get())
+	{
+		m_BGM->Stop();
+	}
+	
+	m_BGM = GAssetManager::GetInst()->FindAsset<GSound>(L"Sound\\AudioClip\\3. Royal Kingdom.wav");
+	m_BGM->Play(0, 0.5f, false);
 }
 
 void GGameManager::GameEnding(ENDING_TYPE _Type)
 {
 	if (m_PlayType == PLAY_TYPE::ENDING_SCENE || m_PlayType == PLAY_TYPE::END || _Type == ENDING_TYPE::END)
 		return;
+
+	if (m_BGM.Get())
+	{
+		m_BGM->Stop();
+	}
+	m_BGM = GAssetManager::GetInst()->FindAsset<GSound>(L"Sound\\AudioClip\\12. Shit Happens.wav");
+	m_BGM->Play(1, 0.5f, false);
 
 	m_PlayType = PLAY_TYPE::ENDING_SCENE;
 	m_EndingTimer = 0.f;

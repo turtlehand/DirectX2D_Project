@@ -199,6 +199,47 @@ void ScriptUI::Render_UI()
 			AddItemHeight();
 		}
 		break;
+		case SCRIPT_PARAM::SOUND:
+		{
+			ImGui::Text(ScriptParam[i].Desc.c_str());
+			ImGui::SameLine(GetTab());
+			Ptr<GSound> pSound = *((Ptr<GSound>*)ScriptParam[i].pData);
+
+			string AssetName;
+			if (nullptr != pSound)
+				AssetName = ToString(pSound->GetKey());
+
+			ImGui::InputText(szID, (char*)AssetName.c_str(), AssetName.length() + 1, ImGuiInputTextFlags_ReadOnly);
+
+			// Drop Check
+			if (ImGui::BeginDragDropTarget())
+			{
+				// ContentUI 에서 드래그된 데이터만 받는다.
+				const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("ContentTree");
+
+				if (nullptr != payload)
+				{
+					// 전달된 데이터에 들어있는 Asset 의 주소값을 꺼내온다.
+					GAsset* pAsset = *((GAsset**)payload->Data);
+
+					// 꺼내온 에셋이 Mesh 타입인 경우에만 작업을 이어간다.
+					if (ASSET_TYPE::SOUND == pAsset->GetType())
+					{
+						pSound = dynamic_cast<GSound*>(pAsset);
+						assert(pSound.Get());
+					}
+				}
+
+				ImGui::EndDragDropTarget();
+			}
+
+			// 목적지에 넣어준다.
+			*((Ptr<GSound>*)ScriptParam[i].pData) = pSound;
+
+			AddItemHeight();
+		}
+		break;
+
 		case SCRIPT_PARAM::PREFAB:
 		{
 			ImGui::Text(ScriptParam[i].Desc.c_str());

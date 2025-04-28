@@ -131,7 +131,7 @@ void GTileRender::Begin()
 
 void GTileRender::FinalUpdate()
 {
-	return;
+	//return;
 	// STop 모드일 때만 DeBugRender로 표시한다.
 	if (GLevelManager::GetInst()->GetCurrentLevelState() == LEVEL_STATE::PLAY)
 		return;

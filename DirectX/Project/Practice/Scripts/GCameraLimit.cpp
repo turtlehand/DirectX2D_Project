@@ -5,6 +5,7 @@
 #include <Engine/GLevel.h>
 #include <Engine/GLayer.h>
 
+#include <Engine/GAssetManager.h>
 #include <Engine/GCollisionManager.h>
 
 #include <Engine/components.h>
@@ -23,6 +24,8 @@ GCameraLimit::~GCameraLimit()
 
 void GCameraLimit::Init()
 {
+	ADD_FLOAT("CamerScale", &m_CameraScaleX);
+	ADD_SOUND("BGM", &m_BGM);
 }
 
 void GCameraLimit::Begin()
@@ -49,20 +52,35 @@ void GCameraLimit::Update()
 	Vector3 Pos = Transform()->GetRelativePos();
 	Vector3 Scale = Transform()->GetRelativeScale() /2;
 
-	if (Pos.x - Scale.x < TargetPos.x && TargetPos.x < Pos.x + Scale.x && Pos.y - Scale.y < TargetPos.y && TargetPos.y < Pos.y + Scale.y)
+	if (!m_TargetHere)
 	{
-		m_MainCamera->SetCenter(Transform()->GetRelativePos());
-		m_MainCamera->SetMapSize(Scale* 2);
+		if (Pos.x - Scale.x < TargetPos.x && TargetPos.x < Pos.x + Scale.x && Pos.y - Scale.y < TargetPos.y && TargetPos.y < Pos.y + Scale.y)
+		{
+			m_MainCamera->SetCenter(Transform()->GetRelativePos());
+			m_MainCamera->SetMapSize(Scale * 2);
+			m_MainCamera->SetPostCameraSize(m_CameraScaleX);
+
+			GGameManager::GetInst()->PlayBGM(m_BGM);
+			m_TargetHere = true;
+		}
 	}
+	else
+		m_TargetHere = false;
+
+
 
 }
 
 void GCameraLimit::SaveToFile(FILE* _File)
 {
+	fwrite(&m_CameraScaleX, sizeof(float), 1, _File);
+	SaveAssetRef(m_BGM, _File);
 }
 
 void GCameraLimit::LoadFromFile(FILE* _File)
 {
+	fread(&m_CameraScaleX, sizeof(float), 1, _File);
+	m_BGM = LoadAssetRef<GSound>(_File);
 }
 
 

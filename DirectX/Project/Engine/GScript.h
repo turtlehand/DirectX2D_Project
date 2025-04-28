@@ -15,6 +15,7 @@ enum class SCRIPT_PARAM
     STRING,
     TEXTURE,
     SPRITE,
+    SOUND,
     PREFAB,
 };
 

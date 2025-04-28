@@ -87,8 +87,9 @@ void GCameraMove::LimitCameraArea()
 
 	m_Center = m_Center + (m_PostCenter - m_Center) * DT * m_CamSpeed;
 	m_MapSize = m_MapSize + (m_PostMapSize - m_MapSize) * DT * m_CamSpeed;
+	float CameraSize = Camera()->GetOrthoScaleX();
 
-	Camera()->SetOrthoScaleX(m_PostMapSize.x < m_PostMapSize.y ? m_MapSize.x : m_MapSize.y);
+	Camera()->SetOrthoScaleX(CameraSize + (m_PostCameraSize - CameraSize) * DT * m_CamSpeed);
 
 	float lx = m_MapSize.x / 2 - Camera()->GetOrthoScaleX() / 2;
 	float ly = m_MapSize.y / 2 - (Camera()->GetOrthoScaleX() / Camera()->GetAspectRatio()) / 2;
