@@ -15,7 +15,7 @@ void GBackGroundFollow::Init()
 void GBackGroundFollow::Begin()
 {
 	m_InitPos = Transform()->GetWorldPos();
-	m_Target = GLevelManager::GetInst()->GetCurrentLevel()->GetLayer((int)LAYER_TYPE::PLAYER)->FindObject(L"Player");
+	m_Target = GLevelManager::GetInst()->GetCurrentLevel()->GetLayer((int)LAYER_TYPE::DEFAULT)->FindObject(L"MainCamera");
 }
 
 void GBackGroundFollow::Update()
@@ -25,6 +25,7 @@ void GBackGroundFollow::Update()
 
 
 	Vector3 vPos = m_InitPos + m_Target->Transform()->GetWorldPos() * m_Speed;
+	vPos.z = Transform()->GetWorldPos().z;
 	Transform()->SetRelativePos(vPos);
 
 }

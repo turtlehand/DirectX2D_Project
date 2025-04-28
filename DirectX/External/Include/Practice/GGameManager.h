@@ -82,7 +82,7 @@ public:
 
 public:
 	void SaveGameEnding();
-	void GameLoad();		// 상태 초기화
+	void GameManagerReset();		// 상태 초기화
 	void GameEnding(ENDING_TYPE _Type);
 
 	friend class GGameManagerScript;

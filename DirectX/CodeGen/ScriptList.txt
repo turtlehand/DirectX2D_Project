@@ -1,4 +1,5 @@
 GBackGroundFollow
+GCameraLimit
 GCameraMove
 GCeilingChecker
 GDoor

@@ -105,7 +105,7 @@ void GGameManager::Begin()
 	m_Scene = pScene->GetComponent<GEndingScene>();
 	assert(m_Scene);
 
-	GameLoad();
+	GameManagerReset();
 }
 
 void GGameManager::Progress()
@@ -116,6 +116,7 @@ void GGameManager::Progress()
 	if (m_PlayType == PLAY_TYPE::END)
 		return;
 
+	// 엔딩 씬을 보여준다.
 	if (m_PlayType == PLAY_TYPE::ENDING_SCENE)
 	{
 		if (m_EndingTime < m_EndingTimer)
@@ -128,6 +129,7 @@ void GGameManager::Progress()
 		}
 		else
 		{
+			// 시간을 느리게 만든다.
 			if (m_EndingTimer < 3.f)
 			{
 				// 수치	0.25 ~ 0
@@ -136,6 +138,8 @@ void GGameManager::Progress()
 				GTimeManager::GetInst()->SetTimeScale(ratio);
 				m_Scene->SpriteRender()->SetColor(Vector4(1.f, 1.f, 1.f, 0.f));
 			}
+			// 시간이 정지된다.
+			// 씬 이미지를 페이드 인으로 보여준다.
 			else if (3.f < m_EndingTimer && m_EndingTimer < 6.f)
 			{
 				GTimeManager::GetInst()->SetTimeScale(0);
@@ -145,6 +149,8 @@ void GGameManager::Progress()
 				//GTimeManager::GetInst()->SetTimeScale(ratio);
 				m_Scene->SpriteRender()->SetColor(Vector4(1.f, 1.f, 1.f, 1 - ratio));
 			}
+			// 시간이 정지된다.
+			// 씬 이미지를 보여준다.
 			else
 			{
 				GTimeManager::GetInst()->SetTimeScale(0);
@@ -153,6 +159,8 @@ void GGameManager::Progress()
 			m_EndingTimer += ENGINEDT;
 		}
 	}
+
+	// X키를 누르면 레벨을 재시작한다.
 	else if (m_PlayType == PLAY_TYPE::RETRY)
 	{
 		if (KEY_DOWN(KEY::X))
@@ -167,7 +175,7 @@ void GGameManager::End()
 	m_PlayType = PLAY_TYPE::END;
 }
 
-void GGameManager::GameLoad()
+void GGameManager::GameManagerReset()
 {
 	GTimeManager::GetInst()->SetTimeScale(1.f);
 	GRenderManager::GetInst()->DeRegisterCamera(m_Camera->Camera());

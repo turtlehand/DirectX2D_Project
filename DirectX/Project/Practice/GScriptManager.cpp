@@ -2,6 +2,7 @@
 #include "GScriptManager.h"
 
 #include "GBackGroundFollow.h"
+#include "GCameraLimit.h"
 #include "GCameraMove.h"
 #include "GCeilingChecker.h"
 #include "GDoor.h"
@@ -31,6 +32,7 @@
 void GScriptManager::GetScriptInfo(vector<wstring>& _vec)
 {
 	_vec.push_back(L"GBackGroundFollow");
+	_vec.push_back(L"GCameraLimit");
 	_vec.push_back(L"GCameraMove");
 	_vec.push_back(L"GCeilingChecker");
 	_vec.push_back(L"GDoor");
@@ -62,6 +64,8 @@ GScript * GScriptManager::GetScript(const wstring& _strScriptName)
 {
 	if (L"GBackGroundFollow" == _strScriptName)
 		return new GBackGroundFollow;
+	if (L"GCameraLimit" == _strScriptName)
+		return new GCameraLimit;
 	if (L"GCameraMove" == _strScriptName)
 		return new GCameraMove;
 	if (L"GCeilingChecker" == _strScriptName)
@@ -121,6 +125,9 @@ GScript * GScriptManager::GetScript(UINT _iScriptType)
 	{
 	case (UINT)SCRIPT_TYPE::BACKGROUNDFOLLOW:
 		return new GBackGroundFollow;
+		break;
+	case (UINT)SCRIPT_TYPE::CAMERALIMIT:
+		return new GCameraLimit;
 		break;
 	case (UINT)SCRIPT_TYPE::CAMERAMOVE:
 		return new GCameraMove;
@@ -207,6 +214,10 @@ const wchar_t * GScriptManager::GetScriptName(GScript * _pScript)
 	{
 	case SCRIPT_TYPE::BACKGROUNDFOLLOW:
 		return L"GBackGroundFollow";
+		break;
+
+	case SCRIPT_TYPE::CAMERALIMIT:
+		return L"GCameraLimit";
 		break;
 
 	case SCRIPT_TYPE::CAMERAMOVE:

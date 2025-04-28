@@ -41,7 +41,7 @@ void CreateTestLevel()
 	pCamObj->SetName(L"MainCamera");
 	pCamObj->AddComponent(new GTransform);
 	pCamObj->AddComponent(new GCamera);
-	pCamObj->AddComponent(new GCameraMove);
+	//pCamObj->AddComponent(new GCameraMove);
 
 	pCamObj->Transform()->SetRelativePos(0.f, 0.f, -100.f);
 

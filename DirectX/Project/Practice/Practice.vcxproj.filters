@@ -246,6 +246,9 @@
     <ClInclude Include="GPlayerNoneState.h">
       <Filter>02. Scripts\3. Object\1. Player\1. State\8. None</Filter>
     </ClInclude>
+    <ClInclude Include="Scripts\GCameraLimit.h">
+      <Filter>02. Scripts\1. ETC</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -365,7 +368,10 @@
     <ClCompile Include="Scripts\GEndingRandom.cpp">
       <Filter>02. Scripts\6. GameManager\EndingTrigger\GEnding_Random</Filter>
     </ClCompile>
-    <ClCompile Include="..\GPlayerNoneState.cpp">
+    <ClCompile Include="Scripts\GCameraLimit.cpp">
+      <Filter>02. Scripts\1. ETC</Filter>
+    </ClCompile>
+    <ClCompile Include="GPlayerNoneState.cpp">
       <Filter>02. Scripts\3. Object\1. Player\1. State\8. None</Filter>
     </ClCompile>
   </ItemGroup>

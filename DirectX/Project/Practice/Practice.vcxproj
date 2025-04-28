@@ -182,6 +182,7 @@ call CodeGen.exe</Command>
     <ClInclude Include="GScriptManager.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Scripts\GBackGroundFollow.h" />
+    <ClInclude Include="Scripts\GCameraLimit.h" />
     <ClInclude Include="Scripts\GCameraMove.h" />
     <ClInclude Include="Scripts\GCeilingChecker.h" />
     <ClInclude Include="Scripts\GDoor.h" />
@@ -210,7 +211,6 @@ call CodeGen.exe</Command>
     <ClInclude Include="States\GState.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\GPlayerNoneState.cpp" />
     <ClCompile Include="extern.cpp" />
     <ClCompile Include="GGameManager.cpp" />
     <ClCompile Include="GInteractable.cpp" />
@@ -220,6 +220,7 @@ call CodeGen.exe</Command>
     <ClCompile Include="GObjectBasic.cpp" />
     <ClCompile Include="GPlayerFlinchState.cpp" />
     <ClCompile Include="GPlayerGetItemState.cpp" />
+    <ClCompile Include="GPlayerNoneState.cpp" />
     <ClCompile Include="GPlayerUseItemState.cpp" />
     <ClCompile Include="GScriptManager.cpp" />
     <ClCompile Include="pch.cpp">
@@ -229,6 +230,7 @@ call CodeGen.exe</Command>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Scripts\GBackGroundFollow.cpp" />
+    <ClCompile Include="Scripts\GCameraLimit.cpp" />
     <ClCompile Include="Scripts\GCameraMove.cpp" />
     <ClCompile Include="Scripts\GCeilingChecker.cpp" />
     <ClCompile Include="Scripts\GDoor.cpp" />
