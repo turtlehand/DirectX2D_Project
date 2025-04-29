@@ -37,7 +37,7 @@ GPlayer::GPlayer()
 	, m_PlayerState(PLAYER_STATE::DEFAULT)
 
 	, m_MoveInitForce(100.f)
-	, m_MoveMaxSpeed(20.f)
+	, m_MoveMaxSpeed(30.f)
 
 	, m_JumpTimeLimit(0.4f)
 	, m_JumpTimeMin(0.05f)
@@ -201,6 +201,12 @@ void GPlayer::OnOverlapEnter(GCollider2D* _Other)
 		int Dir = Transform()->GetWorldPos().x - _Other->Transform()->GetWorldPos().x;
 		Dir = Dir / (Dir == 0 ? 1 : abs(Dir));
 		RigidBody2D()->AddForce(Vector2(Dir * m_FlinchForce.x, m_FlinchForce.y));
+
+		//Ptr<GSound> Stab = GAssetManager::GetInst()->Load<GSound>(L"Sound\\AudioClip\\StabSomeone.wav", L"Sound\\AudioClip\\StabSomeone.wav");
+		Ptr<GSound> KillMinion = GAssetManager::GetInst()->Load<GSound>(L"Sound\\AudioClip\\KillMinion.wav", L"Sound\\AudioClip\\KillMinion.wav");
+
+		//Stab->Play(1, GGameManager::GetInst()->GetEffect_Volume(), false);
+		KillMinion->Play(1, GGameManager::GetInst()->GetEffect_Volume(), false);
 	}
 	
 	if (_Other->GameObject()->GetLayer() == (int)LAYER_TYPE::ITEM && (m_PlayerState == PLAYER_STATE::DEFAULT || m_PlayerState == PLAYER_STATE::WALK))

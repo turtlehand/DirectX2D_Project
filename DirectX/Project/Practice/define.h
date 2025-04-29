@@ -1,6 +1,6 @@
 #pragma once
 
-//#define GAME_RELEASED
+#define GAME_RELEASED
 
 
 #ifdef GAME_RELEASED

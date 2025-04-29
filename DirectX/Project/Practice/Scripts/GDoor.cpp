@@ -4,6 +4,11 @@
 #include <Engine/GTimeManager.h>
 #include <Engine/GTransform.h>
 
+#include "GGameManager.h"
+
+#include <Engine/GAssetManager.h>
+#include <Engine/GSound.h>
+
 GDoor::GDoor()
 	: GInteractable(DOOR)
 	, m_StartInteract(false)
@@ -71,6 +76,10 @@ void GDoor::InteractEnter()
 	if (m_SucessInteraction || m_StartInteract)
 		return;
 	m_StartInteract = true;
+
+	Ptr<GSound> Grate = GAssetManager::GetInst()->Load<GSound>(L"Sound\\AudioClip\\GrateOpenClose.wav", L"Sound\\AudioClip\\GrateOpenClose.wav");
+
+	Grate->Play(1, GGameManager::GetInst()->GetEffect_Volume(), false);
 }
 
 void GDoor::SaveToFile(FILE* _File)

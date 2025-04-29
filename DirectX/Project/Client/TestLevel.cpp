@@ -18,6 +18,7 @@ void CreateTestLevel()
 	//Ptr<GSound> pSound = GAssetManager::GetInst()->FindAsset<GSound>(L"Sound\\BGM_Stage1.wav");
 	//pSound->Play(0, 0.2f, false);
 
+#ifdef _DEBUG
 	GLevel* pCurLevel = GLevelManager::GetInst()->GetCurrentLevel();
 
 	pCurLevel->GetLayer(0)->SetName(L"Default");
@@ -69,6 +70,10 @@ void CreateTestLevel()
 	SpawnGameObject(pLight);
 
 	GCollisionManager::GetInst()->CollisionLayerCheck(0, 0);
+
+#else
+
+#endif
 
 	/*
 	pLight = new GGameObject;

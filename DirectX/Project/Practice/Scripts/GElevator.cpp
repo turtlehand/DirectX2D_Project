@@ -4,6 +4,11 @@
 #include <Engine/GTimeManager.h>
 #include <Engine/components.h>
 
+#include "GGameManager.h"
+
+#include <Engine/GAssetManager.h>
+#include <Engine/GSound.h>
+
 GElevator::GElevator()
 	: GInteractable(ELEVATOR)
 	, m_StartMove(false)
@@ -99,6 +104,10 @@ void GElevator::InteractEnter()
 	{
 		m_Direction = -1;
 	}
+
+	Ptr<GSound> ElevatorStart = GAssetManager::GetInst()->Load<GSound>(L"Sound\\AudioClip\\ElevatorStart.wav", L"Sound\\AudioClip\\ElevatorStart.wav");
+
+	ElevatorStart->Play(1, GGameManager::GetInst()->GetEffect_Volume(), false);
 }
 
 void GElevator::SaveToFile(FILE* _File)

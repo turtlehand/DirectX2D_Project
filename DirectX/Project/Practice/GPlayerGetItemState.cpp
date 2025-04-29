@@ -96,6 +96,9 @@ void GPlayerGetItemState::Exit()
 	{
 		Index = (int)PrincessScript->GetItemType();
 		GGameManager::GetInst()->CallDarkLord();
+		Ptr<GSound> Earthquake = GAssetManager::GetInst()->Load<GSound>(L"Sound\\AudioClip\\EarthquakePrincessRescue.wav", L"Sound\\AudioClip\\EarthquakePrincessRescue.wav");
+
+		Earthquake->Play(1, GGameManager::GetInst()->GetEffect_Volume(), false);
 	}
 
 	assert(Index != (int)PLAYER_ITEM::END);

@@ -68,6 +68,12 @@ void GMinion::OnOverlapEnter(GCollider2D* _Other)
 
 		m_HP -= 1;
 
+		//Ptr<GSound> Stab = GAssetManager::GetInst()->Load<GSound>(L"Sound\\AudioClip\\StabSomeone.wav", L"Sound\\AudioClip\\StabSomeone.wav");
+		Ptr<GSound> KillMinion = GAssetManager::GetInst()->Load<GSound>(L"Sound\\AudioClip\\KillMinion.wav", L"Sound\\AudioClip\\KillMinion.wav");
+
+		//Stab->Play(1, GGameManager::GetInst()->GetEffect_Volume(), false);
+		KillMinion->Play(1, GGameManager::GetInst()->GetEffect_Volume(), false);
+
 		if (m_HP < -5)
 		{
 			GGameManager::GetInst()->GameEnding(ENDING_TYPE::Cruel_Minion_Killer);

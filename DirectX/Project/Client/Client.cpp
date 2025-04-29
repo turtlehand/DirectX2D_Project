@@ -53,12 +53,15 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 		return 0;
 	}
 
+#ifdef _DEBUG
+
 	// EditorManager 초기화
 	EditorManager::GetInst()->Init();
 
 	// ImGui 초기화
 	ImGuiManager::GetInst()->Init(GEngine::GetInst()->GetMainWndHwnd(), DEVICE, CONTEXT);
 
+#endif
 	// 테스트용 레벨 제작
 	CreateTestLevel();
 
@@ -84,10 +87,12 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 		{
 			GEngine::GetInst()->Progress();
 
+#ifdef _DEBUG
+
 			EditorManager::GetInst()->Progress();
 
 			ImGuiManager::GetInst()->Progress();
-
+#endif
 			// 윈도우 화면에 송출
 			GDevice::GetInst()->Present();
 		}
