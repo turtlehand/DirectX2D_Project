@@ -180,8 +180,8 @@ void GPlayer::Begin()
 
 	m_FSM->ChanageState(L"Default");
 
-	m_SwordPrefab = GAssetManager::GetInst()->FindAsset<GPrefab>(L"Prefab\\Sword_Player.prefab");
-	m_ShovelPrefab = GAssetManager::GetInst()->FindAsset<GPrefab>(L"Prefab\\Shovel_Player.prefab");
+	m_SwordPrefab = GAssetManager::GetInst()->Load<GPrefab>(L"Prefab\\Sword_Player.prefab", L"Prefab\\Sword_Player.prefab");
+	m_ShovelPrefab = GAssetManager::GetInst()->Load<GPrefab>(L"Prefab\\Shovel_Player.prefab", L"Prefab\\Shovel_Player.prefab");
 
 	m_SwordSound = GAssetManager::GetInst()->Load<GSound>(L"Sound\\AudioClip\\Sword.wav", L"Sound\\AudioClip\\Sword.wav");
 }

@@ -53,7 +53,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 		return 0;
 	}
 
-#ifdef _DEBUG
+#ifndef GAME_RELEASED
 
 	// EditorManager 초기화
 	EditorManager::GetInst()->Init();
@@ -87,7 +87,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 		{
 			GEngine::GetInst()->Progress();
 
-#ifdef _DEBUG
+#ifndef GAME_RELEASED
 
 			EditorManager::GetInst()->Progress();
 

@@ -14,5 +14,6 @@
 #pragma comment(lib,"Engine\\Engine.lib")
 #pragma comment(lib,"Practice\\Practice.lib");
 
-
 #endif // DEBUG
+
+//#define GAME_RELEASED

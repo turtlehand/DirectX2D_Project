@@ -50,7 +50,7 @@ void GMinion::Begin()
 
 	m_FSM->ChanageState(L"Walk");
 
-	m_MinionSword = GAssetManager::GetInst()->FindAsset<GPrefab>(L"Prefab\\Sword_Minion.prefab");
+	m_MinionSword = GAssetManager::GetInst()->Load<GPrefab>(L"Prefab\\Sword_Minion.prefab", L"Prefab\\Sword_Minion.prefab");
 }
 
 void GMinion::Update()

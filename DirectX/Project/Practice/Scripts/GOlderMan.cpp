@@ -59,7 +59,7 @@ void GOlderMan::OnOverlapEnter(GCollider2D* _Other)
 	if (_Other->GameObject()->GetLayer() == (int)LAYER_TYPE::PLAYER_ATTACK)
 	{
 		// 피 파티클 생성
-		GGameObject* pBlood = GAssetManager::GetInst()->FindAsset<GPrefab>(L"Prefab\\Blood.prefab")->Instantiate();
+		GGameObject* pBlood = GAssetManager::GetInst()->Load<GPrefab>(L"Prefab\\Blood.prefab", L"Prefab\\Blood.prefab")->Instantiate();
 		SpawnGameObject(pBlood);
 		GameObject()->SetChild(pBlood);
 

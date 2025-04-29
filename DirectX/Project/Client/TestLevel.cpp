@@ -9,8 +9,9 @@
 #include <Engine/GGameObject.h>
 #include <Engine/components.h>
 #include <Engine/assets.h>
+#include <Engine/GTaskManager.h>
 
-#include <Practice/Scripts/GCameraMove.h>
+#include "GLevelSaveLoad.h"
 
 void CreateTestLevel()
 {
@@ -18,7 +19,7 @@ void CreateTestLevel()
 	//Ptr<GSound> pSound = GAssetManager::GetInst()->FindAsset<GSound>(L"Sound\\BGM_Stage1.wav");
 	//pSound->Play(0, 0.2f, false);
 
-#ifdef _DEBUG
+#ifndef GAME_RELEASED
 	GLevel* pCurLevel = GLevelManager::GetInst()->GetCurrentLevel();
 
 	pCurLevel->GetLayer(0)->SetName(L"Default");
@@ -72,6 +73,23 @@ void CreateTestLevel()
 	GCollisionManager::GetInst()->CollisionLayerCheck(0, 0);
 
 #else
+
+	wstring FilePath = GPathManager::GetContentPath();
+	FilePath += L"Level\\Map.lv";
+
+	GLevel* pNextLevel = GLevelSaveLoad::LoadLevel(FilePath);
+
+	// 레벨 변경
+	tTask task = {};
+	task.Type = TASK_TYPE::CHANGE_LEVEL;
+	task.Param0 = (DWORD_PTR)pNextLevel;
+
+	GTaskManager::GetInst()->AddTask(task);
+	
+	task = {};
+	task.Type = TASK_TYPE::CHANGE_LEVEL_STATE;
+	task.Param0 = (DWORD_PTR)LEVEL_STATE::PLAY;
+	GTaskManager::GetInst()->AddTask(task);
 
 #endif
 

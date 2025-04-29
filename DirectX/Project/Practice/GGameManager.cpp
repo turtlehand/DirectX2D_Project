@@ -86,33 +86,33 @@ void GGameManager::PlayBGM(Ptr<GSound> _BGM)
 
 void GGameManager::Init()
 {
-	m_EndingScene[0] = GAssetManager::GetInst()->FindAsset<GSprite>(L"Sprite\\Ending\\Older_Man_Attack.sprite");		// 노인 공격
-	m_EndingScene[1] = GAssetManager::GetInst()->FindAsset<GSprite>(L"Sprite\\Ending\\Mighty_Minion.sprite");			// 미니언에게 사망
-	m_EndingScene[2] = GAssetManager::GetInst()->FindAsset<GSprite>(L"Sprite\\Ending\\Cruel_Minion_Killer.sprite");	// 미니언 여러번 찌르기	
-	m_EndingScene[3] = GAssetManager::GetInst()->FindAsset<GSprite>(L"Sprite\\Ending\\Mundane_Pouch.sprite");			// 아이템 많이 들어서 다리 부러지기
-	m_EndingScene[4] = GAssetManager::GetInst()->FindAsset<GSprite>(L"Sprite\\Ending\\Disappointing_Hero.sprite");		// 돌부리에 넘어짐
-	m_EndingScene[5] = GAssetManager::GetInst()->FindAsset<GSprite>(L"Sprite\\Ending\\Delicious_Strawberry.sprite");	// 산 꼭대기 딸기	
-	m_EndingScene[6] = GAssetManager::GetInst()->FindAsset<GSprite>(L"Sprite\\Ending\\Battleground.sprite");			// 갑분배틀그라운드
-	m_EndingScene[7] = GAssetManager::GetInst()->FindAsset<GSprite>(L"Sprite\\Ending\\Yahoo.sprite");					// 마리오 토관
-	m_EndingScene[8] = GAssetManager::GetInst()->FindAsset<GSprite>(L"Sprite\\Ending\\Lava.sprite");					// 용암
-	m_EndingScene[9] = GAssetManager::GetInst()->FindAsset<GSprite>(L"Sprite\\Ending\\Taking_Day_Off.sprite");			// 집돌이
-	m_EndingScene[10] = GAssetManager::GetInst()->FindAsset<GSprite>(L"Sprite\\Ending\\Stress_Relief.sprite");			// 공주에게 분풀이
-	m_EndingScene[11] = GAssetManager::GetInst()->FindAsset<GSprite>(L"Sprite\\Ending\\Execution.sprite");				// 마왕에게 처형
-	m_EndingScene[12] = GAssetManager::GetInst()->FindAsset<GSprite>(L"Sprite\\Ending\\Cowardly_Hero.sprite");			// 마왕 뒤치
-	m_EndingScene[13] = GAssetManager::GetInst()->FindAsset<GSprite>(L"Sprite\\Ending\\Bear_Hug.sprite");				// 허리가 부러진 노인
-	m_EndingScene[14] = GAssetManager::GetInst()->FindAsset<GSprite>(L"Sprite\\Ending\\Minon_Allergy.sprite");			// 미니언 알레르기
-	m_EndingScene[15] = GAssetManager::GetInst()->FindAsset<GSprite>(L"Sprite\\Ending\\Rejection.sprite");				// 퇴짜
-	m_EndingScene[16] = GAssetManager::GetInst()->FindAsset<GSprite>(L"Sprite\\Ending\\LovePower.sprite");				// 사랑의 힘
-	m_EndingScene[17] = GAssetManager::GetInst()->FindAsset<GSprite>(L"Sprite\\Ending\\Leap_of_Faith.sprite");			// 신뢰의 도약	
-	m_EndingScene[18] = GAssetManager::GetInst()->FindAsset<GSprite>(L"Sprite\\Ending\\Abyss.sprite");
-	m_EndingScene[19] = GAssetManager::GetInst()->FindAsset<GSprite>(L"Sprite\\Ending\\Home.sprite");
-	m_EndingScene[20] = GAssetManager::GetInst()->FindAsset<GSprite>(L"Sprite\\Ending\\Hurt_From_a_Fall.sprite");
-	m_EndingScene[21] = GAssetManager::GetInst()->FindAsset<GSprite>(L"Sprite\\Ending\\Pressed.sprite");
+	m_EndingScene[0] = GAssetManager::GetInst()->Load<GSprite>(L"Sprite\\Ending\\Older_Man_Attack.sprite", L"Sprite\\Ending\\Older_Man_Attack.sprite");		// 노인 공격
+	m_EndingScene[1] = GAssetManager::GetInst()->Load<GSprite>(L"Sprite\\Ending\\Mighty_Minion.sprite", L"Sprite\\Ending\\Mighty_Minion.sprite");			// 미니언에게 사망
+	m_EndingScene[2] = GAssetManager::GetInst()->Load<GSprite>(L"Sprite\\Ending\\Cruel_Minion_Killer.sprite", L"Sprite\\Ending\\Cruel_Minion_Killer.sprite");	// 미니언 여러번 찌르기	
+	m_EndingScene[3] = GAssetManager::GetInst()->Load<GSprite>(L"Sprite\\Ending\\Mundane_Pouch.sprite", L"Sprite\\Ending\\Mundane_Pouch.sprite");			// 아이템 많이 들어서 다리 부러지기
+	m_EndingScene[4] = GAssetManager::GetInst()->Load<GSprite>(L"Sprite\\Ending\\Disappointing_Hero.sprite", L"Sprite\\Ending\\Disappointing_Hero.sprite");		// 돌부리에 넘어짐
+	m_EndingScene[5] = GAssetManager::GetInst()->Load<GSprite>(L"Sprite\\Ending\\Delicious_Strawberry.sprite", L"Sprite\\Ending\\Delicious_Strawberry.sprite");	// 산 꼭대기 딸기	
+	m_EndingScene[6] = GAssetManager::GetInst()->Load<GSprite>(L"Sprite\\Ending\\Battleground.sprite", L"Sprite\\Ending\\Battleground.sprite");			// 갑분배틀그라운드
+	m_EndingScene[7] = GAssetManager::GetInst()->Load<GSprite>(L"Sprite\\Ending\\Yahoo.sprite", L"Sprite\\Ending\\Yahoo.sprite");					// 마리오 토관
+	m_EndingScene[8] = GAssetManager::GetInst()->Load<GSprite>(L"Sprite\\Ending\\Lava.sprite", L"Sprite\\Ending\\Lava.sprite");					// 용암
+	m_EndingScene[9] = GAssetManager::GetInst()->Load<GSprite>(L"Sprite\\Ending\\Taking_Day_Off.sprite", L"Sprite\\Ending\\Taking_Day_Off.sprite");			// 집돌이
+	m_EndingScene[10] = GAssetManager::GetInst()->Load<GSprite>(L"Sprite\\Ending\\Stress_Relief.sprite", L"Sprite\\Ending\\Stress_Relief.sprite");			// 공주에게 분풀이
+	m_EndingScene[11] = GAssetManager::GetInst()->Load<GSprite>(L"Sprite\\Ending\\Execution.sprite", L"Sprite\\Ending\\Execution.sprite");				// 마왕에게 처형
+	m_EndingScene[12] = GAssetManager::GetInst()->Load<GSprite>(L"Sprite\\Ending\\Cowardly_Hero.sprite", L"Sprite\\Ending\\Cowardly_Hero.sprite");			// 마왕 뒤치
+	m_EndingScene[13] = GAssetManager::GetInst()->Load<GSprite>(L"Sprite\\Ending\\Bear_Hug.sprite", L"Sprite\\Ending\\Bear_Hug.sprite");				// 허리가 부러진 노인
+	m_EndingScene[14] = GAssetManager::GetInst()->Load<GSprite>(L"Sprite\\Ending\\Minon_Allergy.sprite", L"Sprite\\Ending\\Minon_Allergy.sprite");			// 미니언 알레르기
+	m_EndingScene[15] = GAssetManager::GetInst()->Load<GSprite>(L"Sprite\\Ending\\Rejection.sprite", L"Sprite\\Ending\\Rejection.sprite");				// 퇴짜
+	m_EndingScene[16] = GAssetManager::GetInst()->Load<GSprite>(L"Sprite\\Ending\\LovePower.sprite", L"Sprite\\Ending\\LovePower.sprite");				// 사랑의 힘
+	m_EndingScene[17] = GAssetManager::GetInst()->Load<GSprite>(L"Sprite\\Ending\\Leap_of_Faith.sprite", L"Sprite\\Ending\\Leap_of_Faith.sprite");			// 신뢰의 도약	
+	m_EndingScene[18] = GAssetManager::GetInst()->Load<GSprite>(L"Sprite\\Ending\\Abyss.sprite", L"Sprite\\Ending\\Abyss.sprite");
+	m_EndingScene[19] = GAssetManager::GetInst()->Load<GSprite>(L"Sprite\\Ending\\Home.sprite", L"Sprite\\Ending\\Home.sprite");
+	m_EndingScene[20] = GAssetManager::GetInst()->Load<GSprite>(L"Sprite\\Ending\\Hurt_From_a_Fall.sprite", L"Sprite\\Ending\\Hurt_From_a_Fall.sprite");
+	m_EndingScene[21] = GAssetManager::GetInst()->Load<GSprite>(L"Sprite\\Ending\\Pressed.sprite", L"Sprite\\Ending\\Pressed.sprite");
 }
 
 void GGameManager::Begin()
 {
-	m_DarkLord = GAssetManager::GetInst()->FindAsset<GPrefab>(L"Prefab\\DarkLord.prefab");
+	m_DarkLord = GAssetManager::GetInst()->Load<GPrefab>(L"Prefab\\DarkLord.prefab", L"Prefab\\DarkLord.prefab");
 
 	m_PlayType = PLAY_TYPE::PLAY;
 	GGameObject* pCamera = GLevelManager::GetInst()->GetCurrentLevel()->GetLayer(31)->FindObject(L"EndingCamera");

@@ -59,10 +59,10 @@ void GSwitch::Init()
 void GSwitch::Begin()
 {
 	if(m_PressedSprite == nullptr)
-		m_PressedSprite = GAssetManager::GetInst()->FindAsset<GSprite>(L"Sprite\\ButtonPressed_0000.sprite");
+		m_PressedSprite = GAssetManager::GetInst()->Load<GSprite>(L"Sprite\\ButtonPressed_0000.sprite", L"Sprite\\ButtonPressed_0000.sprite");
 	
 	if(m_ButtonSprite == nullptr)
-		m_ButtonSprite = GAssetManager::GetInst()->FindAsset<GSprite>(L"Sprite\\Button_0000.sprite");
+		m_ButtonSprite = GAssetManager::GetInst()->Load<GSprite>(L"Sprite\\Button_0000.sprite", L"Sprite\\Button_0000.sprite");
 
 	for (int i = 0; i < 3; ++i)
 	{
