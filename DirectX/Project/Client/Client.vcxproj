@@ -206,7 +206,7 @@
     <ClCompile Include="AddComponentUI.cpp" />
     <ClCompile Include="AssetUI.cpp" />
     <ClCompile Include="CameraUI.cpp" />
-    <ClCompile Include="Client.cpp" />
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="Collider2DUI.cpp" />
     <ClCompile Include="ComponentUI.cpp" />
     <ClCompile Include="ComputeShaderUI.cpp" />

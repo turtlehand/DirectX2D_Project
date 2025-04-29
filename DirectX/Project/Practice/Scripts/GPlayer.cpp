@@ -43,7 +43,7 @@ GPlayer::GPlayer()
 	, m_JumpTimeMin(0.05f)
 	, m_JumpTimer(0.0f)
 	, m_JumpPower(400.f)
-	, m_JumpMaxSpeed(50.f)
+	, m_JumpMaxSpeed(60.f)
 
 	, m_PlayerItems{ false }	// 현재 가지고 있는 아이템
 	, m_PlayerUseItem(PLAYER_ITEM::END)				// 현재 사용중인 아이템 END라면 사용 중 X
