@@ -8,6 +8,9 @@
 #include "GPrincess.h"
 #include <Engine/components.h>
 
+#include <Engine/GAssetManager.h>
+#include <Engine/GSound.h>
+
 GPlayerGetItemState::GPlayerGetItemState()
 	: m_Player(nullptr)
 	, m_PlayerRigid(nullptr)
@@ -23,6 +26,7 @@ void GPlayerGetItemState::Awake()
 {
 	m_Player = GetFSM()->GameObject()->GetComponent<GPlayer>();
 	m_PlayerRigid = GetFSM()->GameObject()->RigidBody2D();
+	m_GetItemSound = GAssetManager::GetInst()->Load<GSound>(L"Sound\\AudioClip\\Item.wav", L"Sound\\AudioClip\\Item.wav");
 }
 
 void GPlayerGetItemState::Enter(DWORD_PTR _Item)
@@ -53,6 +57,8 @@ void GPlayerGetItemState::Enter(DWORD_PTR _Item)
 	m_Player->m_PlayerState = PLAYER_STATE::GETITEM;
 	m_Player->FlipbookRender()->Play((int)PLAYER_FLIPBOOK::GETITEM);
 	m_Timer = 0.f;
+
+	m_GetItemSound->Play(1, GGameManager::GetInst()->GetEffect_Volume(), false);
 }
 
 void GPlayerGetItemState::Tick()
@@ -60,10 +66,10 @@ void GPlayerGetItemState::Tick()
 	Vector3 Pos;
 	if (m_Timer < 1.f)
 	{
-		Pos = Vector3(0.f, 1.f, 0.5f) * (m_Timer)+Vector3(0.0f, 0.0f, 0.5f) * (1 - m_Timer);
+		Pos = Vector3(0.f, 1.f, -2.f) * (m_Timer)+Vector3(0.0f, 0.0f, -2.f) * (1 - m_Timer);
 	}
 	else
-		Pos = Vector3(0.f, 1.f, 0.5f);
+		Pos = Vector3(0.f, 1.f, -2.f);
 	
 	m_Item->Transform()->SetRelativePos(Pos);
 

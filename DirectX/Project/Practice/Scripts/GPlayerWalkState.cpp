@@ -7,9 +7,13 @@
 #include <Engine/GTransform.h>
 #include <Engine/GTimeManager.h>
 
+#include <Engine/GAssetManager.h>
+#include <Engine/GSound.h>
+
 GPlayerWalkState::GPlayerWalkState()
 	:GScript(PLAYERWALKSTATE)
 	, m_Player(nullptr)
+	, m_WalkSound_Duration(0.4f)
 {
 }
 
@@ -21,6 +25,7 @@ void GPlayerWalkState::Awake()
 {
 	m_Player = GetFSM()->GameObject()->GetComponent<GPlayer>();
 	m_PlayerRigid = GetFSM()->GameObject()->RigidBody2D();
+	m_WalkSound = GAssetManager::GetInst()->Load<GSound>(L"Sound\\AudioClip\\Footstep #73847.wav", L"Sound\\AudioClip\\Footstep #73847.wav");
 }
 
 void GPlayerWalkState::Enter()
@@ -37,6 +42,8 @@ void GPlayerWalkState::Enter()
 	
 	// 처음에만 큰 힘을 줘서 빠르게 최대 속도에 도달하게 한다.
 	m_Player->RigidBody2D()->SetVelocityX(m_Player->m_MoveMaxSpeed* m_Player->m_KeyInput.HorizontalMove);
+	//m_WalkSound->Play(1, GGameManager::GetInst()->GetEffect_Volume(), false);
+	m_WalkSound_Timer = 0.2f;
 }
 
 void GPlayerWalkState::Tick()
@@ -91,10 +98,21 @@ void GPlayerWalkState::Tick()
 		PlayerSpeed.x = m_Player->m_MoveMaxSpeed * m_Player->m_KeyInput.HorizontalMove;
 		m_PlayerRigid->SetVelocity(PlayerSpeed);
 	}
+
+	if (m_WalkSound_Duration < m_WalkSound_Timer)
+	{
+		m_WalkSound->Play(1, GGameManager::GetInst()->GetEffect_Volume(), false);
+		m_WalkSound_Timer -= m_WalkSound_Duration;
+	}
+
+	m_WalkSound_Timer += DT;
+
+
 }
 
 void GPlayerWalkState::Exit()
 {
+	m_WalkSound->Stop();
 }
 
 void GPlayerWalkState::SaveToFile(FILE* _File)

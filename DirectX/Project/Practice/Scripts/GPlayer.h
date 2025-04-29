@@ -88,6 +88,7 @@ private:
 	Ptr<GPrefab>	m_SwordPrefab;
 	Vector3			m_SwordPos;
 	float			m_SwordTime;
+	Ptr<GSound>		m_SwordSound;
 
 	GGameObject*	m_NearObject;
 

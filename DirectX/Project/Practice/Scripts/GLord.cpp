@@ -7,6 +7,7 @@
 #include <Engine/GAssetManager.h>
 #include <Engine/GCollisionManager.h>
 #include <Engine/GTimeManager.h>
+#include <Engine/GSound.h>
 
 #include "GGameManager.h"
 
@@ -67,6 +68,12 @@ void GLord::OnOverlapEnter(GCollider2D* _Other)
 		{
 			m_IsDead = true;
 			m_Timer = 0.f;
+
+			Ptr<GSound> Stab = GAssetManager::GetInst()->Load<GSound>(L"Sound\\AudioClip\\StabSomeone.wav", L"Sound\\AudioClip\\StabSomeone.wav");
+			Ptr<GSound> KillDarkLord = GAssetManager::GetInst()->Load<GSound>(L"Sound\\AudioClip\\KillDarkLord.wav", L"Sound\\AudioClip\\KillDarkLord.wav");
+
+			Stab->Play(1, GGameManager::GetInst()->GetEffect_Volume(), false);
+			KillDarkLord->Play(1, GGameManager::GetInst()->GetEffect_Volume(), false);
 
 			// ¿£µù
 			GGameManager::GetInst()->GameEnding(ENDING_TYPE::Cowardly_Hero);

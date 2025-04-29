@@ -8,6 +8,9 @@
 #include <Engine/GRigidBody2D.h>
 #include <Engine/GTransform.h>
 #include <Engine/GTimeManager.h>
+#include <Engine/GAssetManager.h>
+#include <Engine/GSound.h>
+#include "GGameManager.h"
 
 GPlayerJumpState::GPlayerJumpState()
 	: GScript(PLAYERJUMPSTATE)
@@ -22,6 +25,7 @@ void GPlayerJumpState::Awake()
 {
 	m_Player = GetFSM()->GameObject()->GetComponent<GPlayer>();
 	m_PlayerRigid = GetFSM()->GameObject()->RigidBody2D();
+	m_JumpSound = GAssetManager::GetInst()->Load<GSound>(L"Sound\\AudioClip\\Jump.wav", L"Sound\\AudioClip\\Jump.wav");
 }
 
 void GPlayerJumpState::Enter()
@@ -43,6 +47,8 @@ void GPlayerJumpState::Enter()
 	m_Player->RigidBody2D()->SetVelocityY(m_Player->m_JumpMaxSpeed);
 
 	m_Player->m_JumpTimer = 0.f;
+
+	m_JumpSound->Play(1, GGameManager::GetInst()->GetEffect_Volume(), true);
 }
 
 void GPlayerJumpState::Tick()

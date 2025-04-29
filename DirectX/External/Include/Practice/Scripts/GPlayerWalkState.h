@@ -4,6 +4,7 @@
 
 class GPlayer;
 class GRigidBody2D;
+class GSound;
 
 class GPlayerWalkState :
     public GScript, public GState
@@ -11,6 +12,10 @@ class GPlayerWalkState :
 private:
     GPlayer* m_Player;
     GRigidBody2D* m_PlayerRigid;
+
+    Ptr<GSound> m_WalkSound;
+    float m_WalkSound_Duration;
+    float m_WalkSound_Timer;
 
     float m_JumpBonusTimer;
 

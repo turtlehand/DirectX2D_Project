@@ -5,6 +5,7 @@
 
 #include "GGameManager.h"
 #include <Engine/GAssetManager.h>
+#include <Engine/GSound.h>
 #include <Engine/components.h>
 
 GOlderMan::GOlderMan()
@@ -67,6 +68,12 @@ void GOlderMan::OnOverlapEnter(GCollider2D* _Other)
 		{
 			m_IsDead = true;
 			m_Timer = 0.f;
+
+			Ptr<GSound> Stab = GAssetManager::GetInst()->Load<GSound>(L"Sound\\AudioClip\\StabSomeone.wav", L"Sound\\AudioClip\\StabSomeone.wav");
+			Ptr<GSound> KillElder = GAssetManager::GetInst()->Load<GSound>(L"Sound\\AudioClip\\KillElder.wav", L"Sound\\AudioClip\\KillElder.wav");
+
+			Stab->Play(1, GGameManager::GetInst()->GetEffect_Volume(), false);
+			KillElder->Play(1, GGameManager::GetInst()->GetEffect_Volume(), false);
 
 			// ¿£µù
 			GGameManager::GetInst()->GameEnding(ENDING_TYPE::Older_Man_Attack);

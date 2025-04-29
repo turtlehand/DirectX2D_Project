@@ -4,6 +4,7 @@
 class GPlayer;
 class GRigidBody2D;
 class GGameObject;
+class GSound;
 
 class GPlayerUseItemState :
     public GState
@@ -13,6 +14,13 @@ private:
     GRigidBody2D* m_PlayerRigid;
 
     bool m_IsHugSucess;
+
+    //Ptr<GSound> m_SwordSound;
+    Ptr<GSound> m_HookSound;
+    Ptr<GSound> m_ShovelSound;
+    Ptr<GSound> m_HugSound;
+    Ptr<GSound> m_HugSound_None;
+
 
 public:
     virtual void Update() {};

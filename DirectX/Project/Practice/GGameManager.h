@@ -72,13 +72,23 @@ private:
 	float			m_BGM_Volume;
 	Ptr<GSound>		m_BGM;
 
+	float			m_Effect_Volume;
+
 public:
 	PLAY_TYPE GetPlayType() { return m_PlayType; }
 	bool IsEnd() { return PLAY_TYPE::ENDING_SCENE == m_PlayType; }
 	bool IsPause() {return PLAY_TYPE::PAUSE == m_PlayType; }
 
 	void CallDarkLord();
-	void PlayBGM(Ptr<GSound> _BGM, float _BGM_Volume = 0.5f);
+
+
+	float GetBGM_Volume() { return m_BGM_Volume; }
+	void SetBGM_Volume(float _Volume) { m_BGM_Volume = _Volume; }
+	void PlayBGM(Ptr<GSound> _BGM);
+
+	float GetEffect_Volume() { return m_Effect_Volume; }
+	void SetEffect_Volume(float _Volume) { m_Effect_Volume = _Volume; }
+
 
 public:
 	void Init();

@@ -48,6 +48,8 @@ extern const vector<string> EndingName = {
 GGameManager::GGameManager()
 	: m_EndingTime(10.f)
 	, m_PlayType(PLAY_TYPE::END)
+	, m_BGM_Volume(0.25f)
+	, m_Effect_Volume(1.0f)
 {
 
 }
@@ -66,7 +68,7 @@ void GGameManager::CallDarkLord()
 	SpawnGameObject(m_DarkLord->Instantiate());
 }
 
-void GGameManager::PlayBGM(Ptr<GSound> _BGM, float _BGM_Volume)
+void GGameManager::PlayBGM(Ptr<GSound> _BGM)
 {
 	if (m_PlayType != PLAY_TYPE::PLAY)
 		return;
@@ -76,7 +78,6 @@ void GGameManager::PlayBGM(Ptr<GSound> _BGM, float _BGM_Volume)
 	else if (m_BGM == _BGM)
 		return;
 
-	m_BGM_Volume = _BGM_Volume;
 	m_BGM = _BGM;
 
 	if (m_BGM.Get())
@@ -214,8 +215,8 @@ void GGameManager::GameManagerReset()
 		m_BGM->Stop();
 	}
 	
-	m_BGM = GAssetManager::GetInst()->FindAsset<GSound>(L"Sound\\AudioClip\\3. Royal Kingdom.wav");
-	m_BGM->Play(0, 0.5f, false);
+	m_BGM = GAssetManager::GetInst()->Load<GSound>(L"Sound\\AudioClip\\3. Royal Kingdom.wav", L"Sound\\AudioClip\\3. Royal Kingdom.wav");
+	m_BGM->Play(0, m_BGM_Volume, false);
 }
 
 void GGameManager::GameEnding(ENDING_TYPE _Type)
@@ -227,8 +228,8 @@ void GGameManager::GameEnding(ENDING_TYPE _Type)
 	{
 		m_BGM->Stop();
 	}
-	m_BGM = GAssetManager::GetInst()->FindAsset<GSound>(L"Sound\\AudioClip\\12. Shit Happens.wav");
-	m_BGM->Play(1, 0.5f, false);
+	m_BGM = GAssetManager::GetInst()->Load<GSound>(L"Sound\\AudioClip\\12. Shit Happens.wav", L"Sound\\AudioClip\\12. Shit Happens.wav");
+	m_BGM->Play(1, m_BGM_Volume, false);
 
 	m_PlayType = PLAY_TYPE::ENDING_SCENE;
 	m_EndingTimer = 0.f;

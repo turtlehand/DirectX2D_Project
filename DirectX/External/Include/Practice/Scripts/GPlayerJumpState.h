@@ -4,6 +4,7 @@
 
 class GPlayer;
 class GRigidBody2D;
+class GSound;
 
 class GPlayerJumpState :
     public GScript, public GState
@@ -11,6 +12,7 @@ class GPlayerJumpState :
 private:
     GPlayer* m_Player;
     GRigidBody2D* m_PlayerRigid;
+    Ptr<GSound>     m_JumpSound;
 
 public:
     virtual void Update() {};

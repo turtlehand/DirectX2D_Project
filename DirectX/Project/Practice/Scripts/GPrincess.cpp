@@ -5,6 +5,7 @@
 
 #include <Engine/components.h>
 #include <Engine/GAssetManager.h>
+#include <Engine/GSound.h>
 
 #include "GGameManager.h"
 
@@ -68,6 +69,12 @@ void GPrincess::OnOverlapEnter(GCollider2D* _Other)
 		{
 			m_IsDead = true;
 			m_Timer = 0.f;
+
+			Ptr<GSound> Stab = GAssetManager::GetInst()->Load<GSound>(L"Sound\\AudioClip\\StabSomeone.wav", L"Sound\\AudioClip\\StabSomeone.wav");
+			Ptr<GSound> KillPrincess = GAssetManager::GetInst()->Load<GSound>(L"Sound\\AudioClip\\KillPrincess.wav", L"Sound\\AudioClip\\KillPrincess.wav");
+
+			Stab->Play(1, GGameManager::GetInst()->GetEffect_Volume(), false);
+			KillPrincess->Play(1, GGameManager::GetInst()->GetEffect_Volume(), false);
 
 			// ¿£µù
 			GGameManager::GetInst()->GameEnding(ENDING_TYPE::Stress_Relief);

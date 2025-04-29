@@ -2,7 +2,6 @@
 #include "GObjectBasic.h"
 #include <Engine/GScript.h>
 
-
 class GOlderMan :
 	public GObjectBasic
 {

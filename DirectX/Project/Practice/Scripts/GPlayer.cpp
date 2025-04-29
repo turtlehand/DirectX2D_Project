@@ -182,6 +182,8 @@ void GPlayer::Begin()
 
 	m_SwordPrefab = GAssetManager::GetInst()->FindAsset<GPrefab>(L"Prefab\\Sword_Player.prefab");
 	m_ShovelPrefab = GAssetManager::GetInst()->FindAsset<GPrefab>(L"Prefab\\Shovel_Player.prefab");
+
+	m_SwordSound = GAssetManager::GetInst()->Load<GSound>(L"Sound\\AudioClip\\Sword.wav", L"Sound\\AudioClip\\Sword.wav");
 }
 
 void GPlayer::Update()
@@ -369,6 +371,8 @@ bool GPlayer::ItemCheck()
 
 		SpawnGameObject(m_Sword);
 		GameObject()->SetChild(m_Sword);
+
+		m_SwordSound-> Play(1, GGameManager::GetInst()->GetEffect_Volume(), false);
 	}
 
 

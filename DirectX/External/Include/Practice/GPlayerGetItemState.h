@@ -4,6 +4,7 @@
 class GPlayer;
 class GRigidBody2D;
 class GItem;
+class GSound;
 
 class GPlayerGetItemState :
     public GState
@@ -15,6 +16,8 @@ private:
 
     GGameObject* m_Item;
     PLAYER_ITEM m_ItemType;
+
+    Ptr<GSound> m_GetItemSound;
 
 public:
     virtual void Awake();

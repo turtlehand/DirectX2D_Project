@@ -22,6 +22,9 @@
 #include "GPrincess.h"
 #include "GLord.h"
 
+#include <Engine/GAssetManager.h>
+#include <Engine/GSound.h>
+
 GPlayerUseItemState::GPlayerUseItemState()
 	: m_Player(nullptr)
 	, m_PlayerRigid(nullptr)
@@ -39,6 +42,11 @@ void GPlayerUseItemState::Awake()
 	m_Player = GetFSM()->GameObject()->GetComponent<GPlayer>();
 	m_PlayerRigid = m_Player->RigidBody2D();
 
+	//m_SwordSound = GAssetManager::GetInst()->Load<GSound>(L"Sound\\AudioClip\\Sword.wav", L"Sound\\AudioClip\\Sword.wav");
+	m_HookSound = GAssetManager::GetInst()->Load<GSound>(L"Sound\\AudioClip\\Hook.wav", L"Sound\\AudioClip\\Hook.wav");
+	m_ShovelSound = GAssetManager::GetInst()->Load<GSound>(L"Sound\\AudioClip\\Shovel.wav", L"Sound\\AudioClip\\Shovel.wav");
+	m_HugSound = GAssetManager::GetInst()->Load<GSound>(L"Sound\\AudioClip\\Love.wav", L"Sound\\AudioClip\\Love.wav");
+	m_HugSound_None = GAssetManager::GetInst()->Load<GSound>(L"Sound\\AudioClip\\LoveNoTarget.wav", L"Sound\\AudioClip\\LoveNoTarget.wav");
 }
 
 void GPlayerUseItemState::Enter()
@@ -57,6 +65,10 @@ void GPlayerUseItemState::Enter()
 	else if (m_Player->m_PlayerUseItem == PLAYER_ITEM::SHOVEL)
 	{
 		Enter_Shovel();
+	}
+	else if (m_Player->m_PlayerUseItem == PLAYER_ITEM::HOOK)
+	{
+		m_HookSound->Play(1, GGameManager::GetInst()->GetEffect_Volume(), false);
 	}
 
 }
@@ -177,7 +189,7 @@ void GPlayerUseItemState::Enter_Hug()
 		{
 			GGameManager::GetInst()->GameEnding(ENDING_TYPE::LovePower);
 		}
-
+		m_HugSound->Play(1, GGameManager::GetInst()->GetEffect_Volume(), false);
 
 	}
 
@@ -185,6 +197,7 @@ void GPlayerUseItemState::Enter_Hug()
 	else
 	{
 		m_Player->FlipbookRender()->Play((int)PLAYER_FLIPBOOK::HUG_READY);
+		m_HugSound_None->Play(1, GGameManager::GetInst()->GetEffect_Volume(), false);
 	}
 }
 
@@ -226,6 +239,8 @@ void GPlayerUseItemState::Exit_Shovel()
 	m_Player->m_Shovel->Destroy();
 
 	m_Player->m_DestroyPlatform->GameObject()->Destroy();
+
+	m_ShovelSound->Play(1, GGameManager::GetInst()->GetEffect_Volume(), false);
 }
 
 void GPlayerUseItemState::Tick_Hook()
