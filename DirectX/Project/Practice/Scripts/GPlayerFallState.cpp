@@ -63,16 +63,18 @@ void GPlayerFallState::Tick()
 		return;
 	}
 
-	Vector2 PlayerSpeed = m_PlayerRigid->GetVelocity();
+	
 
 	// 공중 방향 전환
 	// 바라 보는 방향 설정
 	m_Player->SetMoveDirection(m_Player->m_KeyInput.HorizontalMove);
 
+
 	// 움직임 설정
 	m_PlayerRigid->AddForce(
 		Vector2(m_Player->m_KeyInput.HorizontalMove * m_PlayerRigid->GetFriction() * 2
 			, 0.f) * DT);
+	Vector2 PlayerSpeed = m_PlayerRigid->GetVelocity();
 
 	// 속력이 m_MaxMoveSpeed보다 커지면 감속
 	if (m_Player->m_MoveMaxSpeed < fabs(m_PlayerRigid->GetVelocity().x))

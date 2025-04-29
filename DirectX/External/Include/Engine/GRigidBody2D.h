@@ -35,9 +35,9 @@ public:
 	void SetTerminalSpeed(float _TerminalSpeed) { m_TerminalSpeed = _TerminalSpeed; }
 	float GetTerminalSpeed() { return m_TerminalSpeed; }
 
-	void AddForce(Vector2 _Force) {	m_Force += _Force; }
-	void AddForceX(float _x) { m_Force.x += _x; }
-	void AddForceY(float _y) { m_Force.y += _y; }
+	void AddForce(Vector2 _Force) { m_Velocity += _Force / m_Mass; }
+	void AddForceX(float _x) { m_Velocity.x += _x / m_Mass; }
+	void AddForceY(float _y) { m_Velocity.y += _y / m_Mass; }
 
 	float GetFriction() { return m_Friction; }
 	void SetFriction(float _Friction) { m_Friction = _Friction; }
