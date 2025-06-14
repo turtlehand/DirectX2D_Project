@@ -11,6 +11,7 @@
 
 #define CONTENTPATH (GPathManager::GetContentPath())
 
+#define FDT (GTimeManager::GetInst()->FixedDeltaTime())
 #define DT (GTimeManager::GetInst()->DeltaTime())
 #define TIME (GTimeManager::GetInst()->AccTime())
 #define ENGINEDT (GTimeManager::GetInst()->EngineDeltaTime())

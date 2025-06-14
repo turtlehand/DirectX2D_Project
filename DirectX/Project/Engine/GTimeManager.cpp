@@ -9,6 +9,7 @@ GTimeManager::GTimeManager() :
 	m_Frequency{},
 	m_PrevCount{},
 	m_CurCount{},
+	m_TimeStep(0.01666667),
 	m_FPS(0),
 	m_TimeScale(1.f),
 	m_DT(0.f),
@@ -40,6 +41,7 @@ void GTimeManager::Progress()
 	QueryPerformanceCounter(&m_CurCount);
 
 	m_EngineDT = m_DT = (float)(m_CurCount.QuadPart - m_PrevCount.QuadPart) / (float)m_Frequency.QuadPart;
+	m_FDT = m_TimeStep < m_DT ? m_TimeStep : m_DT;
 	m_PrevCount = m_CurCount;
 	++m_FPS;
 
@@ -48,10 +50,12 @@ void GTimeManager::Progress()
 
 	if (LEVEL_STATE::PLAY != State) 
 	{
+		m_FDT = 0.f;
 		m_DT = 0.f;
 	}
 	else
 	{
+		m_FDT = m_FDT * m_TimeScale;
 		m_DT = m_DT * m_TimeScale;
 		m_Time += m_DT;
 	}

@@ -245,7 +245,7 @@ void GPlayerUseItemState::Exit_Shovel()
 
 void GPlayerUseItemState::Tick_Hook()
 {
-	m_PlayerRigid->AddForce(Vector2(0.f, m_PlayerRigid->GetFriction())* 2 * DT);
+	m_PlayerRigid->AddForce(Vector2(0.f, m_PlayerRigid->GetFriction())* 2 * FDT);
 
 	// 속력이 m_MaxMoveSpeed보다 커지면 감속
 	if (m_Player->m_HookMaxSpeed <= m_PlayerRigid->GetVelocity().y)

@@ -32,13 +32,13 @@ void GRigidBody2D::FinalUpdate()
 	CalFriction();
 
 	// ÇöÀç 
-	vAccel.y += m_Velocity.y < -m_TerminalSpeed ? m_Gravity * DT : -m_Gravity * DT;
+	vAccel.y += m_Velocity.y < -m_TerminalSpeed ? m_Gravity * FDT : -m_Gravity * FDT;
 
 	m_Velocity += vAccel;
 	
 	//vPos += Vector3(m_Velocity.x, m_Velocity.y, 0) * DT;
 
-	Transform()->AddRelativePos(Vector3(m_Velocity.x, m_Velocity.y, 0) * DT);
+	Transform()->AddRelativePos(Vector3(m_Velocity.x, m_Velocity.y, 0) * FDT);
 
 	m_Force = Vector2(0.f, 0.f);
 }
@@ -52,7 +52,7 @@ void GRigidBody2D::CalFriction()
 		if (Speed <= 0)
 			return;
 
-		Speed = max(0, Speed - m_Friction * DT);
+		Speed = max(0, Speed - m_Friction * FDT);
 
 		m_Velocity.Normalize();
 		m_Velocity = m_Velocity * Speed;
@@ -65,7 +65,7 @@ void GRigidBody2D::CalFriction()
 		if (Speed <= 0)
 			return;
 
-		Speed = max(0, Speed - m_Friction * DT);
+		Speed = max(0, Speed - m_Friction * FDT);
 		m_Velocity.x = Speed * (m_Velocity.x < 0 ? -1 : 1);
 	}
 

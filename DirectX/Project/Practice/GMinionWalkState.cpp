@@ -84,7 +84,7 @@ void GMinionWalkState::Tick()
 		m_Minion->RigidBody2D()->AddForce(Vector2(m_Minion->m_HorizontalMove, 0) * m_Minion->m_MoveInitForce);
 	}
 
-	m_MinionRigid->AddForce(Vector2(m_Minion->m_HorizontalMove, 0) * m_MinionRigid->GetFriction() * 2 * DT);
+	m_MinionRigid->AddForce(Vector2(m_Minion->m_HorizontalMove, 0) * m_MinionRigid->GetFriction() * 2 * FDT);
 
 
 	// 속력이 m_MaxMoveSpeed보다 커지면 감속

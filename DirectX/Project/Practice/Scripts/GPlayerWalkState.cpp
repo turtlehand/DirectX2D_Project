@@ -51,7 +51,7 @@ void GPlayerWalkState::Tick()
 	// 땅에서 떨어졌다면
 	if (!m_Player->m_IsGround)
 	{
-		m_JumpBonusTimer += DT;
+		m_JumpBonusTimer += FDT;
 		if (0.2f < m_JumpBonusTimer)
 		{
 			m_Player->GetFSM()->ChanageState(L"Fall");
@@ -89,7 +89,7 @@ void GPlayerWalkState::Tick()
 	assert(m_PlayerRigid);
 
 	m_Player->SetMoveDirection(m_Player->m_KeyInput.HorizontalMove);
-	m_PlayerRigid->AddForce(Vector2(m_Player->m_KeyInput.HorizontalMove, 0) * m_PlayerRigid->GetFriction() * 2 * DT);
+	m_PlayerRigid->AddForce(Vector2(m_Player->m_KeyInput.HorizontalMove, 0) * m_PlayerRigid->GetFriction() * 2 * FDT);
 
 	// 속력이 m_MaxMoveSpeed보다 커지면 감속
 	if (m_Player->m_MoveMaxSpeed < fabs(m_PlayerRigid->GetVelocity().x))

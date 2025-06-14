@@ -91,7 +91,7 @@ void GPlayerJumpState::Tick()
 	}
 
 
-	m_Player->m_JumpTimer += DT;
+	m_Player->m_JumpTimer += FDT;
 
 	assert(m_PlayerRigid);
 
@@ -104,7 +104,7 @@ void GPlayerJumpState::Tick()
 	// 움직임 설정
 	m_PlayerRigid->AddForce(
 		Vector2(m_Player->m_KeyInput.HorizontalMove * m_PlayerRigid->GetFriction() * 2
-			, m_PlayerRigid->GetFriction() * 4) * DT);
+			, m_PlayerRigid->GetFriction() * 4) * FDT);
 	Vector2 PlayerSpeed = m_PlayerRigid->GetVelocity();
 
 	// 속력이 m_MaxMoveSpeed보다 커지면 감속
