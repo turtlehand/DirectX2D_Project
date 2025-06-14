@@ -52,50 +52,57 @@ void GElevator::Update()
 	//if (m_SucessInteraction)
 		//return;
 
-	if (m_StartMove)
+	// 작동 중일 때만
+	if (!m_StartMove)
+		return;
+
+	Vector3 vPos;
+	float ratio = m_Timer / m_Duration;
+
+	// Top으로 올라간다.
+	if (0 < m_Direction)
 	{
-		Vector3 vPos;
-		if (0 < m_Direction)
+		if (ratio <= 1)
 		{
-			float ratio = m_Timer / m_Duration;
-			if (ratio <= 1)
-			{
-				vPos = m_BottomPos * (1 - ratio) + m_TopPos * ratio;
-			}
-			else
-			{
-				vPos = m_TopPos;
-				//m_SucessInteraction = true;
-				m_StartMove = false;
-			}
+			vPos = m_BottomPos * (1 - ratio) + m_TopPos * ratio;
 		}
-		else if (m_Direction < 0)
+		else
 		{
-			float ratio = m_Timer / m_Duration;
-
-			if (ratio <= 1)
-			{
-				vPos = m_TopPos * (1 - ratio) + m_BottomPos * ratio;
-			}
-			else
-			{
-				vPos = m_BottomPos;
-				//m_SucessInteraction = true;
-				m_StartMove = false;
-			}
+			vPos = m_TopPos;
+			//m_SucessInteraction = true;
+			m_StartMove = false;
 		}
-
-		m_Timer += DT;
-		Transform()->SetRelativePos(vPos);
 	}
+	// Bottom으로 내려간다.
+	else if (m_Direction < 0)
+	{
+		if (ratio <= 1)
+		{
+			vPos = m_TopPos * (1 - ratio) + m_BottomPos * ratio;
+		}
+		else
+		{
+			vPos = m_BottomPos;
+			//m_SucessInteraction = true;
+			m_StartMove = false;
+		}
+	}
+
+	m_Timer += DT;
+	Transform()->SetRelativePos(vPos);
 }
 
 void GElevator::InteractEnter()
 {
+	// 현재 엘리베이터가 작동 중이라면 발동하지 않는다.
 	if (m_StartMove)
 		return;
+
+	// 작동 시작
 	m_Timer = 0.f;
 	m_StartMove = true;
+
+	// 현재 위치에 따라 움직이는 방향을 결정한다.
 	if (m_BottomPos == Transform()->GetRelativePos())
 	{
 		m_Direction = 1;
@@ -105,6 +112,7 @@ void GElevator::InteractEnter()
 		m_Direction = -1;
 	}
 
+	// 엘리베이터 작동 소리
 	Ptr<GSound> ElevatorStart = GAssetManager::GetInst()->Load<GSound>(L"Sound\\AudioClip\\ElevatorStart.wav", L"Sound\\AudioClip\\ElevatorStart.wav");
 
 	ElevatorStart->Play(1, GGameManager::GetInst()->GetEffect_Volume(), false);

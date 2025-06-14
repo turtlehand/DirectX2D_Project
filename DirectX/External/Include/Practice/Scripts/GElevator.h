@@ -5,14 +5,14 @@ class GElevator :
     public GInteractable
 {
 private:
-    bool m_StartMove;
-    Vector3 m_TopPos;
-    Vector3 m_BottomPos;
+    bool m_StartMove;       // 현재 움직이고 있는지 여부
+    Vector3 m_TopPos;       // 위층
+    Vector3 m_BottomPos;    // 아래층
     
-    int m_Direction;
+    int m_Direction;        // 현재 움직이고 있는 방향. Top으로 올라가고 있다면 1, Bottom으로 내려가고 있다면 -1, 움직이고 있지 않다면 0
 
-    float m_Duration;
-    float m_Timer;
+    float m_Duration;       // Duration 초 동안 움직인다.
+    float m_Timer;          // 움직이는 시간 카운터
 
 public:
     virtual void Init() override;

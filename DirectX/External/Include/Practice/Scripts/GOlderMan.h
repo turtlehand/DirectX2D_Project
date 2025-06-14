@@ -6,8 +6,8 @@ class GOlderMan :
 	public GObjectBasic
 {
 private:
-	bool m_IsDead;
-	float m_Timer;
+	bool m_IsDead;		// 노인이 죽었는지 
+	float m_Timer;		// 노인 쓰러지는 효과용 타이머
 
 public:
 	virtual void Init() override;

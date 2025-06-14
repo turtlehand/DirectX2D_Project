@@ -5,7 +5,7 @@ class GPrincess :
     public GObjectBasic
 {
 private:
-	const PLAYER_ITEM m_ItemType;
+	const PLAYER_ITEM m_ItemType;		// 공주는 플레이어가 아이템처럼 들고다녀야 하기 때문에 ItemType이 필요하다.
 	bool m_IsDead;
 	float m_Timer;
 

@@ -91,23 +91,25 @@ void GLord::LoadFromFile(FILE* _File)
 
 void GLord::FindPlayer()
 {
+	// 플레이어를 이미 발견하였다면 앞으로 이동만 한다.
 	if (m_FindPlayer)
 	{
 		RigidBody2D()->SetVelocityX(GetDirection() * 30);
 		return;
 	}
 		
-
 	Vector3 Pos = Transform()->GetWorldPos();
 	Vector3 Scale = Transform()->GetWorldScale();
 
 	// 플레이어 탐지
+	// 마왕 앞 m_DetectPos 위치에 m_DetectScale 크기만큼 탐지한다.
 	DrawDebugRect(Vector4(1.f, 0.f, 0.f, 1.f), Pos + GetDirection() * m_DetectPos, Vector3(m_DetectScale.x, m_DetectScale.y,0), Vector3(0.f, 0.f, 0.f));
 
 	m_FindPlayer = GCollisionManager::GetInst()->Box_Casting(Pos + GetDirection() * m_DetectPos
 		, m_DetectScale
 		, (1 << (int)LAYER_TYPE::PLAYER));
 
+	// 플레이어 발견 시 걷는 애니메이션 재생과 앞으로 이동하고 엔딩이 재생된다.
 	if (m_FindPlayer)
 	{
 		// 엔딩

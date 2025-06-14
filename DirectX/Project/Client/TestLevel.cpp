@@ -16,7 +16,8 @@
 void CreateTestLevel()
 {
 	
-	//Ptr<GSound> pSound = GAssetManager::GetInst()->FindAsset<GSound>(L"Sound\\BGM_Stage1.wav");
+	//Ptr<GSound> pSound = GAssetManager::GetInst()->FindAsset<GSound>(L"Sound\\BGM_Stage1.
+	// ");
 	//pSound->Play(0, 0.2f, false);
 
 #ifndef GAME_RELEASED

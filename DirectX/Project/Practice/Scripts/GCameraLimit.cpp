@@ -24,6 +24,7 @@ GCameraLimit::~GCameraLimit()
 
 void GCameraLimit::Init()
 {
+	ADD_BOOL("TargetHere", &m_TargetHere);
 	ADD_FLOAT("CamerScale", &m_CameraScaleX);
 	ADD_SOUND("BGM", &m_BGM);
 }
@@ -52,17 +53,17 @@ void GCameraLimit::Update()
 	Vector3 Pos = Transform()->GetRelativePos();
 	Vector3 Scale = Transform()->GetRelativeScale() /2;
 
-	if (!m_TargetHere)
+	if (Pos.x - Scale.x < TargetPos.x && TargetPos.x < Pos.x + Scale.x && Pos.y - Scale.y < TargetPos.y && TargetPos.y < Pos.y + Scale.y)
 	{
-		if (Pos.x - Scale.x < TargetPos.x && TargetPos.x < Pos.x + Scale.x && Pos.y - Scale.y < TargetPos.y && TargetPos.y < Pos.y + Scale.y)
+		if (!m_TargetHere)
 		{
 			m_MainCamera->SetCenter(Transform()->GetRelativePos());
 			m_MainCamera->SetMapSize(Scale * 2);
 			m_MainCamera->SetPostCameraSize(m_CameraScaleX);
 
 			GGameManager::GetInst()->PlayBGM(m_BGM);
-			m_TargetHere = true;
 		}
+		m_TargetHere = true;
 	}
 	else
 		m_TargetHere = false;
