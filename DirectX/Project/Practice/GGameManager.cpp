@@ -237,4 +237,5 @@ void GGameManager::GameEnding(ENDING_TYPE _Type)
 	m_Scene->SpriteRender()->SetSprite(m_EndingScene[(UINT)_Type]);
 	m_Scene->SpriteRender()->SetColor(Vector4(1.f, 1.f, 1.f, 0.f));
 	GRenderManager::GetInst()->RegisterCamera(m_Camera->Camera(), 1);
+	m_Camera->Camera()->SetPriority(1);
 }

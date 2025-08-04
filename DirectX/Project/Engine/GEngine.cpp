@@ -95,7 +95,7 @@ void GEngine::Progress()
 
 int GEngine::CreateMainWindow()
 {
-    m_hMainWnd = CreateWindowW(L"MyWindow", L"DirectX53", WS_OVERLAPPEDWINDOW,
+    m_hMainWnd = CreateWindowW(L"MyWindow", L"DirectX53", WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX,
         CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, m_hInst, nullptr);
 
     if (!m_hMainWnd)

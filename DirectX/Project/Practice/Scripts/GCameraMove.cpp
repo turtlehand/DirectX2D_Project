@@ -83,14 +83,18 @@ void GCameraMove::LimitCameraArea()
 {
 	Vector3 TargetPos = m_Target->Transform()->GetWorldPos();
 
+	// 카메라의 영역 제한 표시
 	DrawDebugRect(Vector4(0.f, 0.f, 1.f, 1.f), m_Center, m_MapSize, Vector3(0.f, 0.f, 0.f));
 
+	// 카메라 영역 제한 선형 보간 변환
 	m_Center = m_Center + (m_PostCenter - m_Center) * DT * m_CamSpeed;
 	m_MapSize = m_MapSize + (m_PostMapSize - m_MapSize) * DT * m_CamSpeed;
 
+	// 카메라 크기 선형 보간 변환
 	float CameraSize = Camera()->GetOrthoScaleX();
 	Camera()->SetOrthoScaleX(CameraSize + (m_PostCameraSize - CameraSize) * DT * m_CamSpeed);
 
+	// 맵 이동 제한
 	float lx = m_MapSize.x / 2 - Camera()->GetOrthoScaleX() / 2;
 	float ly = m_MapSize.y / 2 - (Camera()->GetOrthoScaleX() / Camera()->GetAspectRatio()) / 2;
 	if (lx < 0 || ly < 0)
@@ -105,6 +109,4 @@ void GCameraMove::LimitCameraArea()
 	TargetPos = Vector3(clampX, clampY, -100.f);
 
 	Transform()->SetRelativePos(TargetPos);
-
-	
 }

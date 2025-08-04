@@ -282,8 +282,8 @@ bool GCollisionManager::IsOverlap(GCollider2D* _LeftCol, GCollider2D* _RightCol)
 
 	for (int i = 0; i < 4; ++i)
 	{
-		Vector3 vProjTarget = vProj[i];
-		vProjTarget = vProjTarget.Normalize();		// 직선 : 단위벡터로 변경
+		Vector3 vProjTarget = vProj[i];				
+		vProjTarget = vProjTarget.Normalize();					// 직선 : 단위벡터로 변경
 
 		float ProjLength = 0.f;									// 변 투영 길이의 합
 		float ProjCenter = 0.f;									// 중심 투영 길이의 합
