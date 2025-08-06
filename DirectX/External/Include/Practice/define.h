@@ -1,8 +1,5 @@
 #pragma once
 
-//#define GAME_RELEASED
-
-
 #ifdef GAME_RELEASED
 #define ADD_BOOL(Desc, pData)
 #define ADD_INT(Desc, pData)

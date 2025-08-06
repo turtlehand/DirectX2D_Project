@@ -1,5 +1,12 @@
 ﻿#include "pch.h"
 
+/// Release 모드로 바꾸는 법
+/// Client 솔루션 -> pch.h -> #define GAME_RELEASED 활성화
+/// Practice 솔루션 -> pch.h -> #define GAME_RELEASED 활성화
+/// 
+/// Debug 모드는 비활성화하면 됨
+
+
 #include "EditorManager.h"
 #include "ImGuiManager.h"
 #include <Engine/GDevice.h>

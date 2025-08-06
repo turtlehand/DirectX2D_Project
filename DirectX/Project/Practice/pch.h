@@ -25,3 +25,5 @@
 #include "define.h"
 
 #endif //PCH_H
+
+//#define GAME_RELEASED

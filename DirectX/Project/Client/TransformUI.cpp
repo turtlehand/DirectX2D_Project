@@ -29,7 +29,7 @@ void TransformUI::Render_UI()
 	Vector3 vRelativeScale = pTrans->GetRelativeScale();
 	Vector3 vRelativeRotation = pTrans->GetRelativeRotation();
 
-	ImGui::Text("Trans");
+	ImGui::Text("Pos");
 	ImGui::SameLine(GetTab());
 	if (ImGui::DragFloat3("##Translation", vRelativePos, 0.1f))
 	{
