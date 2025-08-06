@@ -15,7 +15,13 @@ WINAPI
 DirectX
 
 ## 게임 실행 방법
+인게임 버전
+
 OutputFile -> bin -> Client.exe 실행
+
+에디터 버전
+
+OutputFile -> bin -> Client_Debug.exe 실행
 
 ## 인 게임
 
