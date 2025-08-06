@@ -26,10 +26,8 @@ OutputFile -> bin -> Client.exe 실행
 
 아이템 사용                 X키
 
-
----
-
 ## 에디터
 에디터 설명 링크 : https://grass-kingfisher-f69.notion.site/247f1807773b80349f0ce39e41c49697?source=copy_link
+
 메뉴바를 제외한 UI들을 닫으면 다시 킬 수 없습니다. 에디터를 다시 실행하여야 합니다.
 
